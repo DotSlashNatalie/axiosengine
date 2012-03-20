@@ -27,6 +27,7 @@ namespace Axios.Engine
     public abstract class AxiosGameScreen : PhysicsGameScreen
     {
         private List<AxiosGameObject> _gameObjects;
+        private List<AxiosGameObject> _objectstoremove = new List<AxiosGameObject>();
         private AxiosGameObject prevobj;
         private AxiosGameObject prevfocusobj;
 
@@ -100,10 +101,11 @@ namespace Axios.Engine
             if (obj is AxiosGameObject || obj is AxiosUIObject || obj is AxiosTimer)
             {
                 AxiosGameObject tmp = obj as AxiosGameObject;
-                tmp.LoadContent(this);
-
                 if (obj is AxiosGameObject || obj is AxiosUIObject)
                     tmp.RemoveObject += new AxiosEvents.AxiosGameObjectHandler(RemoveGameObject);
+                
+                tmp.LoadContent(this);
+
                 if (obj is AxiosGameObject && !(obj is AxiosUIObject))
                 {
                     _gameObjects.Add(tmp);
@@ -134,15 +136,21 @@ namespace Axios.Engine
 
         public void RemoveGameObject(AxiosGameObject gameobject)
         {
-            gameobject.RemoveObject -= new AxiosGameObject.AxiosGameObjectHandler(RemoveGameObject);
-            try
+            if (this._gameObjects.Contains(gameobject))
             {
-                gameobject.UnloadContent(this);
-                this._gameObjects.Remove(gameobject);
+                try
+                {
+                    gameobject.UnloadContent(this);
+                    this._gameObjects.Remove(gameobject);
+                }
+                catch (Exception)
+                {
+                }
             }
-            catch (Exception)
+            else
             {
-                //Not sure what is going on - but in certain cases an exception will be triggered that the body has already been marked for removal
+                Singleton<AxiosLog>.Instance.AddLine("[Axios Engine] - Adding objects too fast...remove " + gameobject.Name + " later", LoggingFlag.DEBUG);
+                this._objectstoremove.Add(gameobject);
             }
 
         }
@@ -192,13 +200,24 @@ namespace Axios.Engine
         {
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
-            foreach (AxiosGameObject g in _gameObjects)
+            if (this._objectstoremove.Count > 0)
+            {
+                List<AxiosGameObject> list = this._objectstoremove.ToList<AxiosGameObject>();
+                foreach (AxiosGameObject obj in list)
+                {
+                    this.RemoveGameObject(obj);
+                    this._objectstoremove.Remove(obj);
+                }
+            }
+
+
+            foreach (AxiosGameObject g in _gameObjects.ToList())
                 g.Update(this, gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
-            foreach (AxiosTimer t in _timers)
+            foreach (AxiosTimer t in _timers.ToList())
                 t.Update(this, gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
-            foreach(AxiosUIObject g in _uiobjects)
+            foreach(AxiosUIObject g in _uiobjects.ToList())
                 g.Update(this, gameTime, otherScreenHasFocus, coveredByOtherScreen);
             
         }
@@ -208,7 +227,7 @@ namespace Axios.Engine
             base.HandleCursor(input);
             HandleMouseEvents(input);
 
-            foreach (AxiosGameObject g in _gameObjects)
+            foreach (AxiosGameObject g in _gameObjects.ToList())
                 g.HandleCursor(this, input);
         }
 
@@ -329,10 +348,10 @@ namespace Axios.Engine
         {
             base.HandleInput(input, gameTime);
 
-            foreach (AxiosGameObject g in _gameObjects)
+            foreach (AxiosGameObject g in _gameObjects.ToList())
                 g.HandleInput(this, input, gameTime);
 
-            foreach (AxiosUIObject g in _uiobjects)
+            foreach (AxiosUIObject g in _uiobjects.ToList())
                 g.HandleInput(this, input, gameTime);
         }
 
