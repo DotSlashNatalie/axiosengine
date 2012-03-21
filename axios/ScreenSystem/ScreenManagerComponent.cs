@@ -139,7 +139,7 @@ namespace FarseerPhysics.SamplesFramework
             // the process of updating one screen adds or removes others.
             _screensToUpdate.Clear();
 
-            if (_screens.Count == 0)
+            if (_screens.Count == 0 || (_screens.Count == 1 && _screens[0] is BackgroundScreen))
                 //I'm done, exit
                 this.Game.Exit();
 

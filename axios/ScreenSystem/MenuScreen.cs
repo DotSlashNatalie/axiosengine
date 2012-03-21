@@ -189,12 +189,15 @@ namespace FarseerPhysics.SamplesFramework
             }
             else if (input.IsMenuCancel())
             {
-                if (this.ScreenState == SamplesFramework.ScreenState.Active)
+                if (this.ScreenState == SamplesFramework.ScreenState.Active && this.TransitionPosition == 0 && this.TransitionAlpha == 1)
                 {
-                    if (ScreenManager.GetScreens().Length == 2)
-                        ScreenManager.Game.Exit();
-                    else
-                        this.ExitScreen();
+                    //GameScreen[] screens = ScreenManager.GetScreens();
+                    //if (screens[screens.Length - 1] is BackgroundScreen ||| screens.Length )
+                    //    ScreenManager.Game.Exit();
+                    //if (ScreenManager.GetScreens().Length == 2)
+                    //    ScreenManager.Game.Exit();
+                    //else
+                    this.ExitScreen();
                 }
                 //ScreenManager.Game.Exit();
             }

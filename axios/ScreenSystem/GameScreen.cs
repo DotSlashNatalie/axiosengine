@@ -270,7 +270,7 @@ namespace FarseerPhysics.SamplesFramework
         /// </summary>
         public virtual void ExitScreen()
         {
-            if (TransitionOffTime == TimeSpan.Zero)
+            if (TransitionOffTime == TimeSpan.Zero && this.TransitionPosition == 0 && this.TransitionAlpha == 1)
             {
                 // If the screen has a zero transition time, remove it immediately.
                 ScreenManager.RemoveScreen(this);

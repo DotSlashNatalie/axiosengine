@@ -41,6 +41,13 @@
  * 
  * 1.0.0.9 - 3/16/2012
  * - Changeing the complex objects alot - now they are more like "chained" objects
+ * - Adding checks for if objects are getting deleted too fast
+ * 
+ * 1.0.1.0 - 3/20/2012
+ * - Taking out hard coded debug statements for the screen system
+ * - Adding field to allow/disallow automated mouse joints per object
+ * - Fixing bug with last screen not exiting if it is a background screen
+ * 
  * 
  */
 
