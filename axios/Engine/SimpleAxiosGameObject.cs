@@ -18,6 +18,13 @@ namespace Axios.Engine
         public bool ApplyConstantVelocity = false;
         public Vector2 ConstantVelocity;
 
+        private bool _allowmousejoint = false;
+        public bool AllowAutomaticMouseJoint
+        {
+            get { return _allowmousejoint; }
+            set { _allowmousejoint = value; }
+        }
+
         public SimpleAxiosGameObject()
         {
             AxiosLog.Instance.AddLine("[Axios Engine] - Creating SimpleAxiosGameObject " + Name, LoggingFlag.DEBUG);

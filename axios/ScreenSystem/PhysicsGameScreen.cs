@@ -6,6 +6,7 @@ using FarseerPhysics.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Axios.Engine;
 
 namespace FarseerPhysics.SamplesFramework
 {
@@ -17,17 +18,20 @@ namespace FarseerPhysics.SamplesFramework
 
         private float _agentForce;
         private float _agentTorque;
-#if DEBUG
         private FixedMouseJoint _fixedMouseJoint;
-#endif
         private Body _userAgent;
 
         protected PhysicsGameScreen()
         {
             TransitionOnTime = TimeSpan.FromSeconds(0.75);
             TransitionOffTime = TimeSpan.FromSeconds(0.75);
-            HasCursor = true;
+#if DEBUG
             EnableCameraControl = true;
+            HasCursor = true;
+#else
+            EnableCameraControl = false;
+            HasCursor = false;
+#endif
             _userAgent = null;
             World = null;
             Camera = null;
@@ -157,21 +161,7 @@ namespace FarseerPhysics.SamplesFramework
                 EnableOrDisableFlag(DebugViewFlags.AABB);
             }
 
-            if (input.IsNewButtonPress(Buttons.Back) || input.IsNewKeyPress(Keys.Escape))
-            {
-                if (this.ScreenState == SamplesFramework.ScreenState.Active && this.TransitionPosition == 0 && this.TransitionAlpha == 1)
-                { //Give the screens a chance to transition
-
-                    CleanUp();
-                    ExitScreen();
-                    
-                }
-            }
-
-            if (HasCursor)
-            {
-                HandleCursor(input);
-            }
+#endif
 
             if (_userAgent != null)
             {
@@ -182,14 +172,28 @@ namespace FarseerPhysics.SamplesFramework
             {
                 HandleCamera(input, gameTime);
             }
-#endif
 
+
+            if (HasCursor)
+            {
+                HandleCursor(input);
+            }
+
+            if (input.IsNewButtonPress(Buttons.Back) || input.IsNewKeyPress(Keys.Escape))
+            {
+                if (this.ScreenState == SamplesFramework.ScreenState.Active && this.TransitionPosition == 0 && this.TransitionAlpha == 1)
+                { //Give the screens a chance to transition
+
+                    CleanUp();
+                    ExitScreen();
+
+                }
+            }
             base.HandleInput(input, gameTime);
         }
         
         public virtual void HandleCursor(InputHelper input)
         {
-            #if DEBUG
             Vector2 position = Camera.ConvertScreenToWorld(input.Cursor);
 
             if ((input.IsNewButtonPress(Buttons.A) ||
@@ -197,7 +201,7 @@ namespace FarseerPhysics.SamplesFramework
                 _fixedMouseJoint == null)
             {
                 Fixture savedFixture = World.TestPoint(position);
-                if (savedFixture != null)
+                if (savedFixture != null && savedFixture.UserData is SimpleAxiosGameObject && ((SimpleAxiosGameObject)(savedFixture.UserData)).AllowAutomaticMouseJoint)
                 {
                     Body body = savedFixture.Body;
                     _fixedMouseJoint = new FixedMouseJoint(body, position);
@@ -219,14 +223,14 @@ namespace FarseerPhysics.SamplesFramework
             {
                 _fixedMouseJoint.WorldAnchorB = position;
             }
-            #endif
+            
         }
 
         private void HandleCamera(InputHelper input, GameTime gameTime)
         {
             Vector2 camMove = Vector2.Zero;
 
-#if DEBUG
+
             if (input.KeyboardState.IsKeyDown(Keys.Up))
             {
                 camMove.Y -= 10f * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -259,12 +263,12 @@ namespace FarseerPhysics.SamplesFramework
             {
                 Camera.ResetCamera();
             }
-#endif
+
         }
 
         private void HandleUserAgent(InputHelper input)
         {
-#if DEBUG
+
             Vector2 force = _agentForce * new Vector2(input.GamePadState.ThumbSticks.Right.X,
                                                       -input.GamePadState.ThumbSticks.Right.Y);
             float torque = _agentTorque * (input.GamePadState.Triggers.Right - input.GamePadState.Triggers.Left);
@@ -304,7 +308,7 @@ namespace FarseerPhysics.SamplesFramework
 
             _userAgent.ApplyForce(force);
             _userAgent.ApplyTorque(torque);
-#endif
+
         }
 
         private void EnableOrDisableFlag(DebugViewFlags flag)
