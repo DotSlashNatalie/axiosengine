@@ -7,10 +7,11 @@ namespace Axios.Engine.Structures
 {
     class AxiosRectangle
     {
+
+        private AxiosPoint _point;
         private float _width;
         private float _height;
-        private float _x;
-        private float _y;
+
 
         public float Width
         {
@@ -24,43 +25,52 @@ namespace Axios.Engine.Structures
             set { _height = value; }
         }
 
-        public float X
-        {
-            get { return _x; }
-            set { _x = value; }
-        }
-
-        public float Y
-        {
-            get { return _y; }
-            set { _y = value; }
-        }
-
         public float Top
         {
+            get { return _point.Y; }
+        }
 
+        public float Right
+        {
+            get { return _point.X + _width; }
+        }
+
+        public float Left
+        {
+            get { return _point.X;  }
         }
 
         public float Bottom
         {
-            get { return _y + _height; }
+            get { return _point.Y + _height; }
         }
+
+        /*public AxiosPoint Center
+        {
+            get { return new AxiosPoint(Top + (Width / 2), Bottom - (Width / 2)); }
+        }*/
 
         public bool Intersect(AxiosRectangle rect)
         {
-            bool intersects = false;
+            //bool intersects = true;
 
+            if (Bottom < rect.Top)
+                return false;
+            if (Top > rect.Bottom)
+                return false;
+            if (Right < rect.Left)
+                return false;
+            if (Left > rect.Right)
+                return false;
 
-
-            return intersects;
+            return true;
         }
 
         public AxiosRectangle(float X, float Y, float width, float height)
         {
             _width = width;
             _height = height;
-            _x = X;
-            _y = Y;
+            _point = new AxiosPoint(X, Y);
         }
 
         

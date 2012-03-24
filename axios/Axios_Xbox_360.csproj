@@ -172,6 +172,7 @@
     <Compile Include="Engine\SimpleAxiosGameObject.cs" />
     <Compile Include="Engine\SimpleDrawableAxiosGameObject.cs" />
     <Compile Include="Engine\Singleton.cs" />
+    <Compile Include="Engine\Structures\AxiosPoint.cs" />
     <Compile Include="Engine\Structures\AxiosRectangle.cs" />
     <Compile Include="Engine\UI\AxiosButton.cs" />
     <Compile Include="Engine\UI\AxiosUIObject.cs" />
