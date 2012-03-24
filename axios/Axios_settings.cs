@@ -49,6 +49,8 @@
  * - Fixing bug with last screen not exiting if it is a background screen
  * 
  * 1.0.1.1 - 3/22/2012
+ * - Fixing UI collision with mouse pointer
+ * - Adding AxiosRectangle and AxiosPoint classes
  * 
  * 
  */
