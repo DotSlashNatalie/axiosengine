@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Axios.Engine.Structures
 {
-    class AxiosRectangle
+    public class AxiosRectangle
     {
 
         private AxiosPoint _point;
@@ -73,6 +73,10 @@ namespace Axios.Engine.Structures
             _point = new AxiosPoint(X, Y);
         }
 
+        public override string ToString()
+        {
+            return String.Format("{{X:{0} Y:{1} Width:{2} Height:{3}}}", _point.X, _point.Y, Width, Height);
+        }
         
     }
 }

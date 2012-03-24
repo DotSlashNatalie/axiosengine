@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Axios.Engine.Structures
 {
-    class AxiosPoint
+    public class AxiosPoint
     {
         private float _x;
         private float _y;

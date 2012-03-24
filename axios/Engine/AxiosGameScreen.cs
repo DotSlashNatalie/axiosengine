@@ -20,6 +20,7 @@ using Axios.Engine.UI;
 using Axios.Engine.Log;
 using Axios.Engine.File;
 using System.IO;
+using Axios.Engine.Structures;
 
 namespace Axios.Engine
 {
@@ -280,19 +281,21 @@ namespace Axios.Engine
             }
 
             Vector2 uiobjpos;
-            Rectangle uirect;
+            //Rectangle uirect;
+            AxiosRectangle uirect;
             bool foundobject = false;
-            Vector2 mousepos = ConvertUnits.ToSimUnits(input.Cursor);
+            Vector2 mousepos = this.Camera.ConvertScreenToWorld(input.Cursor);
             //Vector2 objpos;
             //System.Diagnostics.Debugger.Break();
+            AxiosRectangle mousrect = new AxiosRectangle(mousepos.X, mousepos.Y, ConvertUnits.ToSimUnits(25), ConvertUnits.ToSimUnits(25));
             foreach(AxiosUIObject uiobject in _uiobjects)
             {
                 uiobjpos = uiobject.Position;
                 //objpos = this.Camera.ConvertScreenToWorld(uiobjpos);
 
-                uirect = new Rectangle((int)uiobjpos.X, (int)uiobjpos.Y, (int)Math.Ceiling(ConvertUnits.ToSimUnits(uiobject.Width)), (int)Math.Ceiling(ConvertUnits.ToSimUnits(uiobject.Height) + 1));
+                uirect = new AxiosRectangle(uiobjpos.X, uiobjpos.Y, ConvertUnits.ToSimUnits(uiobject.Width), ConvertUnits.ToSimUnits(uiobject.Height));
                 
-                if (uirect.Contains((int)position.X, (int)position.Y))
+                if (uirect.Intersect(mousrect))
                 {
 
                     if (input.IsNewMouseButtonPress(MouseButtons.LeftButton))
