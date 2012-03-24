@@ -48,6 +48,8 @@
  * - Adding field to allow/disallow automated mouse joints per object
  * - Fixing bug with last screen not exiting if it is a background screen
  * 
+ * 1.0.1.1 - 3/22/2012
+ * 
  * 
  */
 

@@ -219,6 +219,7 @@
     <Compile Include="Engine\Interfaces\IAxiosGameObject.cs" />
     <Compile Include="Engine\Interfaces\IDrawableAxiosGameObject.cs" />
     <Compile Include="Engine\Log\AxiosLog.cs" />
+    <Compile Include="Engine\Structures\AxiosRectangle.cs" />
     <Compile Include="Engine\SimpleAxiosGameObject.cs" />
     <Compile Include="Engine\SimpleDrawableAxiosGameObject.cs" />
     <Compile Include="Engine\AxiosTimer.cs" />

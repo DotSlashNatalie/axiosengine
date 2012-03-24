@@ -283,15 +283,15 @@ namespace Axios.Engine
             Rectangle uirect;
             bool foundobject = false;
             Vector2 mousepos = ConvertUnits.ToSimUnits(input.Cursor);
-            Vector2 objpos;
+            //Vector2 objpos;
             //System.Diagnostics.Debugger.Break();
             foreach(AxiosUIObject uiobject in _uiobjects)
             {
                 uiobjpos = uiobject.Position;
-                objpos = this.Camera.ConvertScreenToWorld(uiobjpos);
+                //objpos = this.Camera.ConvertScreenToWorld(uiobjpos);
 
-                uirect = new Rectangle((int)uiobjpos.X, (int)uiobjpos.Y, (int)ConvertUnits.ToSimUnits(uiobject.Width), (int)ConvertUnits.ToSimUnits(uiobject.Height));
-
+                uirect = new Rectangle((int)uiobjpos.X, (int)uiobjpos.Y, (int)Math.Ceiling(ConvertUnits.ToSimUnits(uiobject.Width)), (int)Math.Ceiling(ConvertUnits.ToSimUnits(uiobject.Height) + 1));
+                
                 if (uirect.Contains((int)position.X, (int)position.Y))
                 {
 
