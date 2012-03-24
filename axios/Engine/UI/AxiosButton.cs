@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Microsoft.Xna.Framework.Graphics;
+﻿
 using FarseerPhysics.SamplesFramework;
-using FarseerPhysics.Factories;
-using FarseerPhysics.Dynamics;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Axios.Engine.UI
 {

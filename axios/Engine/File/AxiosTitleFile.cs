@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using Microsoft.Xna.Framework;
-using Axios.Engine.File;
 using Axios.Engine.Interfaces;
+using Microsoft.Xna.Framework;
 
 namespace Axios.Engine.File
 {

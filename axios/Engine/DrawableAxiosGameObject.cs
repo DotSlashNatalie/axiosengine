@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+using Axios.Engine.Interfaces;
+using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.SamplesFramework;
-using Axios.Engine.Interfaces;
 
 namespace Axios.Engine
 {
@@ -15,12 +10,23 @@ namespace Axios.Engine
     {
         protected int _draworder;
         protected Texture2D Texture;
-        //protected float _scale = 1f;
-        public Vector2 Position = new Vector2();
+        public Vector2 Position = new Vector2(); //set this to a property and adjust if adjustunits is true
         public Vector2 Origin = new Vector2();
 
-        protected Boolean _adjustunits = true;
-        protected Boolean _relativetocamera = true;
+        protected bool _adjustunits = true;
+        protected bool _relativetocamera = true;
+
+        public bool AdjustUnits //if value changed - change position depending on adjusting the units
+        {
+            get { return _adjustunits; }
+            set { _adjustunits = value; }
+        }
+
+        public bool RelativeToCamera
+        {
+            get { return _relativetocamera; }
+            set { _relativetocamera = value; }
+        }
 
         public override void LoadContent(AxiosGameScreen gameScreen)
         {
@@ -29,17 +35,9 @@ namespace Axios.Engine
             
         }
 
-        /*public float Scale
-        {
-            get { return _scale; }
-            set { _scale = value; }
-        }*/
-
         public virtual void Draw(AxiosGameScreen gameScreen, GameTime gameTime)
         {
-/*#if DEBUG
-            System.Diagnostics.Debugger.Break();
-#endif*/
+
             if (_relativetocamera)
                 gameScreen.ScreenManager.SpriteBatch.Begin(0, null, null, null, null, null, gameScreen.Camera.View);
             else

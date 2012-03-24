@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Axios.Engine.Interfaces;
+﻿using Axios.Engine.Interfaces;
+using FarseerPhysics.Dynamics;
 using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework;
-using FarseerPhysics.Dynamics;
 
 namespace Axios.Engine
 {

@@ -1,26 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Dynamics.Joints;
-using FarseerPhysics.Dynamics.Contacts;
-using FarseerPhysics.Factories;
-using FarseerPhysics.Common;
-using FarseerPhysics.SamplesFramework;
 using Axios.Engine.Interfaces;
-using Axios.Engine.UI;
 using Axios.Engine.Log;
-using Axios.Engine.File;
-using System.IO;
 using Axios.Engine.Structures;
+using Axios.Engine.UI;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.SamplesFramework;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Axios.Engine
 {

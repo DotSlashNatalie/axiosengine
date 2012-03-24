@@ -51,23 +51,18 @@
  * 1.0.1.1 - 3/22/2012
  * - Fixing UI collision with mouse pointer
  * - Adding AxiosRectangle and AxiosPoint classes
+ * - Adding properties in DrawableAxiosGameObject to turn on/off the following:
+ *   - AdjustUnits
+ *   - RelativeToCamera
+ * - Cleaning and sorting using statements
+ *
  * 
  * 
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using System.Reflection;
-using Axios.Engine.Extenions;
 using Axios.Engine.Log;
+using Microsoft.Xna.Framework;
 
 namespace Axios
 {

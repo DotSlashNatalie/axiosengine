@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Axios.Engine.Interfaces;
+using FarseerPhysics.Common;
+using FarseerPhysics.Common.Decomposition;
+using FarseerPhysics.Common.PolygonManipulation;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.SamplesFramework;
-using Axios.Engine.Interfaces;
-using FarseerPhysics.Common.Decomposition;
-using FarseerPhysics.Common;
-using FarseerPhysics.Factories;
-using FarseerPhysics.Common.PolygonManipulation;
 
 namespace Axios.Engine
 {

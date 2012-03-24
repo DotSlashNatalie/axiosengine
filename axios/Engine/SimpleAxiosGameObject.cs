@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Axios.Engine.Log;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
-
-using Axios.Engine.Log;
 
 namespace Axios.Engine
 {

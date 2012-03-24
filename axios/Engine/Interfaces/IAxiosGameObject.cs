@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework;
-using FarseerPhysics.SamplesFramework;
 
 
 namespace Axios.Engine.Interfaces
