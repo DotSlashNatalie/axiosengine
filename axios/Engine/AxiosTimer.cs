@@ -10,7 +10,7 @@ namespace Axios.Engine
      * Source: http://www.gamedev.net/topic/473544-how-to-make-a-timer-using-xna/page__view__findpost__p__4107032
      * 
      */
-    public class AxiosTimer : IAxiosGameObject
+    public class AxiosTimer : AxiosGameObject
     {
         TimeSpan interval = new TimeSpan(0, 0, 1);
         TimeSpan lastTick = new TimeSpan();
@@ -35,7 +35,7 @@ namespace Axios.Engine
             
         }
 
-        public void Update(AxiosGameScreen gameScreen, GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
+        public override void Update(AxiosGameScreen gameScreen, GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
 
             if (_enabled)
@@ -43,7 +43,11 @@ namespace Axios.Engine
                 if (gameTime.TotalGameTime - lastTick >= interval)
                 {
                     if (Tick != null)
+                    {
+                        //EventArgs e = new EventArgs();
+                        
                         Tick(this, null);
+                    }
 
                     lastTick = gameTime.TotalGameTime;
                 }
@@ -54,22 +58,22 @@ namespace Axios.Engine
             }
         }
 
-        public virtual void LoadContent(AxiosGameScreen gameScreen)
+        public override void LoadContent(AxiosGameScreen gameScreen)
         {
             
         }
 
-        public void HandleInput(AxiosGameScreen gameScreen, FarseerPhysics.SamplesFramework.InputHelper input, Microsoft.Xna.Framework.GameTime gameTime)
+        public override void HandleInput(AxiosGameScreen gameScreen, FarseerPhysics.SamplesFramework.InputHelper input, Microsoft.Xna.Framework.GameTime gameTime)
         {
             
         }
 
-        public void HandleCursor(AxiosGameScreen gameScreen, FarseerPhysics.SamplesFramework.InputHelper input)
+        public override void HandleCursor(AxiosGameScreen gameScreen, FarseerPhysics.SamplesFramework.InputHelper input)
         {
             
         }
 
-        public void UnloadContent(AxiosGameScreen gameScreen)
+        public override void UnloadContent(AxiosGameScreen gameScreen)
         {
             
         }

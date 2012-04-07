@@ -56,7 +56,8 @@
  *   - RelativeToCamera
  * - Cleaning and sorting using statements
  *
- * 
+ * 1.0.1.2 - 4/1/2012
+ * - Making AxiosTimer inheirt from AxiosGameObject for it to be casted properly
  * 
  */
 

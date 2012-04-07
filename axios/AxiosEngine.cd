@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Axios.Engine.AxiosEvents">
-    <Position X="11" Y="0.5" Width="1.5" />
+    <Position X="11" Y="1.25" Width="1.5" />
     <NestedTypes>
       <Delegate Name="Axios.Engine.AxiosEvents.AxiosHandler" Collapsed="true">
         <TypeIdentifier>
@@ -20,99 +20,172 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Axios.Engine.AxiosGameObject">
-    <Position X="5.75" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAMACAAAAAAAAEACIIBAQAIAAAAAAAAAAAAAAAACQ=</HashCode>
       <FileName>Engine\AxiosGameObject.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Axios.Engine.ComplexAxiosGameObject&lt;T&gt;">
-    <Position X="2.5" Y="0.5" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAQ=</HashCode>
-      <FileName>Engine\ComplexAxiosGameObject.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Axios.Engine.SimpleAxiosGameObject">
-    <Position X="8.5" Y="1.25" Width="2" />
+    <Position X="8.75" Y="1.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AEQAEAABAgAAAAAgAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <HashCode>AEQAEAABAgAAAAAgAAQAAAAAAAAAAAAAIAAAAAgAAAA=</HashCode>
       <FileName>Engine\SimpleAxiosGameObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Axios.Engine.SimpleDrawableAxiosGameObject">
-    <Position X="5.25" Y="4.25" Width="2.75" />
+    <Position X="5.5" Y="4.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAgAAAAAAAAAAAAIACAAgAAIAIAAAAAQ=</HashCode>
+      <HashCode>AAAAEIAAAAAAAgAAAAAAAAAAAAIACAAgAAIAIAAAAAQ=</HashCode>
       <FileName>Engine\SimpleDrawableAxiosGameObject.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Axios.Engine.AxiosGameScreen">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="3.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AARoEQCCAAACAggBACAAAgAICAAAAAAAIAAAAIIAAAQ=</HashCode>
+      <HashCode>AARoEQCHAAACAggBACAAAgAICAAAAAAAIAAAAIIQAAQ=</HashCode>
       <FileName>Engine\AxiosGameScreen.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Axios.Engine.AxiosTimer">
-    <Position X="0.5" Y="5.75" Width="1.5" />
+    <Position X="3.75" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAEACAAAAAAIAAAKAAAACAAAAAAAAQAAAAACAAQAQ=</HashCode>
       <FileName>Engine\AxiosTimer.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Axios.Engine.Extenions.AxiosExtensions_String">
-    <Position X="11" Y="5.75" Width="2" />
+    <Position X="14.5" Y="4.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
       <FileName>Engine\Extensions\String.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Axios.Engine.Extenions.AxiosExtensions_Texture2D">
-    <Position X="11" Y="7" Width="2.25" />
+    <Position X="14.5" Y="5.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAQAAAAA=</HashCode>
       <FileName>Engine\Extensions\Texture2D.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Axios.Engine.UI.AxiosUIObject">
-    <Position X="13" Y="2" Width="1.5" />
+    <Position X="12.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Engine\UI\AxiosUIObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Axios.Engine.DrawableAxiosGameObject">
-    <Position X="15" Y="0.5" Width="2.25" />
+    <Position X="14.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAgAgAAAABAAAAAAACAAgAAIAIAgAAAQ=</HashCode>
+      <HashCode>AABAAIAAAAAAAgAgAAAABAAAAAAACAAoAAIAIAgAAAQ=</HashCode>
       <FileName>Engine\DrawableAxiosGameObject.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Axios.Engine.UI.AxiosButton">
-    <Position X="13.5" Y="3.75" Width="1.5" />
+    <Position X="12.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAIQAAIAAAAACAAgAAAAAAASAAAIAAAAAgCAAQ=</HashCode>
       <FileName>Engine\UI\AxiosButton.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Axios.Engine.File.AxiosFile">
+    <Position X="11" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgABAAQBAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\File\AxiosFile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Axios.Engine.File.AxiosIsolatedFile">
+    <Position X="12.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\File\AxiosIsolatedFile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Axios.Engine.File.AxiosRegularFile">
+    <Position X="9" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\File\AxiosRegularFile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Axios.Engine.File.AxiosTitleFile">
+    <Position X="11" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\File\AxiosTitleFile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Axios.Engine.Structures.AxiosPoint">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Engine\Structures\AxiosPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Axios.Engine.Structures.AxiosRectangle">
+    <Position X="17" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABACAAAAEAAAUAEAAABAIAAAACACAAAAAAAQ=</HashCode>
+      <FileName>Engine\Structures\AxiosRectangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Axios.Engine.Log.AxiosLog">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAEAAAAAAAIAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Log\AxiosLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Axios.Settings">
+    <Position X="2" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAEAAAAAAAAAAgAAAAgAAAAAACAAAIIACCAACAAA=</HashCode>
+      <FileName>Axios_settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="Axios.Engine.Interfaces.IAxiosGameObject">
-    <Position X="8.5" Y="4.25" Width="2.25" />
+    <Position X="8.5" Y="4.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAQAEACAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Engine\Interfaces\IAxiosGameObject.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Axios.Engine.Interfaces.IDrawableAxiosGameObject">
-    <Position X="8.5" Y="6" Width="2.25" />
+    <Position X="8.5" Y="6.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>Engine\Interfaces\IDrawableAxiosGameObject.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Interface Name="Axios.Engine.Interfaces.IAxiosFile">
+    <Position X="14.5" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Interfaces\IAxiosFile.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Axios.Engine.Log.LoggingFlag">
+    <Position X="2" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACBgAAAAAAAAQAAAAAAAQAAAAAAAAQABAAAAAA=</HashCode>
+      <FileName>Engine\Log\AxiosLog.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Axios.ResolutionSetting">
+    <Position X="2" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAICAAAA=</HashCode>
+      <FileName>Axios_settings.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Tahoma" Size="8.25" />
 </ClassDiagram>
