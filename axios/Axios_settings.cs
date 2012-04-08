@@ -59,6 +59,9 @@
  * 1.0.1.2 - 4/1/2012
  * - Making AxiosTimer inheirt from AxiosGameObject for it to be casted properly
  * 
+ * 1.0.1.3 - 4/7/2012
+ * - Adding a check in the AxiosTimer update to only tick if the game is active
+ * 
  */
 
 using System.Reflection;
