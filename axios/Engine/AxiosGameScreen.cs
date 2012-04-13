@@ -8,7 +8,9 @@ using Axios.Engine.UI;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using GameStateManagement;
 
 namespace Axios.Engine
 {
@@ -158,19 +160,16 @@ namespace Axios.Engine
             AxiosLog.Instance.AddLine("Memory usage after cleanup: ", LoggingFlag.DEBUG);
         }
 
-        public override void ExitScreen()
+        public override void Activate(bool instancePreserved)
         {
-            base.ExitScreen();
-
-        }
-
-        public override void LoadContent()
-        {
-            base.LoadContent();
+            base.Activate(instancePreserved);
 
 #if DEBUG
             if (!Axios.Settings.ScreenSaver)
-                this.DebugSpriteFont = this.ScreenManager.Content.Load<SpriteFont>(this.DebugTextFont);
+            {
+                ContentManager man = new ContentManager(ScreenManager.Game.Services, "Content");
+                this.DebugSpriteFont = man.Load<SpriteFont>(this.DebugTextFont);
+            }
 #endif
         }
 

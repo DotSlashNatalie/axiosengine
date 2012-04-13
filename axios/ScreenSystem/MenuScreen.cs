@@ -1,234 +1,168 @@
+#region File Description
+//-----------------------------------------------------------------------------
+// MenuScreen.cs
+//
+// XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+//-----------------------------------------------------------------------------
+#endregion
+
+#region Using Statements
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Input;
+using FarseerPhysics.SamplesFramework;
+#endregion
 
-namespace FarseerPhysics.SamplesFramework
+namespace GameStateManagement
 {
     /// <summary>
     /// Base class for screens that contain a menu of options. The user can
     /// move up and down to select an entry, or cancel to back out of the screen.
     /// </summary>
-    public class MenuScreen : GameScreen
+    abstract class MenuScreen : GameScreen
     {
-#if WINDOWS || XBOX
-        protected const float NumEntries = 15;
-#elif WINDOWS_PHONE
-        protected const float NumEntries = 9;
-#endif
-        protected List<MenuEntry> _menuEntries = new List<MenuEntry>();
-        protected string _menuTitle;
-        protected Vector2 _titlePosition;
-        protected Vector2 _titleOrigin;
-        protected int _selectedEntry;
-        protected float _menuBorderTop;
-        protected float _menuBorderBottom;
-        protected float _menuBorderMargin;
-        protected float _menuOffset;
-        protected float _maxOffset;
+        #region Fields
 
-        protected Texture2D _texScrollButton;
-        protected Texture2D _texSlider;
+        List<MenuEntry> menuEntries = new List<MenuEntry>();
+        int selectedEntry = 0;
+        string menuTitle;
 
-        protected MenuButton _scrollUp;
-        protected MenuButton _scrollDown;
-        protected MenuButton _scrollSlider;
-        protected bool _scrollLock;
+        InputAction menuUp;
+        InputAction menuDown;
+        InputAction menuSelect;
+        InputAction menuCancel;
+
+        #endregion
+
+        #region Properties
+
+
+        /// <summary>
+        /// Gets the list of menu entries, so derived classes can add
+        /// or change the menu contents.
+        /// </summary>
+        protected IList<MenuEntry> MenuEntries
+        {
+            get { return menuEntries; }
+        }
+
+
+        #endregion
+
+        #region Initialization
+
 
         /// <summary>
         /// Constructor.
         /// </summary>
         public MenuScreen(string menuTitle)
         {
-            _menuTitle = menuTitle;
+            this.menuTitle = menuTitle;
 
-            TransitionOnTime = TimeSpan.FromSeconds(0.7);
-            TransitionOffTime = TimeSpan.FromSeconds(0.7);
-            HasCursor = true;
+            TransitionOnTime = TimeSpan.FromSeconds(0.5);
+            TransitionOffTime = TimeSpan.FromSeconds(0.5);
+
+            menuUp = new InputAction(
+                new Buttons[] { Buttons.DPadUp, Buttons.LeftThumbstickUp }, 
+                new Keys[] { Keys.Up },
+                true);
+            menuDown = new InputAction(
+                new Buttons[] { Buttons.DPadDown, Buttons.LeftThumbstickDown },
+                new Keys[] { Keys.Down },
+                true);
+            menuSelect = new InputAction(
+                new Buttons[] { Buttons.A, Buttons.Start },
+                new Keys[] { Keys.Enter, Keys.Space },
+                true);
+            menuCancel = new InputAction(
+                new Buttons[] { Buttons.B, Buttons.Back },
+                new Keys[] { Keys.Escape },
+                true);
         }
 
-        public void AddMenuItem(string name, EntryType type, GameScreen screen)
-        {
-            MenuEntry entry = new MenuEntry(this, name, type, screen);
-            _menuEntries.Add(entry);
-        }
 
-        public void AddMenuItem(MenuEntry me)
-        {
-            _menuEntries.Add(me);
-        }
+        #endregion
 
-        public override void LoadContent()
-        {
-            base.LoadContent();
-            
-            _texScrollButton = ScreenManager.Content.Load<Texture2D>("Common/arrow");
-            _texSlider = ScreenManager.Content.Load<Texture2D>("Common/slider");
+        #region Handle Input
 
-            //Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            //float scrollBarPos = viewport.Width / 2f;
-            //scrollBarPos -= _texScrollButton.Width + 2f;
-
-            
-
-            InitMenu();
-            
-
-            
-        }
-
-        public void InitMenu()
-        {
-            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            SpriteFont font = ScreenManager.Fonts.MenuSpriteFont;
-            float scrollBarPos = viewport.Width / 2f;
-            
-            for (int i = 0; i < _menuEntries.Count; ++i)
-            {
-                _menuEntries[i].Initialize();
-                scrollBarPos = Math.Min(scrollBarPos,
-                                         (viewport.Width - _menuEntries[i].GetWidth()) / 2f);
-            }
-
-            _titleOrigin = font.MeasureString(_menuTitle) / 2f;
-            _titlePosition = new Vector2(viewport.Width / 2f, font.MeasureString("M").Y / 2f + 10f);
-
-            _menuBorderMargin = font.MeasureString("M").Y * 0.8f;
-            _menuBorderTop = (viewport.Height - _menuBorderMargin * (NumEntries - 1)) / 2f;
-            _menuBorderBottom = (viewport.Height + _menuBorderMargin * (NumEntries - 1)) / 2f;
-
-            _menuOffset = 0f;
-            _maxOffset = Math.Max(0f, (_menuEntries.Count - NumEntries) * _menuBorderMargin);
-
-            _scrollUp = new MenuButton(_texScrollButton, false,
-                                       new Vector2(scrollBarPos, _menuBorderTop - _texScrollButton.Height), this);
-            _scrollDown = new MenuButton(_texScrollButton, true,
-                                         new Vector2(scrollBarPos, _menuBorderBottom + _texScrollButton.Height), this);
-            _scrollSlider = new MenuButton(_texSlider, false, new Vector2(scrollBarPos, _menuBorderTop), this);
-
-            _scrollLock = false;
-        }
-
-        /// <summary>
-        /// Returns the index of the menu entry at the position of the given mouse state.
-        /// </summary>
-        /// <returns>Index of menu entry if valid, -1 otherwise</returns>
-        private int GetMenuEntryAt(Vector2 position)
-        {
-            if (this.TransitionPosition == 0f && this.ScreenState == SamplesFramework.ScreenState.Active)
-            {
-                int index = 0;
-                foreach (MenuEntry entry in _menuEntries)
-                {
-                    float width = entry.GetWidth();
-                    float height = entry.GetHeight();
-                    Rectangle rect = new Rectangle((int)(entry.Position.X - width / 2f),
-                                                   (int)(entry.Position.Y - height / 2f),
-                                                   (int)width, (int)height);
-                    if (rect.Contains((int)position.X, (int)position.Y) && entry.Alpha > 0.1f)
-                    {
-                        return index;
-                    }
-                    ++index;
-                }
-            }
-            return -1;
-        }
 
         /// <summary>
         /// Responds to user input, changing the selected entry and accepting
         /// or cancelling the menu.
         /// </summary>
-        public override void HandleInput(InputHelper input, GameTime gameTime)
+        public override void HandleInput(GameTime gameTime, InputState input)
         {
-            // Mouse or touch on a menu item
-            int hoverIndex = GetMenuEntryAt(input.Cursor);
-            if (hoverIndex > -1 && _menuEntries[hoverIndex].IsSelectable() && !_scrollLock)
+            // For input tests we pass in our ControllingPlayer, which may
+            // either be null (to accept input from any player) or a specific index.
+            // If we pass a null controlling player, the InputState helper returns to
+            // us which player actually provided the input. We pass that through to
+            // OnSelectEntry and OnCancel, so they can tell which player triggered them.
+            PlayerIndex playerIndex;
+
+            // Move to the previous menu entry?
+            if (menuUp.Evaluate(input, ControllingPlayer, out playerIndex))
             {
-                _selectedEntry = hoverIndex;
-            }
-            else
-            {
-                _selectedEntry = -1;
+                selectedEntry--;
+
+                if (selectedEntry < 0)
+                    selectedEntry = menuEntries.Count - 1;
             }
 
-            _scrollSlider.Hover = false;
-            if (input.IsCursorValid)
+            // Move to the next menu entry?
+            if (menuDown.Evaluate(input, ControllingPlayer, out playerIndex))
             {
-                _scrollUp.Collide(input.Cursor);
-                _scrollDown.Collide(input.Cursor);
-                _scrollSlider.Collide(input.Cursor);
-            }
-            else
-            {
-                _scrollUp.Hover = false;
-                _scrollDown.Hover = false;
-                _scrollLock = false;
+                selectedEntry++;
+
+                if (selectedEntry >= menuEntries.Count)
+                    selectedEntry = 0;
             }
 
-            // Accept or cancel the menu? 
-            if (input.IsMenuSelect() && _selectedEntry != -1)
+            if (menuSelect.Evaluate(input, ControllingPlayer, out playerIndex))
             {
-                if (_menuEntries[_selectedEntry].IsExitItem())
-                {
-                    ScreenManager.Game.Exit();
-                } 
-                else if (_menuEntries[_selectedEntry].IsBackItem())
-                {
-                    this.ExitScreen();
-                }
-                else if (_menuEntries[_selectedEntry].Screen != null)
-                {
-                    ScreenManager.AddScreen(_menuEntries[_selectedEntry].Screen);
-                    if (_menuEntries[_selectedEntry].Screen is IDemoScreen)
-                    {
-                        ScreenManager.AddScreen(
-                            new MessageBoxScreen((_menuEntries[_selectedEntry].Screen as IDemoScreen).GetDetails()));
-                    }
-                }
+                OnSelectEntry(selectedEntry, playerIndex);
             }
-            else if (input.IsMenuCancel())
+            else if (menuCancel.Evaluate(input, ControllingPlayer, out playerIndex))
             {
-                if (this.ScreenState == SamplesFramework.ScreenState.Active && this.TransitionPosition == 0 && this.TransitionAlpha == 1)
-                {
-                    //GameScreen[] screens = ScreenManager.GetScreens();
-                    //if (screens[screens.Length - 1] is BackgroundScreen ||| screens.Length )
-                    //    ScreenManager.Game.Exit();
-                    //if (ScreenManager.GetScreens().Length == 2)
-                    //    ScreenManager.Game.Exit();
-                    //else
-                    this.ExitScreen();
-                }
-                //ScreenManager.Game.Exit();
-            }
-
-            if (input.IsMenuPressed())
-            {
-                if (_scrollUp.Hover)
-                {
-                    _menuOffset = Math.Max(_menuOffset - 200f * (float)gameTime.ElapsedGameTime.TotalSeconds, 0f);
-                    _scrollLock = false;
-                }
-                if (_scrollDown.Hover)
-                {
-                    _menuOffset = Math.Min(_menuOffset + 200f * (float)gameTime.ElapsedGameTime.TotalSeconds, _maxOffset);
-                    _scrollLock = false;
-                }
-                if (_scrollSlider.Hover)
-                {
-                    _scrollLock = true;
-                }
-            }
-            if (input.IsMenuReleased())
-            {
-                _scrollLock = false;
-            }
-            if (_scrollLock)
-            {
-                _scrollSlider.Hover = true;
-                _menuOffset = Math.Max(Math.Min(((input.Cursor.Y - _menuBorderTop) / (_menuBorderBottom - _menuBorderTop)) * _maxOffset, _maxOffset), 0f);
+                OnCancel(playerIndex);
             }
         }
+
+
+        /// <summary>
+        /// Handler for when the user has chosen a menu entry.
+        /// </summary>
+        protected virtual void OnSelectEntry(int entryIndex, PlayerIndex playerIndex)
+        {
+            menuEntries[entryIndex].OnSelectEntry(playerIndex);
+        }
+
+
+        /// <summary>
+        /// Handler for when the user has cancelled the menu.
+        /// </summary>
+        protected virtual void OnCancel(PlayerIndex playerIndex)
+        {
+            ExitScreen();
+        }
+
+
+        /// <summary>
+        /// Helper overload makes it easy to use OnCancel as a MenuEntry event handler.
+        /// </summary>
+        protected void OnCancel(object sender, PlayerIndexEventArgs e)
+        {
+            OnCancel(e.PlayerIndex);
+        }
+
+
+        #endregion
+
+        #region Update and Draw
+
 
         /// <summary>
         /// Allows the screen the chance to position the menu entries. By default
@@ -241,68 +175,48 @@ namespace FarseerPhysics.SamplesFramework
             // the movement slow down as it nears the end).
             float transitionOffset = (float)Math.Pow(TransitionPosition, 2);
 
-            Vector2 position = Vector2.Zero;
-            position.Y = _menuBorderTop - _menuOffset;
+            // start at Y = 175; each X value is generated per entry
+            Vector2 position = new Vector2(0f, 175f);
 
             // update each menu entry's location in turn
-            for (int i = 0; i < _menuEntries.Count; ++i)
+            for (int i = 0; i < menuEntries.Count; i++)
             {
-                position.X = ScreenManager.GraphicsDevice.Viewport.Width / 2f;
+                MenuEntry menuEntry = menuEntries[i];
+                
+                // each entry is to be centered horizontally
+                position.X = ScreenManager.GraphicsDevice.Viewport.Width / 2 - menuEntry.GetWidth(this) / 2;
+
                 if (ScreenState == ScreenState.TransitionOn)
-                {
                     position.X -= transitionOffset * 256;
-                }
                 else
-                {
-                    position.X += transitionOffset * 256;
-                }
+                    position.X += transitionOffset * 512;
 
                 // set the entry's position
-                _menuEntries[i].Position = position;
-
-                if (position.Y < _menuBorderTop)
-                {
-                    _menuEntries[i].Alpha = 1f -
-                                            Math.Min(_menuBorderTop - position.Y, _menuBorderMargin) / _menuBorderMargin;
-                }
-                else if (position.Y > _menuBorderBottom)
-                {
-                    _menuEntries[i].Alpha = 1f -
-                                            Math.Min(position.Y - _menuBorderBottom, _menuBorderMargin) /
-                                            _menuBorderMargin;
-                }
-                else
-                {
-                    _menuEntries[i].Alpha = 1f;
-                }
+                menuEntry.Position = position;
 
                 // move down for the next entry the size of this entry
-                position.Y += _menuEntries[i].GetHeight();
+                position.Y += menuEntry.GetHeight(this);
             }
-            Vector2 scrollPos = _scrollSlider.Position;
-            scrollPos.Y = MathHelper.Lerp(_menuBorderTop, _menuBorderBottom, _menuOffset / _maxOffset);
-            _scrollSlider.Position = scrollPos;
         }
+
 
         /// <summary>
         /// Updates the menu.
         /// </summary>
         public override void Update(GameTime gameTime, bool otherScreenHasFocus,
-                                    bool coveredByOtherScreen)
+                                                       bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
             // Update each nested MenuEntry object.
-            for (int i = 0; i < _menuEntries.Count; ++i)
+            for (int i = 0; i < menuEntries.Count; i++)
             {
-                bool isSelected = IsActive && (i == _selectedEntry);
-                _menuEntries[i].Update(isSelected, gameTime);
-            }
+                bool isSelected = IsActive && (i == selectedEntry);
 
-            _scrollUp.Update(gameTime);
-            _scrollDown.Update(gameTime);
-            _scrollSlider.Update(gameTime);
+                menuEntries[i].Update(this, isSelected, gameTime);
+            }
         }
+
 
         /// <summary>
         /// Draws the menu.
@@ -312,30 +226,42 @@ namespace FarseerPhysics.SamplesFramework
             // make sure our entries are in the right place before we draw them
             UpdateMenuEntryLocations();
 
+            GraphicsDevice graphics = ScreenManager.GraphicsDevice;
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            SpriteFont font = ScreenManager.Fonts.MenuSpriteFont;
+            SpriteFont font = ScreenManager.Font;
 
             spriteBatch.Begin();
+
             // Draw each menu entry in turn.
-            for (int i = 0; i < _menuEntries.Count; ++i)
+            for (int i = 0; i < menuEntries.Count; i++)
             {
-                bool isSelected = IsActive && (i == _selectedEntry);
-                _menuEntries[i].Draw();
+                MenuEntry menuEntry = menuEntries[i];
+
+                bool isSelected = IsActive && (i == selectedEntry);
+
+                menuEntry.Draw(this, isSelected, gameTime);
             }
 
             // Make the menu slide into place during transitions, using a
             // power curve to make things look more interesting (this makes
             // the movement slow down as it nears the end).
-            Vector2 transitionOffset = new Vector2(0f, (float)Math.Pow(TransitionPosition, 2) * 100f);
+            float transitionOffset = (float)Math.Pow(TransitionPosition, 2);
 
-            spriteBatch.DrawString(font, _menuTitle, _titlePosition - transitionOffset + Vector2.One * 2f, Color.Black, 0,
-                                   _titleOrigin, 1f, SpriteEffects.None, 0);
-            spriteBatch.DrawString(font, _menuTitle, _titlePosition - transitionOffset, new Color(255, 210, 0), 0,
-                                   _titleOrigin, 1f, SpriteEffects.None, 0);
-            _scrollUp.Draw();
-            _scrollSlider.Draw();
-            _scrollDown.Draw();
+            // Draw the menu title centered on the screen
+            Vector2 titlePosition = new Vector2(graphics.Viewport.Width / 2, 80);
+            Vector2 titleOrigin = font.MeasureString(menuTitle) / 2;
+            Color titleColor = new Color(192, 192, 192) * TransitionAlpha;
+            float titleScale = 1.25f;
+
+            titlePosition.Y -= transitionOffset * 100;
+
+            spriteBatch.DrawString(font, menuTitle, titlePosition, titleColor, 0,
+                                   titleOrigin, titleScale, SpriteEffects.None, 0);
+
             spriteBatch.End();
         }
+
+
+        #endregion
     }
 }

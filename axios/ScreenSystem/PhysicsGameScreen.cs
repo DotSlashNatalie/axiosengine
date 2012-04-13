@@ -6,9 +6,10 @@ using FarseerPhysics.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using FarseerPhysics.SamplesFramework;
 using Axios.Engine;
 
-namespace FarseerPhysics.SamplesFramework
+namespace GameStateManagement
 {
     public class PhysicsGameScreen : GameScreen
     {
@@ -47,48 +48,51 @@ namespace FarseerPhysics.SamplesFramework
             _agentTorque = torque;
         }
 
-        
 
-        public override void LoadContent()
+
+        public override void Activate(bool instancePreserved)
         {
-            base.LoadContent();
-
-            //We enable diagnostics to show get values for our performance counters.
-            Settings.EnableDiagnostics = true;
-
-            if (World == null)
+            if (!instancePreserved)
             {
-                World = new World(Vector2.Zero);
-            }
-            else
-            {
-                World.Clear();
-            }
+                base.Activate(instancePreserved);
 
-            if (DebugView == null)
-            {
-                if (!Axios.Settings.ScreenSaver)
+                //We enable diagnostics to show get values for our performance counters.
+                Settings.EnableDiagnostics = true;
+
+                if (World == null)
                 {
-                    DebugView = new DebugViewXNA(World);
-                    DebugView.RemoveFlags(DebugViewFlags.Shape);
-                    DebugView.RemoveFlags(DebugViewFlags.Joint);
-                    DebugView.DefaultShapeColor = Color.White;
-                    DebugView.SleepingShapeColor = Color.LightGray;
-                    DebugView.LoadContent(ScreenManager.GraphicsDevice, ScreenManager.Content);
+                    World = new World(Vector2.Zero);
                 }
-            }
+                else
+                {
+                    World.Clear();
+                }
 
-            if (Camera == null)
-            {
-                Camera = new Camera2D(ScreenManager.GraphicsDevice);
-            }
-            else
-            {
-                Camera.ResetCamera();
-            }
+                if (DebugView == null)
+                {
+                    if (!Axios.Settings.ScreenSaver)
+                    {
+                        DebugView = new DebugViewXNA(World);
+                        DebugView.RemoveFlags(DebugViewFlags.Shape);
+                        DebugView.RemoveFlags(DebugViewFlags.Joint);
+                        DebugView.DefaultShapeColor = Color.White;
+                        DebugView.SleepingShapeColor = Color.LightGray;
+                        DebugView.LoadContent(ScreenManager.GraphicsDevice, ScreenManager.Content);
+                    }
+                }
 
-            // Loading may take a while... so prevent the game from "catching up" once we finished loading
-            ScreenManager.Game.ResetElapsedTime();
+                if (Camera == null)
+                {
+                    Camera = new Camera2D(ScreenManager.GraphicsDevice);
+                }
+                else
+                {
+                    Camera.ResetCamera();
+                }
+
+                // Loading may take a while... so prevent the game from "catching up" once we finished loading
+                ScreenManager.Game.ResetElapsedTime();
+            }
         }
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
@@ -110,12 +114,13 @@ namespace FarseerPhysics.SamplesFramework
         {
 
         }
-        public override void HandleInput(InputHelper input, GameTime gameTime)
+        public override void HandleInput(GameTime gameTime, InputState input)
         {
 
 #if DEBUG
             // Control debug view
-            if (input.IsNewButtonPress(Buttons.Start))
+            PlayerIndex player;
+            if (input.IsNewButtonPress(Buttons.Start, ControllingPlayer.Value, out player))
             {
                 EnableOrDisableFlag(DebugViewFlags.Shape);
                 EnableOrDisableFlag(DebugViewFlags.DebugPanel);
@@ -126,37 +131,37 @@ namespace FarseerPhysics.SamplesFramework
                 EnableOrDisableFlag(DebugViewFlags.Controllers);
             }
 
-            if (input.IsNewKeyPress(Keys.F1))
+            if (input.IsNewKeyPress(Keys.F1, ControllingPlayer.Value, out player))
             {
                 EnableOrDisableFlag(DebugViewFlags.Shape);
             }
-            if (input.IsNewKeyPress(Keys.F2))
+            if (input.IsNewKeyPress(Keys.F2, ControllingPlayer.Value, out player))
             {
                 EnableOrDisableFlag(DebugViewFlags.DebugPanel);
                 EnableOrDisableFlag(DebugViewFlags.PerformanceGraph);
             }
-            if (input.IsNewKeyPress(Keys.F3))
+            if (input.IsNewKeyPress(Keys.F3, ControllingPlayer.Value, out player))
             {
                 EnableOrDisableFlag(DebugViewFlags.Joint);
             }
-            if (input.IsNewKeyPress(Keys.F4))
+            if (input.IsNewKeyPress(Keys.F4, ControllingPlayer.Value, out player))
             {
                 EnableOrDisableFlag(DebugViewFlags.ContactPoints);
                 EnableOrDisableFlag(DebugViewFlags.ContactNormals);
             }
-            if (input.IsNewKeyPress(Keys.F5))
+            if (input.IsNewKeyPress(Keys.F5, ControllingPlayer.Value, out player))
             {
                 EnableOrDisableFlag(DebugViewFlags.PolygonPoints);
             }
-            if (input.IsNewKeyPress(Keys.F6))
+            if (input.IsNewKeyPress(Keys.F6, ControllingPlayer.Value, out player))
             {
                 EnableOrDisableFlag(DebugViewFlags.Controllers);
             }
-            if (input.IsNewKeyPress(Keys.F7))
+            if (input.IsNewKeyPress(Keys.F7, ControllingPlayer.Value, out player))
             {
                 EnableOrDisableFlag(DebugViewFlags.CenterOfMass);
             }
-            if (input.IsNewKeyPress(Keys.F8))
+            if (input.IsNewKeyPress(Keys.F8, ControllingPlayer.Value, out player))
             {
                 EnableOrDisableFlag(DebugViewFlags.AABB);
             }
@@ -181,7 +186,7 @@ namespace FarseerPhysics.SamplesFramework
 
             if (input.IsNewButtonPress(Buttons.Back) || input.IsNewKeyPress(Keys.Escape))
             {
-                if (this.ScreenState == SamplesFramework.ScreenState.Active && this.TransitionPosition == 0 && this.TransitionAlpha == 1)
+                if (this.ScreenState == GameStateManagement.ScreenState.Active && this.TransitionPosition == 0 && this.TransitionAlpha == 1)
                 { //Give the screens a chance to transition
 
                     CleanUp();
@@ -191,9 +196,10 @@ namespace FarseerPhysics.SamplesFramework
             }
             base.HandleInput(input, gameTime);
         }
-        
-        public virtual void HandleCursor(InputHelper input)
+
+        public virtual void HandleCursor(InputState input)
         {
+            PlayerIndex player;
             Vector2 position = Camera.ConvertScreenToWorld(input.Cursor);
 
             if ((input.IsNewButtonPress(Buttons.A) ||
@@ -211,8 +217,9 @@ namespace FarseerPhysics.SamplesFramework
                 }
             }
 
-            if ((input.IsNewButtonRelease(Buttons.A) ||
-                    input.IsNewMouseButtonRelease(MouseButtons.LeftButton)) &&
+            
+            if ((input.IsNewButtonRelease(Buttons.A, ControllingPlayer.Value, out player) ||
+                    input.IsNewMouseButtonRelease(MouseButtons.LeftButton, ControllingPlayer.Value, out player)) &&
                 _fixedMouseJoint != null)
             {
                 World.RemoveJoint(_fixedMouseJoint);

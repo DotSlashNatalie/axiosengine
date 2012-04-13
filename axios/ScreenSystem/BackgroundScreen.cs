@@ -1,24 +1,38 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+#region File Description
+//-----------------------------------------------------------------------------
+// BackgroundScreen.cs
+//
+// Microsoft XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+//-----------------------------------------------------------------------------
+#endregion
 
-namespace FarseerPhysics.SamplesFramework
+#region Using Statements
+using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using GameStateManagement;
+#endregion
+
+namespace GameStateManagement
 {
     /// <summary>
     /// The background screen sits behind all the other menu screens.
     /// It draws a background image that remains fixed in place regardless
     /// of whatever transitions the screens on top of it may be doing.
     /// </summary>
-    public class BackgroundScreen : GameScreen
+    class BackgroundScreen : GameScreen
     {
-        private const float LogoScreenHeightRatio = 0.25f;
-        private const float LogoScreenBorderRatio = 0.0375f;
-        private const float LogoWidthHeightRatio = 1.4f;
+        #region Fields
 
-        private Texture2D _backgroundTexture;
-        private Rectangle _logoDestination;
-        //private Texture2D _logoTexture;
-        private Rectangle _viewport;
+        ContentManager content;
+        Texture2D backgroundTexture;
+
+        #endregion
+
+        #region Initialization
+
 
         /// <summary>
         /// Constructor.
@@ -29,23 +43,39 @@ namespace FarseerPhysics.SamplesFramework
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
         }
 
-        public override void LoadContent()
+
+        /// <summary>
+        /// Loads graphics content for this screen. The background texture is quite
+        /// big, so we use our own local ContentManager to load it. This allows us
+        /// to unload before going from the menus into the game itself, wheras if we
+        /// used the shared ContentManager provided by the Game class, the content
+        /// would remain loaded forever.
+        /// </summary>
+        public override void Activate(bool instancePreserved)
         {
-            //_logoTexture = ScreenManager.Content.Load<Texture2D>("Common/logo");
-            _backgroundTexture = ScreenManager.Content.Load<Texture2D>("Common/gradient");
+            if (!instancePreserved)
+            {
+                if (content == null)
+                    content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            Vector2 logoSize = new Vector2();
-            logoSize.Y = viewport.Height * LogoScreenHeightRatio;
-            logoSize.X = logoSize.Y * LogoWidthHeightRatio;
-
-            float border = viewport.Height * LogoScreenBorderRatio;
-            Vector2 logoPosition = new Vector2(viewport.Width - border - logoSize.X,
-                                               viewport.Height - border - logoSize.Y);
-            _logoDestination = new Rectangle((int)logoPosition.X, (int)logoPosition.Y, (int)logoSize.X,
-                                             (int)logoSize.Y);
-            _viewport = viewport.Bounds;
+                backgroundTexture = content.Load<Texture2D>("background");
+            }
         }
+
+
+        /// <summary>
+        /// Unloads graphics content for this screen.
+        /// </summary>
+        public override void Unload()
+        {
+            content.Unload();
+        }
+
+
+        #endregion
+
+        #region Update and Draw
+
 
         /// <summary>
         /// Updates the background screen. Unlike most screens, this should not
@@ -55,20 +85,30 @@ namespace FarseerPhysics.SamplesFramework
         /// Update method wanting to transition off.
         /// </summary>
         public override void Update(GameTime gameTime, bool otherScreenHasFocus,
-                                    bool coveredByOtherScreen)
+                                                       bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, false);
         }
+
 
         /// <summary>
         /// Draws the background screen.
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
-            ScreenManager.SpriteBatch.Begin();
-            ScreenManager.SpriteBatch.Draw(_backgroundTexture, _viewport, Color.White);
-            //ScreenManager.SpriteBatch.Draw(_logoTexture, _logoDestination, Color.White * 0.6f);
-            ScreenManager.SpriteBatch.End();
+            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
+            Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
+
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(backgroundTexture, fullscreen,
+                             new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
+
+            spriteBatch.End();
         }
+
+
+        #endregion
     }
 }

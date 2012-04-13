@@ -3,8 +3,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using FarseerPhysics.SamplesFramework;
 
-namespace FarseerPhysics.SamplesFramework
+namespace GameStateManagement
 {
     public class LogoScreen : GameScreen
     {
@@ -29,34 +30,38 @@ namespace FarseerPhysics.SamplesFramework
         /// used the shared ContentManager provided by the Game class, the content
         /// would remain loaded forever.
         /// </summary>
-        public override void LoadContent()
+        public override void Activate(bool instancePreserved)
         {
-            if (_content == null)
+            if (!instancePreserved)
             {
-                _content = new ContentManager(ScreenManager.Game.Services, "Content");
+                if (_content == null)
+                {
+                    _content = new ContentManager(ScreenManager.Game.Services, "Content");
+                }
+
+                _farseerLogoTexture = _content.Load<Texture2D>("Common/logo");
+
+                Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
+                int rectHeight = (int)(viewport.Height * LogoScreenHeightRatio);
+                int rectWidth = (int)(rectHeight * LogoWidthHeightRatio);
+                int posX = viewport.Bounds.Center.X - rectWidth / 2;
+                int posY = viewport.Bounds.Center.Y - rectHeight / 2;
+
+                _destination = new Rectangle(posX, posY, rectWidth, rectHeight);
             }
-
-            _farseerLogoTexture = _content.Load<Texture2D>("Common/logo");
-
-            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            int rectHeight = (int)(viewport.Height * LogoScreenHeightRatio);
-            int rectWidth = (int)(rectHeight * LogoWidthHeightRatio);
-            int posX = viewport.Bounds.Center.X - rectWidth / 2;
-            int posY = viewport.Bounds.Center.Y - rectHeight / 2;
-
-            _destination = new Rectangle(posX, posY, rectWidth, rectHeight);
         }
 
         /// <summary>
         /// Unloads graphics content for this screen.
         /// </summary>
-        public override void UnloadContent()
+        public override void Unload()
         {
             _content.Unload();
         }
 
-        public override void HandleInput(InputHelper input, GameTime gameTime)
+        public override void HandleInput(GameTime gameTime, InputState input)
         {
+            //input.
             if (input.KeyboardState.GetPressedKeys().Length > 0 ||
                 input.GamePadState.IsButtonDown(Buttons.A | Buttons.Start | Buttons.Back) ||
                 input.MouseState.LeftButton == ButtonState.Pressed)

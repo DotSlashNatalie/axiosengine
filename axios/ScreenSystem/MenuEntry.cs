@@ -1,39 +1,35 @@
-﻿using System;
+#region File Description
+//-----------------------------------------------------------------------------
+// MenuEntry.cs
+//
+// XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+//-----------------------------------------------------------------------------
+#endregion
+
+#region Using Statements
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameStateManagement;
+#endregion
 
-namespace FarseerPhysics.SamplesFramework
+namespace GameStateManagement
 {
-    public enum EntryType
-    {
-        Screen,
-        Separator,
-        ExitItem,
-        BackItem
-    }
-
     /// <summary>
     /// Helper class represents a single entry in a MenuScreen. By default this
     /// just draws the entry text string, but it can be customized to display menu
     /// entries in different ways. This also provides an event that will be raised
     /// when the menu entry is selected.
     /// </summary>
-    public sealed class MenuEntry
+    class MenuEntry
     {
-        private float _alpha;
-        private Vector2 _baseOrigin;
-
-        private float _height;
-        private MenuScreen _menu;
+        #region Fields
 
         /// <summary>
-        /// The position at which the entry is drawn. This is set by the MenuScreen
-        /// each frame in Update.
+        /// The text rendered for this entry.
         /// </summary>
-        private Vector2 _position;
-
-        private float _scale;
-        private GameScreen _screen;
+        string text;
 
         /// <summary>
         /// Tracks a fading selection effect on the entry.
@@ -41,28 +37,17 @@ namespace FarseerPhysics.SamplesFramework
         /// <remarks>
         /// The entries transition out of the selection effect when they are deselected.
         /// </remarks>
-        private float _selectionFade;
+        float selectionFade;
 
         /// <summary>
-        /// The text rendered for this entry.
+        /// The position at which the entry is drawn. This is set by the MenuScreen
+        /// each frame in Update.
         /// </summary>
-        private string _text;
+        Vector2 position;
 
-        private EntryType _type;
-        private float _width;
+        #endregion
 
-        /// <summary>
-        /// Constructs a new menu entry with the specified text.
-        /// </summary>
-        public MenuEntry(MenuScreen menu, string text, EntryType type, GameScreen screen)
-        {
-            _text = text;
-            _screen = screen;
-            _type = type;
-            _menu = menu;
-            _scale = 0.9f;
-            _alpha = 1.0f;
-        }
+        #region Properties
 
 
         /// <summary>
@@ -70,124 +55,138 @@ namespace FarseerPhysics.SamplesFramework
         /// </summary>
         public string Text
         {
-            get { return _text; }
-            set { _text = value; }
+            get { return text; }
+            set { text = value; }
         }
+
 
         /// <summary>
         /// Gets or sets the position at which to draw this menu entry.
         /// </summary>
         public Vector2 Position
         {
-            get { return _position; }
-            set { _position = value; }
+            get { return position; }
+            set { position = value; }
         }
 
-        public float Alpha
+
+        #endregion
+
+        #region Events
+
+
+        /// <summary>
+        /// Event raised when the menu entry is selected.
+        /// </summary>
+        public event EventHandler<PlayerIndexEventArgs> Selected;
+
+
+        /// <summary>
+        /// Method for raising the Selected event.
+        /// </summary>
+        protected internal virtual void OnSelectEntry(PlayerIndex playerIndex)
         {
-            get { return _alpha; }
-            set { _alpha = value; }
+            if (Selected != null)
+                Selected(this, new PlayerIndexEventArgs(playerIndex));
         }
 
-        public GameScreen Screen
+
+        #endregion
+
+        #region Initialization
+
+
+        /// <summary>
+        /// Constructs a new menu entry with the specified text.
+        /// </summary>
+        public MenuEntry(string text)
         {
-            get { return _screen; }
+            this.text = text;
         }
 
-        public void Initialize()
-        {
-            SpriteFont font = _menu.ScreenManager.Fonts.MenuSpriteFont;
 
-            _baseOrigin = new Vector2(font.MeasureString(Text).X, font.MeasureString("M").Y) * 0.5f;
+        #endregion
 
-            _width = font.MeasureString(Text).X * 0.8f;
-            _height = font.MeasureString("M").Y * 0.8f;
-        }
+        #region Update and Draw
 
-        public bool IsExitItem()
-        {
-            return _type == EntryType.ExitItem;
-        }
-
-        public bool IsSelectable()
-        {
-            return _type != EntryType.Separator;
-        }
-
-        public bool IsBackItem()
-        {
-            return _type == EntryType.BackItem;
-        }
 
         /// <summary>
         /// Updates the menu entry.
         /// </summary>
-        public void Update(bool isSelected, GameTime gameTime)
+        public virtual void Update(MenuScreen screen, bool isSelected, GameTime gameTime)
         {
             // there is no such thing as a selected item on Windows Phone, so we always
             // force isSelected to be false
 #if WINDOWS_PHONE
             isSelected = false;
 #endif
+
             // When the menu selection changes, entries gradually fade between
             // their selected and deselected appearance, rather than instantly
             // popping to the new state.
-            if (_type != EntryType.Separator)
-            {
-                float fadeSpeed = (float)gameTime.ElapsedGameTime.TotalSeconds * 4;
-                if (isSelected)
-                {
-                    _selectionFade = Math.Min(_selectionFade + fadeSpeed, 1f);
-                }
-                else
-                {
-                    _selectionFade = Math.Max(_selectionFade - fadeSpeed, 0f);
-                }
-                _scale = 0.7f + 0.1f * _selectionFade;
-            }
+            float fadeSpeed = (float)gameTime.ElapsedGameTime.TotalSeconds * 4;
+
+            if (isSelected)
+                selectionFade = Math.Min(selectionFade + fadeSpeed, 1);
+            else
+                selectionFade = Math.Max(selectionFade - fadeSpeed, 0);
         }
+
 
         /// <summary>
         /// Draws the menu entry. This can be overridden to customize the appearance.
         /// </summary>
-        public void Draw()
+        public virtual void Draw(MenuScreen screen, bool isSelected, GameTime gameTime)
         {
-            SpriteFont font = _menu.ScreenManager.Fonts.MenuSpriteFont;
-            SpriteBatch batch = _menu.ScreenManager.SpriteBatch;
+            // there is no such thing as a selected item on Windows Phone, so we always
+            // force isSelected to be false
+#if WINDOWS_PHONE
+            isSelected = false;
+#endif
 
-            Color color;
-            if (_type == EntryType.Separator)
-            {
-                color = Color.DarkOrange;
-            }
-            else
-            {
-                // Draw the selected entry in yellow, otherwise white
-                color = Color.Lerp(Color.White, new Color(255, 210, 0), _selectionFade);
-            }
-            color *= _alpha;
+            // Draw the selected entry in yellow, otherwise white.
+            Color color = isSelected ? Color.Yellow : Color.White;
+
+            // Pulsate the size of the selected menu entry.
+            double time = gameTime.TotalGameTime.TotalSeconds;
+            
+            float pulsate = (float)Math.Sin(time * 6) + 1;
+
+            float scale = 1 + pulsate * 0.05f * selectionFade;
+
+            // Modify the alpha to fade text out during transitions.
+            color *= screen.TransitionAlpha;
 
             // Draw text, centered on the middle of each line.
-            batch.DrawString(font, _text, _position - _baseOrigin * _scale + Vector2.One,
-                              Color.DarkSlateGray * _alpha * _alpha, 0, Vector2.Zero, _scale, SpriteEffects.None, 0);
-            batch.DrawString(font, _text, _position - _baseOrigin * _scale, color, 0, Vector2.Zero, _scale,
-                              SpriteEffects.None, 0);
+            ScreenManager screenManager = screen.ScreenManager;
+            SpriteBatch spriteBatch = screenManager.SpriteBatch;
+            SpriteFont font = screenManager.Font;
+
+            Vector2 origin = new Vector2(0, font.LineSpacing / 2);
+
+            spriteBatch.DrawString(font, text, position, color, 0,
+                                   origin, scale, SpriteEffects.None, 0);
         }
+
 
         /// <summary>
         /// Queries how much space this menu entry requires.
         /// </summary>
-        public int GetHeight()
+        public virtual int GetHeight(MenuScreen screen)
         {
-            return (int)_height;
+            return screen.ScreenManager.Font.LineSpacing;
         }
+
 
         /// <summary>
         /// Queries how wide the entry is, used for centering on the screen.
         /// </summary>
-        public int GetWidth()
+        public virtual int GetWidth(MenuScreen screen)
         {
-            return (int)_width;
+            return (int)screen.ScreenManager.Font.MeasureString(Text).X;
         }
+
+
+        #endregion
     }
 }
