@@ -37,7 +37,8 @@ namespace Axios.Engine
 
         public override void Update(AxiosGameScreen gameScreen, GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
-            if (gameScreen.IsActive) //only "tick" if the window has focus - otherwise the Timer will play catchup
+            
+            if (gameScreen.ScreenManager.Game.IsActive) //only "tick" if the window has focus - otherwise the Timer will play catchup
             {
                 if (_enabled)
                 {
@@ -46,7 +47,7 @@ namespace Axios.Engine
                         if (Tick != null)
                         {
                             //EventArgs e = new EventArgs();
-
+                            //System.Diagnostics.Debugger.Break();
                             Tick(this, null);
                         }
 
