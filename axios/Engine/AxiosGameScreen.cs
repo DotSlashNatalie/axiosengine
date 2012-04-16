@@ -210,7 +210,7 @@ namespace Axios.Engine
             
         }
 
-        public override void HandleCursor(InputHelper input)
+        public override void HandleCursor(InputState input)
         {
             base.HandleCursor(input);
             HandleMouseEvents(input);
@@ -219,7 +219,7 @@ namespace Axios.Engine
                 g.HandleCursor(this, input);
         }
 
-        private void HandleMouseEvents(InputHelper input)
+        private void HandleMouseEvents(InputState input)
         {
             Vector2 position = this.Camera.ConvertScreenToWorld(input.Cursor);
             Fixture fix = this.World.TestPoint(position);
