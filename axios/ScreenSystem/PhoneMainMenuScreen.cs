@@ -9,6 +9,7 @@
 
 using System;
 using GameStateManagement;
+using GameStateManagementSample;
 using Microsoft.Xna.Framework;
 
 namespace GameStateManagement

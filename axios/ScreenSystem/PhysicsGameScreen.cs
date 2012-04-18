@@ -72,12 +72,13 @@ namespace GameStateManagement
                 {
                     if (!Axios.Settings.ScreenSaver)
                     {
+                        ContentManager man = new ContentManager(this.ScreenManager.Game.Services, "Content");
                         DebugView = new DebugViewXNA(World);
                         DebugView.RemoveFlags(DebugViewFlags.Shape);
                         DebugView.RemoveFlags(DebugViewFlags.Joint);
                         DebugView.DefaultShapeColor = Color.White;
                         DebugView.SleepingShapeColor = Color.LightGray;
-                        DebugView.LoadContent(ScreenManager.GraphicsDevice, ScreenManager.Content);
+                        DebugView.LoadContent(ScreenManager.GraphicsDevice, man);
                     }
                 }
 

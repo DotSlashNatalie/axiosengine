@@ -62,8 +62,8 @@ namespace GameStateManagement
         public override void HandleInput(GameTime gameTime, InputState input)
         {
             //input.
-            if (input.KeyboardState.GetPressedKeys().Length > 0 ||
-                input.GamePadState.IsButtonDown(Buttons.A | Buttons.Start | Buttons.Back) ||
+            if (input.CurrentKeyboardStates[0].GetPressedKeys().Length > 0 ||
+                input.CurrentGamePadStates[0].IsButtonDown(Buttons.A | Buttons.Start | Buttons.Back) ||
                 input.MouseState.LeftButton == ButtonState.Pressed)
             {
                 _duration = TimeSpan.Zero;

@@ -18,6 +18,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Xml.Linq;
+using FarseerPhysics.SamplesFramework;
 #endregion
 
 namespace GameStateManagement
@@ -37,7 +38,7 @@ namespace GameStateManagement
         List<GameScreen> screens = new List<GameScreen>();
         List<GameScreen> tempScreensList = new List<GameScreen>();
 
-        InputState input = new InputState();
+        InputState input;
 
         SpriteBatch spriteBatch;
         SpriteFont font;
@@ -47,10 +48,20 @@ namespace GameStateManagement
 
         bool traceEnabled;
 
+        /// <summary>
+        /// Contains all the fonts avaliable for use.
+        /// </summary>
+        private SpriteFonts _spriteFonts;
+
         #endregion
 
         #region Properties
 
+
+        public SpriteFonts Fonts
+        {
+            get { return _spriteFonts; }
+        }
 
         /// <summary>
         /// A default SpriteBatch shared by all the screens. This saves
@@ -107,6 +118,7 @@ namespace GameStateManagement
             // we must set EnabledGestures before we can query for them, but
             // we don't assume the game wants to read them.
             TouchPanel.EnabledGestures = GestureType.None;
+            this.input = new InputState(this);
         }
 
 

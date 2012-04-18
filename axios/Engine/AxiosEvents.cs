@@ -69,7 +69,7 @@ namespace Axios.Engine
                 this.ScaleChanged(gameObject);
         }
 
-        private void OnEvent(AxiosHandler e, AxiosGameScreen gameScreen, InputHelper input)
+        private void OnEvent(AxiosHandler e, AxiosGameScreen gameScreen, InputState input)
         {
             AxiosHandler handle = e;
             if (handle != null)

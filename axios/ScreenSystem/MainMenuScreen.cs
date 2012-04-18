@@ -9,6 +9,7 @@
 
 #region Using Statements
 using Microsoft.Xna.Framework;
+using GameStateManagementSample;
 #endregion
 
 namespace GameStateManagement

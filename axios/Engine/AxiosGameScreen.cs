@@ -334,7 +334,7 @@ namespace Axios.Engine
             }
         }
 
-        public override void HandleInput(InputState input, GameTime gameTime)
+        public override void HandleInput(GameTime gameTime, InputState input)
         {
             base.HandleInput(input, gameTime);
 
@@ -345,7 +345,7 @@ namespace Axios.Engine
                 g.HandleInput(this, input, gameTime);
         }
 
-        public override void UnloadContent()
+        public override void Deactivate()
         {
             base.UnloadContent();
             //AxiosLog.Instance.AddLine("Memory usage before cleanup: " + GC.GetTotalMemory(true).ToString(), LoggingFlag.DEBUG);

@@ -146,6 +146,7 @@ namespace FarseerPhysics.SamplesFramework
 
         public void LoadContent()
         {
+            
             _cursorSprite = new Sprite(_manager.Content.Load<Texture2D>("Common/cursor"));
 #if WINDOWS_PHONE
             // virtual stick content
