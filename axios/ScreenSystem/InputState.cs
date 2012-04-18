@@ -247,7 +247,7 @@ namespace GameStateManagement
         /// <summary>
         /// Reads the latest state user input.
         /// </summary>
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             _lastMouseState = _currentMouseState;
             if (_handleVirtualStick)
@@ -299,6 +299,52 @@ namespace GameStateManagement
             {
                 Gestures.Add(TouchPanel.ReadGesture());
             }
+
+            // Update cursor
+            Vector2 oldCursor = _cursor;
+
+            if (CurrentGamePadStates[0].IsConnected && CurrentGamePadStates[0].ThumbSticks.Left != Vector2.Zero)
+            {
+                Vector2 temp = CurrentGamePadStates[0].ThumbSticks.Left;
+                _cursor += temp * new Vector2(300f, -300f) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                Mouse.SetPosition((int)_cursor.X, (int)_cursor.Y);
+            }
+            else
+            {
+                _cursor.X = _currentMouseState.X;
+                _cursor.Y = _currentMouseState.Y;
+            }
+            _cursor.X = MathHelper.Clamp(_cursor.X, 0f, _viewport.Width);
+            _cursor.Y = MathHelper.Clamp(_cursor.Y, 0f, _viewport.Height);
+
+            if (_cursorIsValid && oldCursor != _cursor)
+            {
+                _cursorMoved = true;
+            }
+            else
+            {
+                _cursorMoved = false;
+            }
+
+#if WINDOWS
+            if (_viewport.Bounds.Contains(_currentMouseState.X, _currentMouseState.Y))
+            {
+                _cursorIsValid = true;
+            }
+            else
+            {
+                _cursorIsValid = false;
+            }
+#elif WINDOWS_PHONE
+            if (_currentMouseState.LeftButton == ButtonState.Pressed)
+            {
+                _cursorIsValid = true;
+            }
+            else
+            {
+                _cursorIsValid = false;
+            }
+#endif
         }
 
 
@@ -425,6 +471,61 @@ namespace GameStateManagement
         {
             return (_lastVirtualState.IsButtonDown(button) &&
                     _currentVirtualState.IsButtonUp(button));
+        }
+
+        /// <summary>
+        ///   Helper for checking if a mouse button was newly pressed during this update.
+        /// </summary>
+        public bool IsNewMouseButtonPress(MouseButtons button)
+        {
+            switch (button)
+            {
+                case MouseButtons.LeftButton:
+                    return (_currentMouseState.LeftButton == ButtonState.Pressed &&
+                            _lastMouseState.LeftButton == ButtonState.Released);
+                case MouseButtons.RightButton:
+                    return (_currentMouseState.RightButton == ButtonState.Pressed &&
+                            _lastMouseState.RightButton == ButtonState.Released);
+                case MouseButtons.MiddleButton:
+                    return (_currentMouseState.MiddleButton == ButtonState.Pressed &&
+                            _lastMouseState.MiddleButton == ButtonState.Released);
+                case MouseButtons.ExtraButton1:
+                    return (_currentMouseState.XButton1 == ButtonState.Pressed &&
+                            _lastMouseState.XButton1 == ButtonState.Released);
+                case MouseButtons.ExtraButton2:
+                    return (_currentMouseState.XButton2 == ButtonState.Pressed &&
+                            _lastMouseState.XButton2 == ButtonState.Released);
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Checks if the requested mouse button is released.
+        /// </summary>
+        /// <param name="button">The button.</param>
+        public bool IsNewMouseButtonRelease(MouseButtons button)
+        {
+            switch (button)
+            {
+                case MouseButtons.LeftButton:
+                    return (_lastMouseState.LeftButton == ButtonState.Pressed &&
+                            _currentMouseState.LeftButton == ButtonState.Released);
+                case MouseButtons.RightButton:
+                    return (_lastMouseState.RightButton == ButtonState.Pressed &&
+                            _currentMouseState.RightButton == ButtonState.Released);
+                case MouseButtons.MiddleButton:
+                    return (_lastMouseState.MiddleButton == ButtonState.Pressed &&
+                            _currentMouseState.MiddleButton == ButtonState.Released);
+                case MouseButtons.ExtraButton1:
+                    return (_lastMouseState.XButton1 == ButtonState.Pressed &&
+                            _currentMouseState.XButton1 == ButtonState.Released);
+                case MouseButtons.ExtraButton2:
+                    return (_lastMouseState.XButton2 == ButtonState.Pressed &&
+                            _currentMouseState.XButton2 == ButtonState.Released);
+                default:
+                    return false;
+            }
         }
     }
 }

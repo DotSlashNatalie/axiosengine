@@ -334,7 +334,7 @@ namespace Axios.Engine
             }
         }
 
-        public override void HandleInput(InputHelper input, GameTime gameTime)
+        public override void HandleInput(InputState input, GameTime gameTime)
         {
             base.HandleInput(input, gameTime);
 

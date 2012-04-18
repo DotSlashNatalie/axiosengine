@@ -1,6 +1,7 @@
 ﻿
 using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework.Graphics;
+using GameStateManagement;
 
 namespace Axios.Engine.UI
 {
@@ -48,7 +49,7 @@ namespace Axios.Engine.UI
 
         }
 
-        public override void OnMouseHover(AxiosGameScreen gameScreen, InputHelper input)
+        public override void OnMouseHover(AxiosGameScreen gameScreen, InputState input)
         {
             base.OnMouseHover(gameScreen, input);
             
@@ -56,21 +57,21 @@ namespace Axios.Engine.UI
             
         }
 
-        public override void OnMouseLeave(AxiosGameScreen gameScreen, InputHelper input)
+        public override void OnMouseLeave(AxiosGameScreen gameScreen, InputState input)
         {
             base.OnMouseLeave(gameScreen, input);
 
             this.Texture = _normaltexture;
         }
 
-        public override void OnMouseDown(AxiosGameScreen gameScreen, InputHelper input)
+        public override void OnMouseDown(AxiosGameScreen gameScreen, InputState input)
         {
             base.OnMouseDown(gameScreen, input);
 
             this.Texture = _clicktexture;
         }
 
-        public override void OnMouseUp(AxiosGameScreen gameScreen, InputHelper input)
+        public override void OnMouseUp(AxiosGameScreen gameScreen, InputState input)
         {
             base.OnMouseUp(gameScreen, input);
 
@@ -79,9 +80,9 @@ namespace Axios.Engine.UI
             
         }
 
-        
 
-        public override void HandleCursor(AxiosGameScreen gameScreen, InputHelper input)
+
+        public override void HandleCursor(AxiosGameScreen gameScreen, InputState input)
         {
             base.HandleCursor(gameScreen, input);
 
