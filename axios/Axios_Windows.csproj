@@ -242,7 +242,6 @@
     <Compile Include="ScreenSystem\GameScreen.cs" />
     <Compile Include="ScreenSystem\IDemoScreen.cs" />
     <Compile Include="ScreenSystem\InputAction.cs" />
-    <Compile Include="ScreenSystem\InputHelper.cs" />
     <Compile Include="Engine\AxiosGameScreen.cs" />
     <Compile Include="ScreenSystem\InputState.cs" />
     <Compile Include="ScreenSystem\IScreenFactory.cs" />
@@ -274,7 +273,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist "$(TargetPath)" ..\..\Combined mkdir "$(TargetPath)" ..\..\Combined
+    <PostBuildEvent>if not exist "$(TargeDir)"..\..\Combined mkdir "$(TargetDir)"..\..\Combined
 copy "$(TargetPath)" ..\..\Combined</PostBuildEvent>
   </PropertyGroup>
   <!--

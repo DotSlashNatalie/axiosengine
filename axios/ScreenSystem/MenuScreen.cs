@@ -23,11 +23,11 @@ namespace GameStateManagement
     /// Base class for screens that contain a menu of options. The user can
     /// move up and down to select an entry, or cancel to back out of the screen.
     /// </summary>
-    abstract class MenuScreen : GameScreen
+    public class MenuScreen : GameScreen
     {
         #region Fields
 
-        List<MenuEntry> menuEntries = new List<MenuEntry>();
+        private List<MenuEntry> menuEntries = new List<MenuEntry>();
         int selectedEntry = 0;
         string menuTitle;
 
@@ -86,6 +86,12 @@ namespace GameStateManagement
 
 
         #endregion
+
+        public void AddMenuItem(string name)
+        {
+
+            menuEntries.Add(new MenuEntry(name));
+        }
 
         #region Handle Input
 

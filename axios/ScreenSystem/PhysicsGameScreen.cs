@@ -185,7 +185,8 @@ namespace GameStateManagement
                 HandleCursor(input);
             }
 
-            if (input.IsNewButtonPress(Buttons.Back) || input.IsNewKeyPress(Keys.Escape))
+            PlayerIndex i;
+            if (input.IsNewButtonPress(Buttons.Back, PlayerIndex.One, out i) || input.IsNewKeyPress(Keys.Escape, PlayerIndex.One, out i))
             {
                 if (this.ScreenState == GameStateManagement.ScreenState.Active && this.TransitionPosition == 0 && this.TransitionAlpha == 1)
                 { //Give the screens a chance to transition
@@ -195,7 +196,7 @@ namespace GameStateManagement
 
                 }
             }
-            base.HandleInput(input, gameTime);
+            base.HandleInput(gameTime, input);
         }
 
         public virtual void HandleCursor(InputState input)
@@ -203,7 +204,7 @@ namespace GameStateManagement
             PlayerIndex player;
             Vector2 position = Camera.ConvertScreenToWorld(input.Cursor);
 
-            if ((input.IsNewButtonPress(Buttons.A) ||
+            if ((input.IsNewButtonPress(Buttons.A, PlayerIndex.One, out player) ||
                     input.IsNewMouseButtonPress(MouseButtons.LeftButton)) &&
                 _fixedMouseJoint == null)
             {
@@ -220,7 +221,7 @@ namespace GameStateManagement
 
             
             if ((input.IsNewButtonRelease(Buttons.A, ControllingPlayer.Value, out player) ||
-                    input.IsNewMouseButtonRelease(MouseButtons.LeftButton, ControllingPlayer.Value, out player)) &&
+                    input.IsNewMouseButtonRelease(MouseButtons.LeftButton)) &&
                 _fixedMouseJoint != null)
             {
                 World.RemoveJoint(_fixedMouseJoint);
@@ -234,32 +235,32 @@ namespace GameStateManagement
             
         }
 
-        private void HandleCamera(InputHelper input, GameTime gameTime)
+        private void HandleCamera(InputState input, GameTime gameTime)
         {
             Vector2 camMove = Vector2.Zero;
 
 
-            if (input.KeyboardState.IsKeyDown(Keys.Up))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.Up))
             {
                 camMove.Y -= 10f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if (input.KeyboardState.IsKeyDown(Keys.Down))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.Down))
             {
                 camMove.Y += 10f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if (input.KeyboardState.IsKeyDown(Keys.Left))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.Left))
             {
                 camMove.X -= 10f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if (input.KeyboardState.IsKeyDown(Keys.Right))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.Right))
             {
                 camMove.X += 10f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if (input.KeyboardState.IsKeyDown(Keys.PageUp))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.PageUp))
             {
                 Camera.Zoom += 5f * (float)gameTime.ElapsedGameTime.TotalSeconds * Camera.Zoom / 20f;
             }
-            if (input.KeyboardState.IsKeyDown(Keys.PageDown))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.PageDown))
             {
                 Camera.Zoom -= 5f * (float)gameTime.ElapsedGameTime.TotalSeconds * Camera.Zoom / 20f;
             }
@@ -267,19 +268,20 @@ namespace GameStateManagement
             {
                 Camera.MoveCamera(camMove);
             }
-            if (input.IsNewKeyPress(Keys.Home))
+            PlayerIndex i;
+            if (input.IsNewKeyPress(Keys.Home, PlayerIndex.One, out i))
             {
                 Camera.ResetCamera();
             }
 
         }
 
-        private void HandleUserAgent(InputHelper input)
+        private void HandleUserAgent(InputState input)
         {
 
-            Vector2 force = _agentForce * new Vector2(input.GamePadState.ThumbSticks.Right.X,
-                                                      -input.GamePadState.ThumbSticks.Right.Y);
-            float torque = _agentTorque * (input.GamePadState.Triggers.Right - input.GamePadState.Triggers.Left);
+            Vector2 force = _agentForce * new Vector2(input.CurrentGamePadStates[0].ThumbSticks.Right.X,
+                                                      -input.CurrentGamePadStates[0].ThumbSticks.Right.Y);
+            float torque = _agentTorque * (input.CurrentGamePadStates[0].Triggers.Right - input.CurrentGamePadStates[0].Triggers.Left);
 
             _userAgent.ApplyForce(force);
             _userAgent.ApplyTorque(torque);
@@ -289,27 +291,27 @@ namespace GameStateManagement
             force = Vector2.Zero;
             torque = 0;
 
-            if (input.KeyboardState.IsKeyDown(Keys.A))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.A))
             {
                 force += new Vector2(-forceAmount, 0);
             }
-            if (input.KeyboardState.IsKeyDown(Keys.S))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.S))
             {
                 force += new Vector2(0, forceAmount);
             }
-            if (input.KeyboardState.IsKeyDown(Keys.D))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.D))
             {
                 force += new Vector2(forceAmount, 0);
             }
-            if (input.KeyboardState.IsKeyDown(Keys.W))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.W))
             {
                 force += new Vector2(0, -forceAmount);
             }
-            if (input.KeyboardState.IsKeyDown(Keys.Q))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.Q))
             {
                 torque -= _agentTorque;
             }
-            if (input.KeyboardState.IsKeyDown(Keys.E))
+            if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.E))
             {
                 torque += _agentTorque;
             }

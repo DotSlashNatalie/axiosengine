@@ -139,11 +139,11 @@ namespace GameStateManagement
         protected override void LoadContent()
         {
             // Load content belonging to the screen manager.
-            ContentManager content = Game.Content;
-
+            ContentManager content = new ContentManager(this.Game.Services, "Content/Fonts");
+            _spriteFonts = new SpriteFonts(content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = content.Load<SpriteFont>("menufont");
-            blankTexture = content.Load<Texture2D>("blank");
+            blankTexture = Game.Content.Load<Texture2D>("Materials/blank");
 
             // Tell each of the screens to load their content.
             foreach (GameScreen screen in screens)
@@ -177,7 +177,7 @@ namespace GameStateManagement
         public override void Update(GameTime gameTime)
         {
             // Read the keyboard and gamepad.
-            input.Update();
+            input.Update(gameTime);
 
             // Make a copy of the master screen list, to avoid confusion if
             // the process of updating one screen adds or removes others.

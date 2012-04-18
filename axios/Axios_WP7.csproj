@@ -235,6 +235,7 @@
     <Reference Include="System.Core" />
     <Reference Include="system.data.linq, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.Serialization, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -243,7 +244,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist "$(TargetPath)" ..\..\Combined mkdir "$(TargetPath)" ..\..\Combined
+    <PostBuildEvent>if not exist "$(TargetDir)"..\..\Combined mkdir "$(TargetDir)"..\..\Combined
 copy "$(TargetPath)" ..\..\Combined</PostBuildEvent>
   </PropertyGroup>
   <!--

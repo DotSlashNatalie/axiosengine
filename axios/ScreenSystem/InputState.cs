@@ -432,6 +432,28 @@ namespace GameStateManagement
             }
         }
 
+        public bool IsNewKeyRelease(Keys key, PlayerIndex? controllingPlayer, out PlayerIndex playerIndex)
+        {
+            if (controllingPlayer.HasValue)
+            {
+                // Read input from the specified player.
+                playerIndex = controllingPlayer.Value;
+
+                int i = (int)playerIndex;
+
+                return (CurrentKeyboardStates[i].IsKeyUp(key) &&
+                        LastKeyboardStates[i].IsKeyDown(key));
+            }
+            else
+            {
+                // Accept input from any player.
+                return (IsNewKeyRelease(key, PlayerIndex.One, out playerIndex) ||
+                        IsNewKeyRelease(key, PlayerIndex.Two, out playerIndex) ||
+                        IsNewKeyRelease(key, PlayerIndex.Three, out playerIndex) ||
+                        IsNewKeyRelease(key, PlayerIndex.Four, out playerIndex));
+            }
+        }
+
 
         /// <summary>
         /// Helper for checking if a button was newly pressed during this update.
@@ -458,6 +480,28 @@ namespace GameStateManagement
                         IsNewButtonPress(button, PlayerIndex.Two, out playerIndex) ||
                         IsNewButtonPress(button, PlayerIndex.Three, out playerIndex) ||
                         IsNewButtonPress(button, PlayerIndex.Four, out playerIndex));
+            }
+        }
+
+        public bool IsNewButtonRelease(Buttons button, PlayerIndex? controllingPlayer, out PlayerIndex playerIndex)
+        {
+            if (controllingPlayer.HasValue)
+            {
+                // Read input from the specified player.
+                playerIndex = controllingPlayer.Value;
+
+                int i = (int)playerIndex;
+
+                return (CurrentGamePadStates[i].IsButtonUp(button) &&
+                        LastGamePadStates[i].IsButtonDown(button));
+            }
+            else
+            {
+                // Accept input from any player.
+                return (IsNewButtonRelease(button, PlayerIndex.One, out playerIndex) ||
+                        IsNewButtonRelease(button, PlayerIndex.Two, out playerIndex) ||
+                        IsNewButtonRelease(button, PlayerIndex.Three, out playerIndex) ||
+                        IsNewButtonRelease(button, PlayerIndex.Four, out playerIndex));
             }
         }
 

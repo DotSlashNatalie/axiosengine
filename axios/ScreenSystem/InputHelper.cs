@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using FarseerPhysics.SamplesFramework;
 using GameStateManagement;
 
-namespace FarseerPhysics.SamplesFramework
+namespace FarseerPhysics.SamplesFramework2
 {
     /// <summary>
     ///   an enum of all available mouse buttons.
@@ -147,13 +149,13 @@ namespace FarseerPhysics.SamplesFramework
         public void LoadContent()
         {
             
-            _cursorSprite = new Sprite(_manager.Content.Load<Texture2D>("Common/cursor"));
+            _cursorSprite = new Sprite(_manager.Game.Content.Load<Texture2D>("Common/cursor"));
 #if WINDOWS_PHONE
             // virtual stick content
-            _phoneStick = new VirtualStick(_manager.Content.Load<Texture2D>("Common/socket"),
-                                           _manager.Content.Load<Texture2D>("Common/stick"), new Vector2(80f, 400f));
+            _phoneStick = new VirtualStick(_manager.Game.Content.Load<Texture2D>("Common/socket"),
+                                           _manager.Game.Content.Load<Texture2D>("Common/stick"), new Vector2(80f, 400f));
 
-            Texture2D temp = _manager.Content.Load<Texture2D>("Common/buttons");
+            Texture2D temp = _manager.Game.Content.Load<Texture2D>("Common/buttons");
             _phoneA = new VirtualButton(temp, new Vector2(695f, 380f), new Rectangle(0, 0, 40, 40), new Rectangle(0, 40, 40, 40));
             _phoneB = new VirtualButton(temp, new Vector2(745f, 360f), new Rectangle(40, 0, 40, 40), new Rectangle(40, 40, 40, 40));
 #endif

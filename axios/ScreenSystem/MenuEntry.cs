@@ -22,7 +22,7 @@ namespace GameStateManagement
     /// entries in different ways. This also provides an event that will be raised
     /// when the menu entry is selected.
     /// </summary>
-    class MenuEntry
+    public class MenuEntry
     {
         #region Fields
 

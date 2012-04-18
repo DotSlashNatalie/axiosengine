@@ -35,6 +35,12 @@ namespace GameStateManagement
     /// </summary>
     public abstract class GameScreen
     {
+
+        public GameScreen()
+        {
+            HasVirtualStick = false;
+            HasCursor = false;
+        }
         protected bool HasCursor = false;
         /// <summary>
         /// Normally when one screen is brought up over the top of another,
@@ -50,7 +56,7 @@ namespace GameStateManagement
         }
 
         bool isPopup = false;
-
+        public bool HasVirtualStick { get; set; }
 
         /// <summary>
         /// Indicates how long the screen takes to
