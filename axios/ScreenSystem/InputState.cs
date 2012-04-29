@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace GameStateManagement
 {
@@ -244,11 +245,32 @@ namespace GameStateManagement
             return new GamePadState(_stick, Vector2.Zero, 0f, 0f, _buttons.ToArray());
         }
 
+        public void Draw()
+        {
+            if (_cursorIsVisible && _cursorIsValid)
+            {
+                _manager.SpriteBatch.Begin();
+                _manager.SpriteBatch.Draw(_cursorSprite.Texture, _cursor, null, Color.White, 0f, _cursorSprite.Origin, 1f, SpriteEffects.None, 0f);
+                _manager.SpriteBatch.End();
+            }
+#if WINDOWS_PHONE
+            if (_handleVirtualStick)
+            {
+                _manager.SpriteBatch.Begin();
+                _phoneA.Draw(_manager.SpriteBatch);
+                _phoneB.Draw(_manager.SpriteBatch);
+                _phoneStick.Draw(_manager.SpriteBatch);
+                _manager.SpriteBatch.End();
+            }
+#endif
+        }
+
         /// <summary>
         /// Reads the latest state user input.
         /// </summary>
         public void Update(GameTime gameTime)
         {
+            PlayerIndex p;
             _lastMouseState = _currentMouseState;
             if (_handleVirtualStick)
             {
@@ -297,8 +319,10 @@ namespace GameStateManagement
             Gestures.Clear();
             while (TouchPanel.IsGestureAvailable)
             {
+                //System.Diagnostics.Debugger.Break();
                 Gestures.Add(TouchPanel.ReadGesture());
             }
+            //System.Diagnostics.Debugger.Break();
 
             // Update cursor
             Vector2 oldCursor = _cursor;
@@ -314,8 +338,15 @@ namespace GameStateManagement
                 _cursor.X = _currentMouseState.X;
                 _cursor.Y = _currentMouseState.Y;
             }
+
+            if (this.IsNewKeyPress(Keys.P, PlayerIndex.One, out p))
+                Console.WriteLine(_cursor.ToString());
+
             _cursor.X = MathHelper.Clamp(_cursor.X, 0f, _viewport.Width);
             _cursor.Y = MathHelper.Clamp(_cursor.Y, 0f, _viewport.Height);
+
+            if (this.IsNewKeyPress(Keys.P, PlayerIndex.One, out p))
+                Console.WriteLine(_cursor.ToString());
 
             if (_cursorIsValid && oldCursor != _cursor)
             {
@@ -345,6 +376,9 @@ namespace GameStateManagement
                 _cursorIsValid = false;
             }
 #endif
+            
+            if (this.IsNewKeyPress(Keys.P, PlayerIndex.One, out p))
+                Console.WriteLine(_viewport.ToString());
         }
 
 

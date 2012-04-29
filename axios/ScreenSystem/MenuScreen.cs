@@ -27,6 +27,9 @@ namespace GameStateManagement
     {
         #region Fields
 
+        // the number of pixels to pad above and below menu entries for touch input
+        const int menuEntryPadding = 10;
+
         private List<MenuEntry> menuEntries = new List<MenuEntry>();
         int selectedEntry = 0;
         string menuTitle;
@@ -62,6 +65,8 @@ namespace GameStateManagement
         public MenuScreen(string menuTitle)
         {
             this.menuTitle = menuTitle;
+            // menus generally only need Tap for menu selection
+            EnabledGestures = GestureType.Tap;
 
             TransitionOnTime = TimeSpan.FromSeconds(0.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -95,6 +100,19 @@ namespace GameStateManagement
 
         #region Handle Input
 
+        /// <summary>
+        /// Allows the screen to create the hit bounds for a particular menu entry.
+        /// </summary>
+        protected virtual Rectangle GetMenuEntryHitBounds(MenuEntry entry)
+        {
+            // the hit bounds are the entire width of the screen, and the height of the entry
+            // with some additional padding above and below.
+            return new Rectangle(
+                0,
+                (int)entry.Position.Y - menuEntryPadding,
+                ScreenManager.GraphicsDevice.Viewport.Width,
+                entry.GetHeight(this) + (menuEntryPadding * 2));
+        }
 
         /// <summary>
         /// Responds to user input, changing the selected entry and accepting
@@ -107,8 +125,10 @@ namespace GameStateManagement
             // If we pass a null controlling player, the InputState helper returns to
             // us which player actually provided the input. We pass that through to
             // OnSelectEntry and OnCancel, so they can tell which player triggered them.
-            PlayerIndex playerIndex;
+            
 
+#if WINDOWS || XBOX360
+            PlayerIndex playerIndex;
             // Move to the previous menu entry?
             if (menuUp.Evaluate(input, ControllingPlayer, out playerIndex))
             {
@@ -135,6 +155,42 @@ namespace GameStateManagement
             {
                 OnCancel(playerIndex);
             }
+#endif
+
+#if WINDOWS_PHONE
+            //selectedEntry = 1;
+
+            PlayerIndex player;
+            if (input.IsNewButtonPress(Buttons.Back, ControllingPlayer, out player))
+            {
+                OnCancel(player);
+            }
+
+            // look for any taps that occurred and select any entries that were tapped
+            foreach (GestureSample gesture in input.Gestures)
+            {
+                //System.Diagnostics.Debugger.Break();
+                if (gesture.GestureType == GestureType.Tap)
+                {
+                    // convert the position to a Point that we can test against a Rectangle
+                    Point tapLocation = new Point((int)gesture.Position.X, (int)gesture.Position.Y);
+
+                    // iterate the entries to see if any were tapped
+                    for (int i = 0; i < menuEntries.Count; i++)
+                    {
+                        MenuEntry menuEntry = menuEntries[i];
+
+                        if (GetMenuEntryHitBounds(menuEntry).Contains(tapLocation))
+                        {
+                            // select the entry. since gestures are only available on Windows Phone,
+                            // we can safely pass PlayerIndex.One to all entries since there is only
+                            // one player on Windows Phone.
+                            OnSelectEntry(i, PlayerIndex.One);
+                        }
+                    }
+                }
+            }
+#endif
         }
 
 

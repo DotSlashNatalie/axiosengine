@@ -144,7 +144,7 @@ namespace GameStateManagement
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = content.Load<SpriteFont>("menufont");
             blankTexture = Game.Content.Load<Texture2D>("Materials/blank");
-
+            input.LoadContent();
             // Tell each of the screens to load their content.
             foreach (GameScreen screen in screens)
             {
@@ -207,6 +207,8 @@ namespace GameStateManagement
                     // give it a chance to handle input.
                     if (!otherScreenHasFocus)
                     {
+                        input.ShowCursor = screen.HasCursor;
+                        input.EnableVirtualStick = screen.HasVirtualStick;
                         screen.HandleInput(gameTime, input);
 
                         otherScreenHasFocus = true;
@@ -244,6 +246,7 @@ namespace GameStateManagement
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
+            
             foreach (GameScreen screen in screens)
             {
                 if (screen.ScreenState == ScreenState.Hidden)
@@ -251,6 +254,7 @@ namespace GameStateManagement
 
                 screen.Draw(gameTime);
             }
+            input.Draw();
         }
 
 
