@@ -1,5 +1,6 @@
 ﻿using System;
 using FarseerPhysics.SamplesFramework;
+using GameStateManagement;
 
 namespace Axios.Engine
 {
@@ -19,45 +20,45 @@ namespace Axios.Engine
             }
         }
 
-        public delegate void AxiosHandler(object sender, AxiosGameScreen gameScreen, InputHelper input);
+        public delegate void AxiosHandler(object sender, AxiosGameScreen gameScreen, InputState input);
         
         public delegate void AxiosGameObjectHandler(AxiosGameObject sender);
 
         #region GameObjectEventMethods
 
-        public virtual void OnFocusEnter(AxiosGameScreen gameScreen, InputHelper input)
+        public virtual void OnFocusEnter(AxiosGameScreen gameScreen, InputState input)
         {
             this.HasFocus = true;
             this.OnEvent(FocusEnter, gameScreen, input);
         }
 
-        public virtual void OnFocusLeave(AxiosGameScreen gameScreen, InputHelper input)
+        public virtual void OnFocusLeave(AxiosGameScreen gameScreen, InputState input)
         {
             this.HasFocus = false;
             this.OnEvent(FocusLeave, gameScreen, input);
         }
 
-        public virtual void OnMouseHover(AxiosGameScreen gameScreen, InputHelper input)
+        public virtual void OnMouseHover(AxiosGameScreen gameScreen, InputState input)
         {
             this.OnEvent(MouseHover, gameScreen, input);
         }
 
-        public virtual void OnMouseLeave(AxiosGameScreen gameScreen, InputHelper input)
+        public virtual void OnMouseLeave(AxiosGameScreen gameScreen, InputState input)
         {
             this.OnEvent(MouseLeave, gameScreen, input);
         }
 
-        public virtual void OnValueChange(AxiosGameScreen gameScreen, InputHelper input)
+        public virtual void OnValueChange(AxiosGameScreen gameScreen, InputState input)
         {
             this.OnEvent(ValueChange, gameScreen, input);
         }
 
-        public virtual void OnMouseDown(AxiosGameScreen gameScreen, InputHelper input)
+        public virtual void OnMouseDown(AxiosGameScreen gameScreen, InputState input)
         {
             this.OnEvent(MouseDown, gameScreen, input);
         }
 
-        public virtual void OnMouseUp(AxiosGameScreen gameScreen, InputHelper input)
+        public virtual void OnMouseUp(AxiosGameScreen gameScreen, InputState input)
         {
             this.OnEvent(MouseUp, gameScreen, input);
         }
@@ -68,7 +69,7 @@ namespace Axios.Engine
                 this.ScaleChanged(gameObject);
         }
 
-        private void OnEvent(AxiosHandler e, AxiosGameScreen gameScreen, InputHelper input)
+        private void OnEvent(AxiosHandler e, AxiosGameScreen gameScreen, InputState input)
         {
             AxiosHandler handle = e;
             if (handle != null)

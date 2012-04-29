@@ -2,6 +2,7 @@
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework;
+using GameStateManagement;
 
 namespace Axios.Engine
 {
@@ -46,12 +47,12 @@ namespace Axios.Engine
 
         }
 
-        public virtual void HandleInput(AxiosGameScreen gameScreen, InputHelper input, GameTime gameTime)
+        public virtual void HandleInput(AxiosGameScreen gameScreen, InputState input, GameTime gameTime)
         {
 
         }
 
-        public virtual void HandleCursor(AxiosGameScreen gameScreen, InputHelper input)
+        public virtual void HandleCursor(AxiosGameScreen gameScreen, InputState input)
         {
 
         }

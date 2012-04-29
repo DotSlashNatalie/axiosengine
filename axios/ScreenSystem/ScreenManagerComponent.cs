@@ -3,9 +3,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using FarseerPhysics.SamplesFramework;
 
-namespace FarseerPhysics.SamplesFramework
+namespace GameStateManagement
 {
+    /*
     /// <summary>
     /// The screen manager is a component which manages one or more GameScreen
     /// instances. It maintains a stack of screens, calls their Update and Draw
@@ -299,5 +301,5 @@ namespace FarseerPhysics.SamplesFramework
         {
             return _screens.ToArray();
         }
-    }
+    }*/
 }

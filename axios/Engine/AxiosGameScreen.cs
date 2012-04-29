@@ -8,7 +8,9 @@ using Axios.Engine.UI;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using GameStateManagement;
 
 namespace Axios.Engine
 {
@@ -158,19 +160,16 @@ namespace Axios.Engine
             AxiosLog.Instance.AddLine("Memory usage after cleanup: ", LoggingFlag.DEBUG);
         }
 
-        public override void ExitScreen()
+        public override void Activate(bool instancePreserved)
         {
-            base.ExitScreen();
-
-        }
-
-        public override void LoadContent()
-        {
-            base.LoadContent();
+            base.Activate(instancePreserved);
 
 #if DEBUG
             if (!Axios.Settings.ScreenSaver)
-                this.DebugSpriteFont = this.ScreenManager.Content.Load<SpriteFont>(this.DebugTextFont);
+            {
+                ContentManager man = new ContentManager(ScreenManager.Game.Services, "Content");
+                this.DebugSpriteFont = man.Load<SpriteFont>(this.DebugTextFont);
+            }
 #endif
         }
 
@@ -211,7 +210,7 @@ namespace Axios.Engine
             
         }
 
-        public override void HandleCursor(InputHelper input)
+        public override void HandleCursor(InputState input)
         {
             base.HandleCursor(input);
             HandleMouseEvents(input);
@@ -220,7 +219,7 @@ namespace Axios.Engine
                 g.HandleCursor(this, input);
         }
 
-        private void HandleMouseEvents(InputHelper input)
+        private void HandleMouseEvents(InputState input)
         {
             Vector2 position = this.Camera.ConvertScreenToWorld(input.Cursor);
             Fixture fix = this.World.TestPoint(position);
@@ -335,9 +334,9 @@ namespace Axios.Engine
             }
         }
 
-        public override void HandleInput(InputHelper input, GameTime gameTime)
+        public override void HandleInput(GameTime gameTime, InputState input)
         {
-            base.HandleInput(input, gameTime);
+            base.HandleInput(gameTime, input);
 
             foreach (AxiosGameObject g in _gameObjects.ToList())
                 g.HandleInput(this, input, gameTime);
@@ -346,9 +345,9 @@ namespace Axios.Engine
                 g.HandleInput(this, input, gameTime);
         }
 
-        public override void UnloadContent()
+        public override void Deactivate()
         {
-            base.UnloadContent();
+            base.Deactivate();
             //AxiosLog.Instance.AddLine("Memory usage before cleanup: " + GC.GetTotalMemory(true).ToString(), LoggingFlag.DEBUG);
             foreach (AxiosGameObject g in _gameObjects)
                 g.UnloadContent(this);

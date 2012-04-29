@@ -2,6 +2,7 @@
 
 using Axios.Engine.Interfaces;
 using Microsoft.Xna.Framework;
+using GameStateManagement;
 
 namespace Axios.Engine
 {
@@ -66,12 +67,12 @@ namespace Axios.Engine
             
         }
 
-        public override void HandleInput(AxiosGameScreen gameScreen, FarseerPhysics.SamplesFramework.InputHelper input, Microsoft.Xna.Framework.GameTime gameTime)
+        public override void HandleInput(AxiosGameScreen gameScreen, InputState input, Microsoft.Xna.Framework.GameTime gameTime)
         {
             
         }
 
-        public override void HandleCursor(AxiosGameScreen gameScreen, FarseerPhysics.SamplesFramework.InputHelper input)
+        public override void HandleCursor(AxiosGameScreen gameScreen, InputState input)
         {
             
         }

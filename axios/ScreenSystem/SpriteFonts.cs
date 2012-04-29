@@ -11,9 +11,9 @@ namespace FarseerPhysics.SamplesFramework
 
         public SpriteFonts(ContentManager contentManager)
         {
-            MenuSpriteFont = contentManager.Load<SpriteFont>("Fonts/menuFont");
-            FrameRateCounterFont = contentManager.Load<SpriteFont>("Fonts/frameRateCounterFont");
-            DetailsFont = contentManager.Load<SpriteFont>("Fonts/detailsFont");
+            MenuSpriteFont = contentManager.Load<SpriteFont>("menuFont");
+            FrameRateCounterFont = contentManager.Load<SpriteFont>("frameRateCounterFont");
+            DetailsFont = contentManager.Load<SpriteFont>("detailsFont");
         }
     }
 }
