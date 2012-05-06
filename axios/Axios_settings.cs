@@ -67,6 +67,8 @@
  * 
  * 1.0.1.5 - 5/5/2012
  * - Adding SplitFlat extension for Texture2D
+ * - Removing uneeded Game Screen checking code
+ * - Adding SplitFlat extension with offsets for Texture2D
  * 
  */
 
