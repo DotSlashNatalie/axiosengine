@@ -62,6 +62,12 @@
  * 1.0.1.3 - 4/7/2012
  * - Adding a check in the AxiosTimer update to only tick if the game is active
  * 
+ * 1.0.1.4 - 4/27/2012
+ * - Merging the new GSM
+ * 
+ * 1.0.1.5 - 5/5/2012
+ * - Adding SplitFlat extension for Texture2D
+ * 
  */
 
 using System.Reflection;
