@@ -188,13 +188,12 @@ namespace GameStateManagement
             PlayerIndex i;
             if (input.IsNewButtonPress(Buttons.Back, PlayerIndex.One, out i) || input.IsNewKeyPress(Keys.Escape, PlayerIndex.One, out i))
             {
-                if (this.ScreenState == GameStateManagement.ScreenState.Active && this.TransitionPosition == 0 && this.TransitionAlpha == 1)
-                { //Give the screens a chance to transition
-
+                //if (this.ScreenState == GameStateManagement.ScreenState.Active && this.TransitionPosition == 0 && this.TransitionAlpha == 1)
+                //{ //Give the screens a chance to transition
                     CleanUp();
                     ExitScreen();
 
-                }
+                //}
             }
             base.HandleInput(gameTime, input);
         }
