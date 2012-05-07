@@ -172,6 +172,7 @@
     <Compile Include="Engine\File\AxiosIsolatedFile.cs" />
     <Compile Include="Engine\File\AxiosRegularFile.cs" />
     <Compile Include="Engine\File\AxiosTitleFile.cs" />
+    <Compile Include="Engine\Glee2D\Level.cs" />
     <Compile Include="Engine\Interfaces\IAxiosFile.cs" />
     <Compile Include="Engine\Interfaces\IAxiosGameObject.cs" />
     <Compile Include="Engine\Interfaces\IDrawableAxiosGameObject.cs" />
