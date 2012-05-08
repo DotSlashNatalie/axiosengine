@@ -1,0 +1,54 @@
+Axios Engine
+============
+
+Axios Engine is an open source 2D XNA Game Engine.
+
+Mission Statement
+-----------------
+
+To create an open source game engine that thrives on simplicity without sacrificing usability.
+
+Supported Platforms
+-------------------
+
+- Windows 7
+- Windows Phone 7
+- Xbox 360
+
+Documentation
+-------------
+
+Official wiki:
+http://wiki.axiosengine.com/
+
+Build Instructions
+------------------
+
+Open the solution and hit build. DLLs for each platform will be put into the "Combined" folder.
+
+Where can I download pre-built DLLs?
+-------------------
+
+Official versions can be downloaded here:
+
+     http://code.google.com/p/axiosengine/downloads/list
+	
+Of course you can always build from source from:
+
+     http://code.google.com/p/axiosengine/source/checkout
+	 
+Authors
+-------
+
+General questions/comments/concerns can be directed at:
+Nathan Adams - adamsna[at]datanethost.net
+	 
+Copyright and License Information
+---------------------------------
+
+Axios - See Axios License.txt
+- Written by Nathan Adams and released under the Apache License
+
+Farseer - See Farseer License.txt
+
+Glee2D - See Glee2D License.txt

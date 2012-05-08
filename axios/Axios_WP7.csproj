@@ -172,7 +172,14 @@
     <Compile Include="Engine\File\AxiosIsolatedFile.cs" />
     <Compile Include="Engine\File\AxiosRegularFile.cs" />
     <Compile Include="Engine\File\AxiosTitleFile.cs" />
+    <Compile Include="Engine\Glee2D\CircleItem.cs" />
+    <Compile Include="Engine\Glee2D\CustomProperty.cs" />
+    <Compile Include="Engine\Glee2D\Item.cs" />
+    <Compile Include="Engine\Glee2D\Layer.cs" />
     <Compile Include="Engine\Glee2D\Level.cs" />
+    <Compile Include="Engine\Glee2D\PathItem.cs" />
+    <Compile Include="Engine\Glee2D\RectangleItem.cs" />
+    <Compile Include="Engine\Glee2D\TextureItem.cs" />
     <Compile Include="Engine\Interfaces\IAxiosFile.cs" />
     <Compile Include="Engine\Interfaces\IAxiosGameObject.cs" />
     <Compile Include="Engine\Interfaces\IDrawableAxiosGameObject.cs" />
