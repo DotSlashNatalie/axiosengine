@@ -77,7 +77,7 @@ namespace Axios.Engine.Glee2D
         /// You must provide your own implementation. However, you can rely on all public fields being
         /// filled by the level deserialization process.
         /// </summary>
-        public override void load(ContentManager cm, World world)
+        public override void load(ContentManager cm, World world, ref Dictionary<string, Texture2D> cache)
         {
             //throw new NotImplementedException();
 
@@ -85,7 +85,12 @@ namespace Axios.Engine.Glee2D
             //for example:
             //this.texture = Texture2D.FromFile(<GraphicsDevice>, texture_filename);
             //or by using the Content Pipeline:
-            this.texture = cm.Load<Texture2D>(asset_name);
+            if (!cache.ContainsKey(asset_name))
+            {
+                cache[asset_name] = cm.Load<Texture2D>(asset_name);   
+            }
+            this.texture = cache[asset_name];
+            //this.texture = cm.Load<Texture2D>(asset_name);
 
         }
 

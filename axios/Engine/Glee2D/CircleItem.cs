@@ -23,9 +23,9 @@ namespace Axios.Engine.Glee2D
         {
         }
 
-        public override void load(ContentManager cm, World world)
+        public override void load(ContentManager cm, World world, ref Dictionary<string, Texture2D> cache)
         {
-            base.load(cm, world);
+            base.load(cm, world, ref cache);
 
             _body = BodyFactory.CreateCircle(world, Radius, 1f);
             _body.Position = Position;

@@ -38,12 +38,15 @@ namespace Axios.Engine.Glee2D
         /// </summary>
         public SerializableDictionary CustomProperties;
 
+        private Dictionary<string, Texture2D> _texturecache;
+
 
         public Level()
         {
             Visible = true;
             Layers = new List<Layer>();
             CustomProperties = new SerializableDictionary();
+            _texturecache = new Dictionary<string, Texture2D>();
         }
         
         public Level(World world)
@@ -52,9 +55,10 @@ namespace Axios.Engine.Glee2D
             Layers = new List<Layer>();
             CustomProperties = new SerializableDictionary();
             _world = world;
+            _texturecache = new Dictionary<string, Texture2D>();
         }
 
-        public static Level FromFile(string filename, ContentManager cm, World world)
+        public static Level FromFile(string filename, ContentManager cm, World world, ref Dictionary<string, Texture2D> cache)
         {
             FileStream stream = System.IO.File.Open(filename, FileMode.Open);
             XmlSerializer serializer = new XmlSerializer(typeof(Level));
@@ -66,7 +70,7 @@ namespace Axios.Engine.Glee2D
                 foreach (Item item in layer.Items)
                 {
                     item.CustomProperties.RestoreItemAssociations(level);
-                    item.load(cm, world);
+                    item.load(cm, world, ref cache);
                 }
             }
 

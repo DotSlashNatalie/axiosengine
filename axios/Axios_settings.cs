@@ -69,7 +69,9 @@
  * - Adding SplitFlat extension for Texture2D
  * - Removing uneeded Game Screen checking code
  * - Adding SplitFlat extension with offsets for Texture2D
- * - Adding support for Glee2D
+ * - Adding support for Gleed2D
+ * - Splitting the code for Gleed2D into seperate files
+ * - Adding a cache for loading in textures for Gleed2D
  * 
  */
 

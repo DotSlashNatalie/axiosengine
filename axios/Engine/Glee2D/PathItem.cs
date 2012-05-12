@@ -26,9 +26,9 @@ namespace Axios.Engine.Glee2D
         {
         }
 
-        public override void load(ContentManager cm, World world)
+        public override void load(ContentManager cm, World world, ref Dictionary<string, Texture2D> cache)
         {
-            base.load(cm, world);
+            base.load(cm, world, ref cache);
 
             Vertices v = new Vertices(WorldPoints.Length);
             foreach (Vector2 vec in WorldPoints)
