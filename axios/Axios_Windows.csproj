@@ -215,14 +215,14 @@
     <Compile Include="Engine\File\AxiosIsolatedFile.cs" />
     <Compile Include="Engine\File\AxiosRegularFile.cs" />
     <Compile Include="Engine\File\AxiosTitleFile.cs" />
-    <Compile Include="Engine\Glee2D\CircleItem.cs" />
-    <Compile Include="Engine\Glee2D\CustomProperty.cs" />
-    <Compile Include="Engine\Glee2D\Item.cs" />
-    <Compile Include="Engine\Glee2D\Layer.cs" />
-    <Compile Include="Engine\Glee2D\Level.cs" />
-    <Compile Include="Engine\Glee2D\PathItem.cs" />
-    <Compile Include="Engine\Glee2D\RectangleItem.cs" />
-    <Compile Include="Engine\Glee2D\TextureItem.cs" />
+    <Compile Include="Engine\Gleed2D\CircleItem.cs" />
+    <Compile Include="Engine\Gleed2D\CustomProperty.cs" />
+    <Compile Include="Engine\Gleed2D\Item.cs" />
+    <Compile Include="Engine\Gleed2D\Layer.cs" />
+    <Compile Include="Engine\Gleed2D\Level.cs" />
+    <Compile Include="Engine\Gleed2D\PathItem.cs" />
+    <Compile Include="Engine\Gleed2D\RectangleItem.cs" />
+    <Compile Include="Engine\Gleed2D\TextureItem.cs" />
     <Compile Include="Engine\Interfaces\IAxiosFile.cs" />
     <Compile Include="Engine\Interfaces\IAxiosGameObject.cs" />
     <Compile Include="Engine\Interfaces\IDrawableAxiosGameObject.cs" />
@@ -277,7 +277,9 @@
   <ItemGroup>
     <None Include="AxiosEngine.cd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Engine\Glee2D\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>
