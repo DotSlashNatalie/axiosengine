@@ -72,6 +72,7 @@
  * - Adding support for Gleed2D
  * - Splitting the code for Gleed2D into seperate files
  * - Adding a cache for loading in textures for Gleed2D
+ * - Adding GetStream(FileMode) to get the stream of a file
  * 
  */
 

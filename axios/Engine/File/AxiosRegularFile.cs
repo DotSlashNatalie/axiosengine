@@ -36,5 +36,11 @@ namespace Axios.Engine.File
             sr.Close();
             return ret;
         }
+
+        public override FileStream GetStream(FileMode mode)
+        {
+            FileStream fs = new FileStream(_filename, mode);
+            return fs;
+        }
     }
 }
