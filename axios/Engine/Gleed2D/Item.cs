@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using FarseerPhysics.Dynamics;
 
-namespace Axios.Engine.Glee2D
+namespace Axios.Engine.Gleed2D
 {
     [XmlInclude(typeof(TextureItem))]
     [XmlInclude(typeof(RectangleItem))]

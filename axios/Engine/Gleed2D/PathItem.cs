@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace Axios.Engine.Glee2D
+namespace Axios.Engine.Gleed2D
 {
     public partial class PathItem : Item
     {

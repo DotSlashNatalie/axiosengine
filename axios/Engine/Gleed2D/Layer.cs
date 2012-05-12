@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace Axios.Engine.Glee2D
+namespace Axios.Engine.Gleed2D
 {
     public partial class Layer
     {

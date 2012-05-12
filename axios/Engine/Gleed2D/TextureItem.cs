@@ -13,7 +13,7 @@ using FarseerPhysics.Common;
 using FarseerPhysics.SamplesFramework;
 using FarseerPhysics.Factories;
 
-namespace Axios.Engine.Glee2D
+namespace Axios.Engine.Gleed2D
 {
     public partial class TextureItem : Item
     {
