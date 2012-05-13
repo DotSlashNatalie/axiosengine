@@ -29,7 +29,7 @@ namespace Axios.Engine.Gleed2D
             base.load(cm, world, ref cache);
 
             _body = BodyFactory.CreateRectangle(world, Width, Height, 1f);
-            _body.Position = Position;
+            _body.Position = ConvertUnits.ToSimUnits(Position);
             _body.UserData = this;
         }
     }

@@ -172,6 +172,7 @@
     <Compile Include="Engine\File\AxiosIsolatedFile.cs" />
     <Compile Include="Engine\File\AxiosRegularFile.cs" />
     <Compile Include="Engine\File\AxiosTitleFile.cs" />
+    <Compile Include="Engine\Gleed2D\Camera.cs" />
     <Compile Include="Engine\Gleed2D\CircleItem.cs" />
     <Compile Include="Engine\Gleed2D\CustomProperty.cs" />
     <Compile Include="Engine\Gleed2D\Item.cs" />

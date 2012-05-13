@@ -35,7 +35,7 @@ namespace Axios.Engine.Gleed2D
                 v.Add(new Vector2(ConvertUnits.ToSimUnits(vec.X), ConvertUnits.ToSimUnits(vec.Y)));
 
             _body = BodyFactory.CreateLoopShape(world, v);
-            _body.Position = this.Position;
+            _body.Position = ConvertUnits.ToSimUnits(this.Position);
             _body.UserData = this;
         }
 

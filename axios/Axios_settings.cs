@@ -74,6 +74,8 @@
  * - Adding a cache for loading in textures for Gleed2D
  * - Adding GetStream(FileMode) to get the stream of a file
  * - Adding support to load a Gleed2D level from a stream
+ * - Adjusting units for Gleed2D position for Farseer bodies
+ * - Modfying draw method in AxiosGameScreen to draw Gleed2D textures
  * 
  */
 

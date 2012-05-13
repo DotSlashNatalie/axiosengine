@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using GameStateManagement;
+using Axios.Engine.Gleed2D;
 
 namespace Axios.Engine
 {
@@ -36,6 +37,10 @@ namespace Axios.Engine
         private AxiosUIObject prevuiobj;
         private AxiosUIObject prevuifocusobj;
 
+        protected Level Level;
+
+        private Camera camera;
+
         public AxiosGameScreen()
             : base()
         {
@@ -46,6 +51,7 @@ namespace Axios.Engine
             this._uiobjects = new List<AxiosUIObject>();
             prevuiobj = null;
             prevuifocusobj = null;
+            
         }
 
         /*public void AddGameObject<T>(T gameobject)
@@ -163,6 +169,7 @@ namespace Axios.Engine
         public override void Activate(bool instancePreserved)
         {
             base.Activate(instancePreserved);
+            
 
 #if DEBUG
             if (!Axios.Settings.ScreenSaver)
@@ -171,17 +178,36 @@ namespace Axios.Engine
                 this.DebugSpriteFont = man.Load<SpriteFont>(this.DebugTextFont);
             }
 #endif
+            camera = new Camera(ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
         }
 
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
 
+            if (Level != null)
+            {
+                foreach (Layer layer in Level.Layers)
+                {
+                    Vector2 oldcameraposition = camera.Position;
+                    camera.Position *= layer.ScrollSpeed;
+
+                    ScreenManager.SpriteBatch.Begin(0, null, null, null, null, null, camera.matrix);
+                    layer.draw(ScreenManager.SpriteBatch);
+                    ScreenManager.SpriteBatch.End();
+
+                    camera.Position = oldcameraposition;
+                }
+            }
+
             foreach (AxiosGameObject g in (from x in (from i in _gameObjects where i is IDrawableAxiosGameObject select (IDrawableAxiosGameObject)i) orderby x.DrawOrder select x))
                 ((IDrawableAxiosGameObject)g).Draw(this, gameTime);
 
             foreach(AxiosUIObject g in (from x in _uiobjects orderby x.DrawOrder select x))
                 ((IDrawableAxiosGameObject)g).Draw(this, gameTime);
+
+            //System.Diagnostics.Debugger.Break();
+            
         }
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
