@@ -28,8 +28,8 @@ namespace Axios.Engine.Gleed2D
         {
             base.load(cm, world, ref cache);
 
-            _body = BodyFactory.CreateRectangle(world, Width, Height, 1f);
-            _body.Position = ConvertUnits.ToSimUnits(Position);
+            _body = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(Width), ConvertUnits.ToSimUnits(Height), 1f);
+            _body.Position = ConvertUnits.ToSimUnits(Position) + new Vector2(ConvertUnits.ToSimUnits(Width)/2, ConvertUnits.ToSimUnits(Height)/2);
             _body.UserData = this;
         }
     }

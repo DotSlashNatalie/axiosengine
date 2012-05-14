@@ -183,7 +183,7 @@ namespace Axios.Engine
 
         public override void Draw(GameTime gameTime)
         {
-            base.Draw(gameTime);
+            
 
             if (Level != null)
             {
@@ -191,8 +191,8 @@ namespace Axios.Engine
                 {
                     Vector2 oldcameraposition = camera.Position;
                     camera.Position *= layer.ScrollSpeed;
-
-                    ScreenManager.SpriteBatch.Begin(0, null, null, null, null, null, camera.matrix);
+                    
+                    ScreenManager.SpriteBatch.Begin(0, null, null, null, null, null, Camera.View);
                     layer.draw(ScreenManager.SpriteBatch);
                     ScreenManager.SpriteBatch.End();
 
@@ -206,7 +206,7 @@ namespace Axios.Engine
             foreach(AxiosUIObject g in (from x in _uiobjects orderby x.DrawOrder select x))
                 ((IDrawableAxiosGameObject)g).Draw(this, gameTime);
 
-            //System.Diagnostics.Debugger.Break();
+            base.Draw(gameTime); //This is placed at the end so that Farseer debug information is visible
             
         }
 

@@ -30,8 +30,8 @@ namespace Axios.Engine.Gleed2D
         {
             base.load(cm, world, ref cache);
 
-            Vertices v = new Vertices(WorldPoints.Length);
-            foreach (Vector2 vec in WorldPoints)
+            Vertices v = new Vertices(LocalPoints.Length);
+            foreach (Vector2 vec in LocalPoints)
                 v.Add(new Vector2(ConvertUnits.ToSimUnits(vec.X), ConvertUnits.ToSimUnits(vec.Y)));
 
             _body = BodyFactory.CreateLoopShape(world, v);
