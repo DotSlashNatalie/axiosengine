@@ -270,7 +270,7 @@ namespace GameStateManagement
         /// </summary>
         public void Update(GameTime gameTime)
         {
-            PlayerIndex p;
+            //PlayerIndex p;
             _lastMouseState = _currentMouseState;
             if (_handleVirtualStick)
             {
@@ -339,14 +339,14 @@ namespace GameStateManagement
                 _cursor.Y = _currentMouseState.Y;
             }
 
-            if (this.IsNewKeyPress(Keys.P, PlayerIndex.One, out p))
-                Console.WriteLine(_cursor.ToString());
+            //if (this.IsNewKeyPress(Keys.P, PlayerIndex.One, out p))
+            //    Console.WriteLine(_cursor.ToString());
 
             _cursor.X = MathHelper.Clamp(_cursor.X, 0f, _viewport.Width);
             _cursor.Y = MathHelper.Clamp(_cursor.Y, 0f, _viewport.Height);
 
-            if (this.IsNewKeyPress(Keys.P, PlayerIndex.One, out p))
-                Console.WriteLine(_cursor.ToString());
+            //if (this.IsNewKeyPress(Keys.P, PlayerIndex.One, out p))
+            //    Console.WriteLine(_cursor.ToString());
 
             if (_cursorIsValid && oldCursor != _cursor)
             {
@@ -377,8 +377,8 @@ namespace GameStateManagement
             }
 #endif
             
-            if (this.IsNewKeyPress(Keys.P, PlayerIndex.One, out p))
-                Console.WriteLine(_viewport.ToString());
+            //if (this.IsNewKeyPress(Keys.P, PlayerIndex.One, out p))
+            //    Console.WriteLine(_viewport.ToString());
         }
 
 
