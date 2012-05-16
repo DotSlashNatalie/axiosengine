@@ -30,6 +30,24 @@ namespace FarseerPhysics.SamplesFramework
         private Body _trackingBody;
         private Vector2 _translateCenter;
         private Matrix _view;
+        
+        /*private Vector2 _viewCenter;
+
+        public Vector2 ViewCenter
+        {
+            get { return ConvertUnits.ToSimUnits(_viewCenter); }
+            set
+            {
+                _translateCenter = ConvertUnits.ToDisplayUnits(value);
+                Resize();
+            }
+        }
+
+        
+        private void Resize()
+        {
+            _batchView = Matrix.CreateTranslation(new Vector3(-ViewCenter.X, -ViewCenter.Y, 0)) * Matrix.CreateScale(Zoom);
+        }*/
 
         /// <summary>
         /// The constructor for the Camera2D class.

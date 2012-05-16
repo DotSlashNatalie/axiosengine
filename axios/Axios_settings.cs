@@ -78,6 +78,7 @@
  * - Modfying draw method in AxiosGameScreen to draw Gleed2D textures
  * - Fixing path placement in Farseer
  * - Moving base.draw to last in AxiosGameScreen to make sure Farseer debug information is visible
+ * - Removing old debugging code
  * 
  */
 
