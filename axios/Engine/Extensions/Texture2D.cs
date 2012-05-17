@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Axios.Engine.Extenions
+namespace Axios.Engine.Extensions
 {
     public enum TextureUnionLocation {
         Right,

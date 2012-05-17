@@ -79,6 +79,8 @@
  * - Fixing path placement in Farseer
  * - Moving base.draw to last in AxiosGameScreen to make sure Farseer debug information is visible
  * - Removing old debugging code
+ * - Adding an extension to determine what side the objects collided on
+ * - Correcting misspelling of Extensions in String and Texture2D
  * 
  */
 

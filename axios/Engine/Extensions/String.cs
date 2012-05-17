@@ -1,5 +1,5 @@
 ﻿
-namespace Axios.Engine.Extenions
+namespace Axios.Engine.Extensions
 {
     public static class AxiosExtensions_String
     {
