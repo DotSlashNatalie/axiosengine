@@ -286,6 +286,27 @@ namespace Axios.Engine.Extensions
 
             return r;
         }
+        //Create new Texture which is a subsection of original with dimensions of partWidth and partHeight
+        public static Texture2D Cut(this Texture2D original, int partWidth, int partHeight)
+        {
+            Texture2D newTexture = new Texture2D(original.GraphicsDevice, partWidth, partHeight); //Create texture of new area = to subsection area
+            int pixelCount = partWidth * partHeight; //Number of pixels in the new texture
+            Color[] originalData = new Color[original.Width * original.Height];
+            original.GetData<Color>(originalData); //Get the pixel data from the original texture
+            Color[] newData = new Color[pixelCount]; //Create pixel sheet for new texture
+
+            for (int y = 0; y < partHeight; y++) //increment from the top-most pixel
+            {
+                for (int x = 0; x < partWidth; x++) //increment from the top-most, left-most pixel
+                {
+                    int colorIndex = x + y * partWidth; //get pixel at {x, y} coordinates
+                    newData[colorIndex] = originalData[(x + y * original.Width)]; //set the color to pixel at original {x, y} coordinates
+                }
+            }
+
+            newTexture.SetData<Color>(newData); //set the color data for the new texture
+            return newTexture; //return Texture2D object cut from original
+        }
 
     }
 }

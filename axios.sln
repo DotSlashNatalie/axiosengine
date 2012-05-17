@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual Studio 2010 Express for Windows Phone
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axios_Windows", "axios\Axios_Windows.csproj", "{742C938F-997D-4EFD-95D2-BB09CDADCD2E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axios_Xbox_360", "axios\Axios_Xbox_360.csproj", "{B5664516-72B7-4BA3-9F72-25CAA90867D8}"
@@ -45,6 +45,7 @@ Global
 		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Debug|Windows Phone.ActiveCfg = Debug|Xbox 360
 		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Debug|Windows Phone.Build.0 = Debug|Xbox 360
 		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Debug|x86.ActiveCfg = Debug|Xbox 360
+		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Debug|x86.Build.0 = Debug|Xbox 360
 		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Debug|Xbox 360.ActiveCfg = Debug|Xbox 360
 		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Debug|Xbox 360.Build.0 = Debug|Xbox 360
 		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Release|Any CPU.ActiveCfg = Release|Xbox 360
@@ -53,6 +54,7 @@ Global
 		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Release|Windows Phone.ActiveCfg = Release|Xbox 360
 		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Release|Windows Phone.Build.0 = Release|Xbox 360
 		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Release|x86.ActiveCfg = Release|Xbox 360
+		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Release|x86.Build.0 = Release|Xbox 360
 		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Release|Xbox 360.ActiveCfg = Release|Xbox 360
 		{B5664516-72B7-4BA3-9F72-25CAA90867D8}.Release|Xbox 360.Build.0 = Release|Xbox 360
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Debug|Any CPU.ActiveCfg = Debug|Windows Phone
@@ -61,14 +63,18 @@ Global
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Debug|Windows Phone.Build.0 = Debug|Windows Phone
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Debug|x86.ActiveCfg = Debug|Windows Phone
+		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Debug|x86.Build.0 = Debug|Windows Phone
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Debug|Xbox 360.ActiveCfg = Debug|Windows Phone
+		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Debug|Xbox 360.Build.0 = Debug|Windows Phone
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Release|Any CPU.ActiveCfg = Release|Windows Phone
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Release|Mixed Platforms.ActiveCfg = Release|Windows Phone
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Release|Mixed Platforms.Build.0 = Release|Windows Phone
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Release|Windows Phone.Build.0 = Release|Windows Phone
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Release|x86.ActiveCfg = Release|Windows Phone
+		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Release|x86.Build.0 = Release|Windows Phone
 		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Release|Xbox 360.ActiveCfg = Release|Windows Phone
+		{C09D9005-76AC-4F1A-9479-2787BB3DB158}.Release|Xbox 360.Build.0 = Release|Windows Phone
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
