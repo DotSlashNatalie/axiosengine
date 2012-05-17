@@ -1,3 +1,4 @@
+#region CHANGELOG
 /*
  * Axios Engine
  * 
@@ -83,6 +84,7 @@
  * - Correcting misspelling of Extensions in String and Texture2D
  * 
  */
+#endregion
 
 using System.Reflection;
 using Axios.Engine.Log;
