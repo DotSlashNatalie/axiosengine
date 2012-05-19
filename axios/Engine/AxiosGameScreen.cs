@@ -410,6 +410,11 @@ namespace Axios.Engine
             return true;
         }
 
+        public virtual bool LoadRectangleItem(RectangleItem rectangleitem)
+        {
+            return true;
+        }
+
 #if WINDOWS
 // System.Drawing is NOT avaiable on WP7 or Xbox
         /*
