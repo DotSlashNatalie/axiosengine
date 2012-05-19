@@ -54,7 +54,7 @@ namespace Axios.Engine.Gleed2D
             _world = world;
         }
 
-        public static Level FromFile(string filename, ContentManager cm, World world)
+        public static Level FromFile(string filename, AxiosGameScreen gameScreen)
         {
             Dictionary<string, Texture2D> cache = new Dictionary<string, Texture2D>();
             FileStream stream = System.IO.File.Open(filename, FileMode.Open);
@@ -67,14 +67,14 @@ namespace Axios.Engine.Gleed2D
                 foreach (Item item in layer.Items)
                 {
                     item.CustomProperties.RestoreItemAssociations(level);
-                    item.load(cm, world, ref cache);
+                    item.load(gameScreen, ref cache);
                 }
             }
 
             return level;
         }
 
-        public static Level FromStream(FileStream stream, ContentManager cm, World world)
+        public static Level FromStream(FileStream stream, AxiosGameScreen gameScreen)
         {
             Dictionary<string, Texture2D> cache = new Dictionary<string, Texture2D>();
             XmlSerializer serializer = new XmlSerializer(typeof(Level));
@@ -86,7 +86,7 @@ namespace Axios.Engine.Gleed2D
                 foreach (Item item in layer.Items)
                 {
                     item.CustomProperties.RestoreItemAssociations(level);
-                    item.load(cm, world, ref cache);
+                    item.load(gameScreen, ref cache);
                 }
             }
 

@@ -23,13 +23,15 @@ namespace Axios.Engine.Gleed2D
         {
         }
 
-        public override void load(ContentManager cm, World world, ref Dictionary<string, Texture2D> cache)
+        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache)
         {
-            base.load(cm, world, ref cache);
-
-            _body = BodyFactory.CreateCircle(world, Radius, 1f);
-            _body.Position = ConvertUnits.ToSimUnits(Position);
-            _body.UserData = this;
+            base.load(gameScreen, ref cache);
+            if (gameScreen.LoadCircleItem(this))
+            {
+                _body = BodyFactory.CreateCircle(gameScreen.World, Radius, 1f);
+                _body.Position = ConvertUnits.ToSimUnits(Position);
+                _body.UserData = this;
+            }
         }
 
     }

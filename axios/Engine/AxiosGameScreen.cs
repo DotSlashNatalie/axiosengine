@@ -400,6 +400,16 @@ namespace Axios.Engine
         /// </summary>
         /// <param name="circleitem"></param>
         /// <returns></returns>
+        public virtual bool LoadCircleItem(CircleItem circleitem)
+        {
+            return true;
+        }
+
+        public virtual bool LoadPathItem(PathItem pathitem)
+        {
+            return true;
+        }
+
 #if WINDOWS
 // System.Drawing is NOT avaiable on WP7 or Xbox
         /*

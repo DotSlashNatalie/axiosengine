@@ -77,7 +77,7 @@ namespace Axios.Engine.Gleed2D
         /// You must provide your own implementation. However, you can rely on all public fields being
         /// filled by the level deserialization process.
         /// </summary>
-        public override void load(ContentManager cm, World world, ref Dictionary<string, Texture2D> cache)
+        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache)
         {
             //throw new NotImplementedException();
 
@@ -87,7 +87,7 @@ namespace Axios.Engine.Gleed2D
             //or by using the Content Pipeline:
             if (!cache.ContainsKey(asset_name))
             {
-                cache[asset_name] = cm.Load<Texture2D>(asset_name);   
+                cache[asset_name] = gameScreen.ScreenManager.Game.Content.Load<Texture2D>(asset_name);   
             }
             this.texture = cache[asset_name];
             //this.texture = cm.Load<Texture2D>(asset_name);
