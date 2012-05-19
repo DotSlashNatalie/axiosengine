@@ -87,6 +87,8 @@
  * - Adding cut extension - [Author: BJD]
  * - Adding support for custom handling of Gleed2D items
  * - Changing location of GetTexture to extensions
+ * - Enabling commented log messages
+ * - Fixing bug where loadrecentangleitem wouldn't be called by Gleed2D library
  * 
  */
 #endregion
