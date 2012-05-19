@@ -83,6 +83,10 @@
  * - Adding an extension to determine what side the objects collided on
  * - Correcting misspelling of Extensions in String and Texture2D
  * 
+ * 1.0.1.6 - 5/18/2012
+ * - Adding cut extension - [Author: BJD]
+ * - Adding support for custom handling of Gleed2D items
+ * 
  */
 #endregion
 

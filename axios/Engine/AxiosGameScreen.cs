@@ -146,7 +146,7 @@ namespace Axios.Engine
             }
             else
             {
-                Singleton<AxiosLog>.Instance.AddLine("[Axios Engine] - Adding objects too fast...remove " + gameobject.Name + " later", LoggingFlag.DEBUG);
+                AxiosLog.Instance.AddLine("[Axios Engine] - Adding objects too fast...remove " + gameobject.Name + " later", LoggingFlag.DEBUG);
                 this._objectstoremove.Add(gameobject);
             }
 
@@ -154,7 +154,7 @@ namespace Axios.Engine
 
         public void RemoveAll()
         {
-            AxiosLog.Instance.AddLine("Memory usage before cleanup: " + GC.GetTotalMemory(true).ToString(), LoggingFlag.DEBUG);
+            AxiosLog.Instance.AddLine("[Axios Engine] - Memory usage before cleanup: " + GC.GetTotalMemory(true).ToString(), LoggingFlag.DEBUG);
             foreach (AxiosGameObject g in _gameObjects)
                 g.UnloadContent(this);
             foreach (AxiosUIObject ui in _uiobjects)
@@ -163,7 +163,7 @@ namespace Axios.Engine
             this._gameObjects.Clear();
             _timers.Clear();
             _uiobjects.Clear();
-            AxiosLog.Instance.AddLine("Memory usage after cleanup: ", LoggingFlag.DEBUG);
+            AxiosLog.Instance.AddLine("[Axios Engine] - Memory usage after cleanup: ", LoggingFlag.DEBUG);
         }
 
         public override void Activate(bool instancePreserved)
@@ -374,7 +374,7 @@ namespace Axios.Engine
         public override void Deactivate()
         {
             base.Deactivate();
-            //AxiosLog.Instance.AddLine("Memory usage before cleanup: " + GC.GetTotalMemory(true).ToString(), LoggingFlag.DEBUG);
+            AxiosLog.Instance.AddLine("Memory usage before cleanup: " + GC.GetTotalMemory(true).ToString(), LoggingFlag.DEBUG);
             foreach (AxiosGameObject g in _gameObjects)
                 g.UnloadContent(this);
 
@@ -386,7 +386,7 @@ namespace Axios.Engine
             this.World.Clear();
             _timers.Clear();
             _uiobjects.Clear();
-            //AxiosLog.Instance.AddLine("Memory usage after cleanup: " + GC.GetTotalMemory(true).ToString(), LoggingFlag.DEBUG);
+            AxiosLog.Instance.AddLine("Memory usage after cleanup: " + GC.GetTotalMemory(true).ToString(), LoggingFlag.DEBUG);
             //AxiosRegularFile f = new AxiosRegularFile("log.log");
             //f.WriteData(AxiosLog.Instance.GetLog(), FileMode.Append);
             //AxiosIsolatedFile f = new AxiosIsolatedFile("log.log");
@@ -394,6 +394,12 @@ namespace Axios.Engine
             //CleanUp();
         }
 
+
+        /// <summary>
+        /// This allows you to customize functionality for loading a circle item.
+        /// </summary>
+        /// <param name="circleitem"></param>
+        /// <returns></returns>
 #if WINDOWS
 // System.Drawing is NOT avaiable on WP7 or Xbox
         /*
