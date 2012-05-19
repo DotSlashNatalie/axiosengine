@@ -49,8 +49,9 @@ namespace Axios.Engine.Gleed2D
         /// Called by Level.FromFile(filename) on each Item after the deserialization process.
         /// Should be overriden and can be used to load anything needed by the Item (e.g. a texture).
         /// </summary>
-        public virtual void load(ContentManager cm, World world, ref Dictionary<string, Texture2D> cache)
+        public virtual void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache)
         {
+
         }
 
         public virtual void draw(SpriteBatch sb)

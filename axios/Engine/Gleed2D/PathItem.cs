@@ -26,17 +26,19 @@ namespace Axios.Engine.Gleed2D
         {
         }
 
-        public override void load(ContentManager cm, World world, ref Dictionary<string, Texture2D> cache)
+        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache)
         {
-            base.load(cm, world, ref cache);
+            base.load(gameScreen, ref cache);
+            if (gameScreen.LoadPathItem(this))
+            {
+                Vertices v = new Vertices(LocalPoints.Length);
+                foreach (Vector2 vec in LocalPoints)
+                    v.Add(new Vector2(ConvertUnits.ToSimUnits(vec.X), ConvertUnits.ToSimUnits(vec.Y)));
 
-            Vertices v = new Vertices(LocalPoints.Length);
-            foreach (Vector2 vec in LocalPoints)
-                v.Add(new Vector2(ConvertUnits.ToSimUnits(vec.X), ConvertUnits.ToSimUnits(vec.Y)));
-
-            _body = BodyFactory.CreateLoopShape(world, v);
-            _body.Position = ConvertUnits.ToSimUnits(this.Position);
-            _body.UserData = this;
+                _body = BodyFactory.CreateLoopShape(gameScreen.World, v);
+                _body.Position = ConvertUnits.ToSimUnits(this.Position);
+                _body.UserData = this;
+            }
         }
 
     }

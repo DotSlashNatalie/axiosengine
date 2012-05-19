@@ -24,11 +24,11 @@ namespace Axios.Engine.Gleed2D
         {
         }
 
-        public override void load(ContentManager cm, World world, ref Dictionary<string, Texture2D> cache)
+        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache)
         {
-            base.load(cm, world, ref cache);
+            base.load(gameScreen, ref cache);
 
-            _body = BodyFactory.CreateRectangle(world, ConvertUnits.ToSimUnits(Width), ConvertUnits.ToSimUnits(Height), 1f);
+            _body = BodyFactory.CreateRectangle(gameScreen.World, ConvertUnits.ToSimUnits(Width), ConvertUnits.ToSimUnits(Height), 1f);
             _body.Position = ConvertUnits.ToSimUnits(Position) + new Vector2(ConvertUnits.ToSimUnits(Width)/2, ConvertUnits.ToSimUnits(Height)/2);
             _body.UserData = this;
         }

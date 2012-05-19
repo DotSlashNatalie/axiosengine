@@ -394,6 +394,21 @@ namespace Axios.Engine
             //CleanUp();
         }
 
+        public virtual bool LoadCircleItem(CircleItem circleitem)
+        {
+            return true;
+        }
+
+        public virtual bool LoadRectangleItem(RectangleItem rectangleitem)
+        {
+            return true;
+        }
+
+        public virtual bool LoadPathItem(PathItem pathitem)
+        {
+            return true;
+        }
+
 #if WINDOWS
 // System.Drawing is NOT avaiable on WP7 or Xbox
         /*
