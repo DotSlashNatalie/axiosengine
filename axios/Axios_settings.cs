@@ -86,6 +86,7 @@
  * 1.0.1.6 - 5/18/2012
  * - Adding cut extension - [Author: BJD]
  * - Adding support for custom handling of Gleed2D items
+ * - Changing location of GetTexture to extensions
  * 
  */
 #endregion
