@@ -40,9 +40,10 @@ namespace Axios.Engine.Extensions
             {
                 // Y direction is dominant
                 if (colNorm.Y > 0)
-                    direction = CollisionDirection.Top;
-                else
                     direction = CollisionDirection.Bottom;
+                else
+                    direction = CollisionDirection.Top;
+                    
             }
 
 
