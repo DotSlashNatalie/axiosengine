@@ -74,7 +74,7 @@ namespace Axios.Engine.Gleed2D
             return level;
         }
 
-        public static Level FromStream(FileStream stream, AxiosGameScreen gameScreen)
+        public static Level FromStream(Stream stream, AxiosGameScreen gameScreen)
         {
             Dictionary<string, Texture2D> cache = new Dictionary<string, Texture2D>();
             XmlSerializer serializer = new XmlSerializer(typeof(Level));

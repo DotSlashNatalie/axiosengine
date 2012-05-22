@@ -89,6 +89,8 @@
  * - Changing location of GetTexture to extensions
  * - Enabling commented log messages
  * - Fixing bug where loadrecentangleitem wouldn't be called by Gleed2D library
+ * - Changing AxiosTitleFile.GetStream() to return Stream instead of FileStream
+ * - Changing IAxiosFile.GetStream() to return Stream instead of FileStream
  * 
  */
 #endregion

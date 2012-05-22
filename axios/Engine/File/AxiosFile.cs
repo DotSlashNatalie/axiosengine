@@ -29,7 +29,7 @@ namespace Axios.Engine.File
             throw new NotImplementedException();
         }
 
-        public virtual FileStream GetStream(FileMode mode)
+        public virtual Stream GetStream(FileMode mode)
         {
             throw new NotImplementedException();
         }

@@ -28,10 +28,9 @@ namespace Axios.Engine.File
             return this.Content;
         }
 
-        public override FileStream GetStream(FileMode mode)
+        public override Stream GetStream(FileMode mode)
         {
-            FileStream fs = (FileStream)TitleContainer.OpenStream(_filename);
-            return fs;
+            return (Stream)TitleContainer.OpenStream(_filename);;
         }
     }
 }

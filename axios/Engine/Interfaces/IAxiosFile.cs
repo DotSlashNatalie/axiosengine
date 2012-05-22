@@ -6,6 +6,6 @@ namespace Axios.Engine.Interfaces
     {
         void WriteData(string data, FileMode mode);
         string ReadData();
-        FileStream GetStream(FileMode mode);
+        Stream GetStream(FileMode mode);
     }
 }

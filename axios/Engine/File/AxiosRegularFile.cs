@@ -37,10 +37,10 @@ namespace Axios.Engine.File
             return ret;
         }
 
-        public override FileStream GetStream(FileMode mode)
+        public override Stream GetStream(FileMode mode)
         {
             FileStream fs = new FileStream(_filename, mode);
-            return fs;
+            return (Stream)fs;
         }
     }
 }

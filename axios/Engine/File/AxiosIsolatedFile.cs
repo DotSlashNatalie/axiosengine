@@ -51,7 +51,7 @@ namespace Axios.Engine.File
             return ret;
         }
 
-        public override FileStream GetStream(FileMode mode)
+        public override Stream GetStream(FileMode mode)
         {
 #if WINDOWS
             IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForDomain();
@@ -60,7 +60,7 @@ namespace Axios.Engine.File
 #endif   
             IsolatedStorageFileStream fs = null;
             fs = savegameStorage.OpenFile(_filename, mode);
-            return fs;
+            return (Stream)fs;
         }
 
     }
