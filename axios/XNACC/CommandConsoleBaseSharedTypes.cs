@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 #if WINDOWS
 /// <summary>Namespace that contains shared types related to the XNACC (CommandConsole) component</summary>
-namespace JRTS.XNA.Console.BaseTypes
+namespace XNACC.BaseTypes
 {
 	#region IConsoleKeyboard
 	/// <summary>Basic keyboard/input functionality required by the CommandConsole(Base) class</summary>

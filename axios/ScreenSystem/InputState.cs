@@ -15,6 +15,11 @@ using Microsoft.Xna.Framework.Input.Touch;
 using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+#if WINDOWS
+using XNACC.BaseTypes;
+#endif
+using System.Linq;
+
 
 namespace GameStateManagement
 {
@@ -37,8 +42,46 @@ namespace GameStateManagement
     /// query methods for high level input actions such as "move up through the menu"
     /// or "pause the game".
     /// </summary>
+#if WINDOWS
+    public class InputState : IConsoleKeyboard
+#else
     public class InputState
+#endif
     {
+
+#if WINDOWS
+        #region XNACC
+        /*
+         * These are needed for XNACC
+         *  -- Nathan Adams [adamsna@datanethost.net] - 5/26/2012
+         */
+
+        private KeyboardState KeyState;
+        private List<Keys> newlyPressedKeys = new List<Keys>();
+        private List<Keys> heldKeys = new List<Keys>();
+        private Keys[] oldPressedKeys;
+        private Keys[] newPressedKeys;
+
+        public KeyboardState CurrentKeyboardState
+        {
+            get { return KeyState; }
+        }
+
+        public IList<Keys> NewlyPressedKeys
+        {
+            get { return newlyPressedKeys; }
+        }
+
+        public IList<Keys> HeldKeys
+        {
+            get { return heldKeys; }
+        }
+
+        /*
+         * End XNACC variables
+         */
+        #endregion
+#endif
         public const int MaxInputs = 4;
 
         public readonly KeyboardState[] CurrentKeyboardStates;
@@ -270,6 +313,27 @@ namespace GameStateManagement
         /// </summary>
         public void Update(GameTime gameTime)
         {
+
+#if WINDOWS
+            #region XNACC
+            KeyState = Keyboard.GetState();
+
+            oldPressedKeys = newPressedKeys;
+            newPressedKeys = KeyState.GetPressedKeys();
+
+            newlyPressedKeys.Clear();
+            heldKeys.Clear();
+
+            foreach (Keys key in newPressedKeys)
+            {
+                if (oldPressedKeys.Contains(key))
+                    heldKeys.Add(key);
+                else
+                    newlyPressedKeys.Add(key);
+            }
+            #endregion
+#endif
+
             //PlayerIndex p;
             _lastMouseState = _currentMouseState;
             if (_handleVirtualStick)

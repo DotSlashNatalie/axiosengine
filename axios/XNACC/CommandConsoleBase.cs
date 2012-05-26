@@ -11,7 +11,7 @@ using System.Threading;
 using System.IO;
 using System.ComponentModel;
 using System.Reflection;
-using JRTS.XNA.Console.BaseTypes;
+using XNACC.BaseTypes;
 using System.Diagnostics;
 #endif
 #endregion
@@ -71,7 +71,7 @@ using System.Diagnostics;
 //NA: Seriously Microsoft?
 #if WINDOWS
 /// <summary>Namespace that contains code related to the XNACC (CommandConsole) component</summary>
-namespace JRTS.XNA.Console
+namespace XNACC.Console
 {
 	/// <summary>Base functionality of the XNACC (CommandConsole) component</summary>
 	public class CommandConsoleBase : DrawableGameComponent
