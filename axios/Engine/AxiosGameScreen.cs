@@ -41,6 +41,10 @@ namespace Axios.Engine
 
         private Camera camera;
 
+#if WINDOWS
+        AxiosCommandConsole _console = null;
+#endif
+
         public AxiosGameScreen()
             : base()
         {
@@ -95,6 +99,20 @@ namespace Axios.Engine
         public void AddGameObject(object obj)
         {
 
+#if WINDOWS
+            if (obj is AxiosCommandConsole)
+            {
+                if (_console != null)
+                {
+                    //remove the current one first
+                    ScreenManager.Game.Components.Remove(_console);
+                    _console.Dispose();
+                    _console = null;
+                }
+                _console = (AxiosCommandConsole)obj;
+                ScreenManager.Game.Components.Add(_console);
+            }
+#endif
             if (obj is AxiosGameObject || obj is AxiosUIObject || obj is AxiosTimer)
             {
                 AxiosGameObject tmp = obj as AxiosGameObject;
