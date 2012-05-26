@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\AxiosBreakableGameObject.cs" />
+    <Compile Include="Engine\AxiosCommandConsole.cs" />
     <Compile Include="Engine\AxiosEvents.cs" />
     <Compile Include="Axios_settings.cs" />
     <Compile Include="Collision\Collision.cs" />

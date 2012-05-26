@@ -155,6 +155,7 @@
     <Compile Include="Dynamics\TimeStep.cs" />
     <Compile Include="Dynamics\World.cs" />
     <Compile Include="Dynamics\WorldCallbacks.cs" />
+    <Compile Include="Engine\AxiosCommandConsole.cs" />
     <Compile Include="Engine\AxiosEvents.cs" />
     <Compile Include="Engine\AxiosGameObject.cs" />
     <Compile Include="Engine\AxiosGameScreen.cs" />

@@ -57,6 +57,11 @@ namespace GameStateManagement
 
         #region Properties
 
+        public InputState InputState
+        {
+            get { return input; }
+            private set { input = value; }
+        }
 
         public SpriteFonts Fonts
         {
