@@ -232,6 +232,8 @@
     <Compile Include="ScreenSystem\VirtualButton.cs" />
     <Compile Include="ScreenSystem\VirtualStick.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="XNACC\CommandConsoleBase.cs" />
+    <Compile Include="XNACC\CommandConsoleBaseSharedTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Phone, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />

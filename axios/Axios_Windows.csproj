@@ -276,6 +276,8 @@
     <Compile Include="ScreenSystem\VirtualButton.cs" />
     <Compile Include="ScreenSystem\VirtualStick.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="XNACC\CommandConsoleBase.cs" />
+    <Compile Include="XNACC\CommandConsoleBaseSharedTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AxiosEngine.cd" />
