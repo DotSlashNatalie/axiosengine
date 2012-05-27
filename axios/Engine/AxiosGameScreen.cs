@@ -43,6 +43,14 @@ namespace Axios.Engine
 
         AxiosCommandConsole _console = null;
 
+        protected bool AllowKeyboardWhileConsoleIsActive = false;
+
+        public AxiosCommandConsole Console
+        {
+            get { return _console; }
+            private set { _console = value; }
+        }
+
         public AxiosGameScreen()
             : base()
         {
@@ -110,6 +118,7 @@ namespace Axios.Engine
                 _console = (AxiosCommandConsole)obj;
 #if WINDOWS
                 ScreenManager.Game.Components.Add(_console);
+                _console.LoadContent(ScreenManager.Game.Content);
 #endif
             }
             if (obj is AxiosGameObject || obj is AxiosUIObject || obj is AxiosTimer)
@@ -230,7 +239,7 @@ namespace Axios.Engine
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
-
+            
             if (this._objectstoremove.Count > 0)
             {
                 List<AxiosGameObject> list = this._objectstoremove.ToList<AxiosGameObject>();
@@ -379,17 +388,21 @@ namespace Axios.Engine
 
         public override void HandleInput(GameTime gameTime, InputState input)
         {
-            base.HandleInput(gameTime, input);
+            if ((AllowKeyboardWhileConsoleIsActive && _console.Active) || !_console.Active)
+            {
+                base.HandleInput(gameTime, input);
 
-            foreach (AxiosGameObject g in _gameObjects.ToList())
-                g.HandleInput(this, input, gameTime);
+                foreach (AxiosGameObject g in _gameObjects.ToList())
+                    g.HandleInput(this, input, gameTime);
 
-            foreach (AxiosUIObject g in _uiobjects.ToList())
-                g.HandleInput(this, input, gameTime);
+                foreach (AxiosUIObject g in _uiobjects.ToList())
+                    g.HandleInput(this, input, gameTime);
+            }
         }
 
-        public override void Deactivate()
+        public override void Unload()
         {
+            //System.Diagnostics.Debugger.Break();
             base.Deactivate();
             AxiosLog.Instance.AddLine("Memory usage before cleanup: " + GC.GetTotalMemory(true).ToString(), LoggingFlag.DEBUG);
             foreach (AxiosGameObject g in _gameObjects)
@@ -409,6 +422,13 @@ namespace Axios.Engine
             //AxiosIsolatedFile f = new AxiosIsolatedFile("log.log");
             //f.WriteData(AxiosLog.Instance.GetLog(), FileMode.Append);
             //CleanUp();
+#if WINDOWS
+            if (_console != null)
+            {
+                ScreenManager.Game.Components.Remove(_console);
+                _console.Dispose();
+            }
+#endif
         }
 
 

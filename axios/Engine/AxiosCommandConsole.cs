@@ -20,27 +20,40 @@ using Microsoft.Xna.Framework;
 
 namespace Axios.Engine
 {
-    class AxiosCommandConsole : CommandConsoleBase
+    public class AxiosCommandConsole : CommandConsoleBase
     {
+        //private AxiosGameScreen _gameScreen;
         public AxiosCommandConsole(AxiosGameScreen gameScreen)
             : base(gameScreen.ScreenManager.Game)
         {
+            //_gameScreen = gameScreen;
             Keyboard = gameScreen.ScreenManager.InputState;
         }
 
         public AxiosCommandConsole(AxiosGameScreen gameScreen, SpriteFont font)
             : base(gameScreen.ScreenManager.Game, font)
         {
+            //_gameScreen = gameScreen;
             Keyboard = gameScreen.ScreenManager.InputState;
         }
 
-        protected override void LoadContent()
+        protected void LoadDefault()
         {
             FadeColor = Color.White * 0.5f;
             Texture2D tmp = new Texture2D(GraphicsDevice, 1, 1);
             tmp.SetData<Color>(new Color[] { Color.Black });
             FadeImage = tmp;
+        }
 
+
+        public override void LoadContent(ContentManager content)
+        {
+            base.LoadContent(content);
+        }
+        protected override void LoadContent()
+        {
+            if (Font == null)
+                Font = Game.Content.Load<SpriteFont>("Console");
             base.LoadContent();
         }
     }
@@ -53,8 +66,9 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 namespace Axios.Engine
 {
-    class AxiosCommandConsole
+    public class AxiosCommandConsole
     {
+        public bool Active = false;
         public AxiosCommandConsole(AxiosGameScreen gameScreen)
         {
 
