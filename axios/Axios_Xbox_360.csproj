@@ -149,6 +149,7 @@
     <Compile Include="Dynamics\World.cs" />
     <Compile Include="Dynamics\WorldCallbacks.cs" />
     <Compile Include="Engine\AxiosBreakableGameObject.cs" />
+    <Compile Include="Engine\AxiosCommandConsole.cs" />
     <Compile Include="Engine\AxiosEvents.cs" />
     <Compile Include="Engine\AxiosGameObject.cs" />
     <Compile Include="Engine\AxiosGameScreen.cs" />
@@ -224,6 +225,8 @@
     <Compile Include="ScreenSystem\VirtualButton.cs" />
     <Compile Include="ScreenSystem\VirtualStick.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="XNACC\CommandConsoleBase.cs" />
+    <Compile Include="XNACC\CommandConsoleBaseSharedTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework" />

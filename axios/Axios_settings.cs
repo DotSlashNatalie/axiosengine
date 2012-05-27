@@ -91,6 +91,8 @@
  * - Fixing bug where loadrecentangleitem wouldn't be called by Gleed2D library
  * - Changing AxiosTitleFile.GetStream() to return Stream instead of FileStream
  * - Changing IAxiosFile.GetStream() to return Stream instead of FileStream
+ * - Adding support for XNACC
+ * - Fixed a bug where cleanup actions were being performed in Deactivate instead of Unload in AxiosGameScreen
  * 
  */
 #endregion
