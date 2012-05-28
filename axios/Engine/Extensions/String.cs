@@ -1,4 +1,6 @@
-﻿
+﻿using System.Text.RegularExpressions;
+
+
 namespace Axios.Engine.Extensions
 {
     public static class AxiosExtensions_String
@@ -15,6 +17,17 @@ namespace Axios.Engine.Extensions
             }
             int len = end - start;               // Calculate length
             return source.Substring(start, len); // Return Substring of length
+        }
+
+        public static bool IsNullOrWhiteSpace(this string str)
+        {
+            if (str == null || str == string.Empty)
+                return true;
+
+            if (Regex.Match(str, "([:blank:])").Success)
+                return true;
+
+            return false;
         }
     }
 }

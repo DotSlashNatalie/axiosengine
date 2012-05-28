@@ -40,16 +40,18 @@ namespace Axios.Engine
         protected Level Level;
 
         private Camera camera;
-
+#if WINDOWS
         AxiosCommandConsole _console = null;
-
+#endif
         protected bool AllowKeyboardWhileConsoleIsActive = false;
 
+#if WINDOWS
         public AxiosCommandConsole Console
         {
             get { return _console; }
             private set { _console = value; }
         }
+#endif
 
         public AxiosGameScreen()
             : base()
@@ -104,23 +106,23 @@ namespace Axios.Engine
 
         public void AddGameObject(object obj)
         {
+
+#if WINDOWS
             if (obj is AxiosCommandConsole)
             {
                 if (_console != null)
                 {
                     //remove the current one first
-#if WINDOWS
+
                     ScreenManager.Game.Components.Remove(_console);
                     _console.Dispose();
-#endif
                     _console = null;
                 }
                 _console = (AxiosCommandConsole)obj;
-#if WINDOWS
                 ScreenManager.Game.Components.Add(_console);
                 _console.LoadContent(ScreenManager.Game.Content);
-#endif
             }
+#endif
             if (obj is AxiosGameObject || obj is AxiosUIObject || obj is AxiosTimer)
             {
                 AxiosGameObject tmp = obj as AxiosGameObject;
@@ -388,7 +390,9 @@ namespace Axios.Engine
 
         public override void HandleInput(GameTime gameTime, InputState input)
         {
-            if ((AllowKeyboardWhileConsoleIsActive && _console.Active) || !_console.Active)
+#if WINDOWS
+            if (_console == null || !_console.Active || (AllowKeyboardWhileConsoleIsActive && _console.Active) )
+#endif
             {
                 base.HandleInput(gameTime, input);
 

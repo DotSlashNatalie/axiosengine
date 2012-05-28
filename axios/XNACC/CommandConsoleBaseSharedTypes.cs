@@ -1,10 +1,13 @@
-﻿using System;
+﻿#if WINDOWS
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
+using Axios.Engine.Extensions;
 
-#if WINDOWS
+
+
 /// <summary>Namespace that contains shared types related to the XNACC (CommandConsole) component</summary>
 namespace XNACC.BaseTypes
 {
@@ -53,7 +56,11 @@ namespace XNACC.BaseTypes
             }
             protected set
             {
+#if WINDOWS || WINDOWS_PHONE7
                 if (String.IsNullOrWhiteSpace(value))
+#else
+                if (value.IsNullOrWhiteSpace())
+#endif
                 {
                     throw new ArgumentNullException("The name for a console variable cannot be null, empty, or whitespace");
                 }

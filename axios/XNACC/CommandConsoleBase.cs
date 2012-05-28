@@ -1,5 +1,6 @@
-﻿#region Using Statements
-#if WINDOWS
+﻿#if WINDOWS
+#region Using Statements
+
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -13,7 +14,6 @@ using System.ComponentModel;
 using System.Reflection;
 using XNACC.BaseTypes;
 using System.Diagnostics;
-#endif
 #endregion
 
 /*
@@ -69,7 +69,7 @@ using System.Diagnostics;
 
 //NA: XNACC currently is only supported on Windows due to the fact that SortedDictionary is not avaiable on WP7/Xbox 360
 //NA: Seriously Microsoft?
-#if WINDOWS
+
 /// <summary>Namespace that contains code related to the XNACC (CommandConsole) component</summary>
 namespace XNACC.Console
 {
@@ -120,7 +120,6 @@ namespace XNACC.Console
 	    }
 
         #endregion
-
         #region Command Object
         /// <summary>This object contains information on a single Command that the console understands.</summary>
 		protected class CmdObject : IComparable< CmdObject >
@@ -709,7 +708,6 @@ namespace XNACC.Console
             }
         }
         #endregion
-
         #region Initialization
         /// <summary>Constructor for this base class</summary>
 		/// <param name="game">The Game object for the owning/managing game</param>
@@ -818,9 +816,8 @@ namespace XNACC.Console
 			return;
         }
         #endregion
-
         #region Graphics Content
-		/// <summary>Load content for this component</summary>
+        /// <summary>Load content for this component</summary>
 		/// <param name="content">The ContentManager that should be used </param>
 		public virtual void LoadContent( ContentManager content )
         {
@@ -2946,6 +2943,7 @@ namespace XNACC.Console
         }
 
         #endregion
+
     }
 }
 #endif

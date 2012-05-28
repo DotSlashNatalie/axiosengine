@@ -59,25 +59,5 @@ namespace Axios.Engine
     }
 }
 #else
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
-namespace Axios.Engine
-{
-    public class AxiosCommandConsole
-    {
-        public bool Active = false;
-        public AxiosCommandConsole(AxiosGameScreen gameScreen)
-        {
 
-        }
-
-        public AxiosCommandConsole(AxiosGameScreen gameScreen, SpriteFont font)
-        {
-
-        }
-    }
-}
 #endif
