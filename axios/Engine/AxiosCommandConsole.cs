@@ -23,18 +23,18 @@ namespace Axios.Engine
 {
     public class AxiosCommandConsole : CommandConsoleBase
     {
-        //private AxiosGameScreen _gameScreen;
+        protected AxiosGameScreen GameScreen;
         public AxiosCommandConsole(AxiosGameScreen gameScreen)
             : base(gameScreen.ScreenManager.Game)
         {
-            //_gameScreen = gameScreen;
+            GameScreen = gameScreen;
             Keyboard = gameScreen.ScreenManager.InputState;
         }
 
         public AxiosCommandConsole(AxiosGameScreen gameScreen, SpriteFont font)
             : base(gameScreen.ScreenManager.Game, font)
         {
-            //_gameScreen = gameScreen;
+            GameScreen = gameScreen;
             Keyboard = gameScreen.ScreenManager.InputState;
         }
 
@@ -75,7 +75,7 @@ namespace Axios.Engine
         protected override void UnloadContent()
         {
             base.UnloadContent();
-            ms_commands.Remove("axioslog");
+            //ms_commands.Remove("axioslog");
         }
     }
 }

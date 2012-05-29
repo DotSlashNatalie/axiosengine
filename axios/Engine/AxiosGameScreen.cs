@@ -391,7 +391,7 @@ namespace Axios.Engine
         public override void HandleInput(GameTime gameTime, InputState input)
         {
 #if WINDOWS
-            if (_console == null || !_console.Active || (AllowKeyboardWhileConsoleIsActive && _console.Active) )
+            if (_console == null || !AxiosCommandConsole.Active || (AllowKeyboardWhileConsoleIsActive && AxiosCommandConsole.Active))
 #endif
             {
                 base.HandleInput(gameTime, input);
@@ -429,6 +429,7 @@ namespace Axios.Engine
 #if WINDOWS
             if (_console != null)
             {
+                //System.Diagnostics.Debugger.Break();
                 ScreenManager.Game.Components.Remove(_console);
                 _console.Dispose();
                 _console = null;

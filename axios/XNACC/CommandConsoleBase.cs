@@ -498,16 +498,16 @@ namespace XNACC.Console
 			#region Command Processing 
 		// -- Command Processing-Related Fields...
 		/// <summary>Collection Of Command Objects.</summary>
-		protected static SortedDictionary<string,CmdObject> ms_commands = new SortedDictionary<string, CmdObject>();
+		protected SortedDictionary<string,CmdObject> ms_commands = new SortedDictionary<string, CmdObject>();
         /// <summary>Collection Of function Objects.</summary>
-		protected static SortedDictionary<string, FuncObject> ms_functions = new SortedDictionary<string, FuncObject>();
+		protected SortedDictionary<string, FuncObject> ms_functions = new SortedDictionary<string, FuncObject>();
 		/// <summary>Collection Of External Functions.</summary>
-		protected static SortedDictionary<string, ExternalFuncObject> ms_externalFunctions = new SortedDictionary<string, ExternalFuncObject>();
+		protected SortedDictionary<string, ExternalFuncObject> ms_externalFunctions = new SortedDictionary<string, ExternalFuncObject>();
 		/// <summary>Collection Of Binding Objects.</summary>
-		protected static List<BindingObject> ms_bindings = new List<BindingObject>( 8 );
+		protected List<BindingObject> ms_bindings = new List<BindingObject>( 8 );
 		
 		/// <summary>Colleciton Of Partial Command Matches</summary>
-		protected static List<string>		ms_partialCmdMatches = new List<string>( 8 );
+		protected List<string>		ms_partialCmdMatches = new List<string>( 8 );
 		/// <summary>Symbol table for the console variables</summary>
 		protected Dictionary<string, CVar> m_cVars = new Dictionary<string, CVar>( 8 );
 		/// <summary>Match index for the last partial command</summary>
@@ -570,7 +570,7 @@ namespace XNACC.Console
         /// <summary>The stream for shadowing the log to</summary>
 		protected StreamWriter m_logShadowFile = null;
 		/// <summary>Storage for the log</summary>
-		protected List<string> m_log = new List<string>( 256 );
+		protected static List<string> m_log = new List<string>( 256 );
 		#endregion
 
 			#region Command History
@@ -578,7 +578,7 @@ namespace XNACC.Console
         /// <summary>Specifies the limit of the command history</summary>
         protected int m_cmdHistoryLimit = 512;
 		/// <summary>Collection of command history</summary>
-		protected List<string> m_cmdHistory = new List<string>( 128 );
+		protected static List<string> m_cmdHistory = new List<string>( 128 );
 		/// <summary>Current index in the command history</summary>
 		protected int m_cmdHistoryIndex = 0;
 		/// <summary>Scanning (up/down) index in of the command history</summary>
@@ -635,8 +635,9 @@ namespace XNACC.Console
 				m_stringHeight = Vector2.Zero;
 			}
 		}
-		/// <summary>Indicates if the console is active or not</summary>
-        public bool Active
+		
+        /// <summary>Indicates if the console is active or not</summary>
+        public static bool Active
         {
             get;
 			set;
