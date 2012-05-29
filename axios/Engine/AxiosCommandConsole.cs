@@ -7,6 +7,7 @@ using XNACC.Console;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using Axios.Engine.Log;
 
 /*
  * The empty AxiosCommandConsole is so that when you use the comamnd console
@@ -45,16 +46,36 @@ namespace Axios.Engine
             FadeImage = tmp;
         }
 
+        private void ShowAxiosLog()
+        {
+            AddOutputToLog("============");
+            foreach (string l in AxiosLog.Instance.GetLogList())
+                AddOutputToLog(l);
+            AddOutputToLog("============");
+        }
 
+        public override void InitializeCustomCommands()
+        {
+            AddCommand(new CmdObject("axioslog", "Displays the current Axios Log", input => { ShowAxiosLog(); }));
+            base.InitializeCustomCommands();
+        }
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
         }
+
         protected override void LoadContent()
         {
+
             if (Font == null)
                 Font = Game.Content.Load<SpriteFont>("Console");
             base.LoadContent();
+        }
+
+        protected override void UnloadContent()
+        {
+            base.UnloadContent();
+            ms_commands.Remove("axioslog");
         }
     }
 }

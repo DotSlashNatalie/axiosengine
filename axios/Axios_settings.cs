@@ -95,6 +95,7 @@
  * - Fixed a bug where cleanup actions were being performed in Deactivate instead of Unload in AxiosGameScreen
  * - Adding IsNullOrWhiteSpace extension for support for Xbox 360
  * - Upon some testing - developers will need to use #if WINDOWS/#endif tags to make sure they can't use XNACC in WP7/Xbox360
+ * - Adding axioslog command to output AxiosLog
  * 
  * 
  */

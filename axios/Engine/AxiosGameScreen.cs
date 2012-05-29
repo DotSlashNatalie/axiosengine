@@ -431,6 +431,7 @@ namespace Axios.Engine
             {
                 ScreenManager.Game.Components.Remove(_console);
                 _console.Dispose();
+                _console = null;
             }
 #endif
         }
