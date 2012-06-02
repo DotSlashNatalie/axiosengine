@@ -33,16 +33,12 @@ namespace Axios.Engine
         public override void LoadContent(AxiosGameScreen gameScreen)
         {
             base.LoadContent(gameScreen);
-            
-            //this.Texture = new Texture2D(gameScreen.ScreenManager.GraphicsDevice, 1, 1);
+
         }
 
         public virtual void Draw(AxiosGameScreen gameScreen, GameTime gameTime)
         {
 
-            /*#if DEBUG
-                        System.Diagnostics.Debugger.Break();
-            #endif*/
             if (_relativetocamera)
                 gameScreen.ScreenManager.SpriteBatch.Begin(0, null, null, null, null, null, gameScreen.Camera.View);
             else

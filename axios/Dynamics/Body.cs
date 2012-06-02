@@ -827,6 +827,11 @@ namespace FarseerPhysics.Dynamics
         /// <param name="angle">The angle.</param>
         public void SetTransformIgnoreContacts(ref Vector2 position, float angle)
         {
+            // Sometimes this is called with an empty Fixture list
+            // -- Nathan Adams [adamsna@datanethost.net] - 6/2/2012
+            if (FixtureList == null || FixtureList.Count == 0)
+                return;
+
             Xf.R.Set(angle);
             Xf.Position = position;
 
