@@ -207,6 +207,12 @@ namespace Axios.Engine
             }
 #endif
             camera = new Camera(ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
+
+#if DEBUG
+            EnableCameraControl = true;
+#else
+            EnableCameraControl = false;
+#endif
         }
 
         public override void Draw(GameTime gameTime)

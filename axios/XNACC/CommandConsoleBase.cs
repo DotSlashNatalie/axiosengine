@@ -2310,12 +2310,15 @@ namespace XNACC.Console
 			{
 				string	cvarName = cmdLine[ 1 ].ToLowerInvariant();
 				
+                // Isn't this preventing us from modifying a cvar?
+                // -- Nathan Adams [adamsna@datanethost.net] - 6/3/2012
 				if( m_cVars.TryGetValue( cvarName, out cvar ) )
 				{
 					AddErrorToLog( "CVar " + cmdLine[ 1 ] + 
 							" already exists with a value of: " + cvar.Value ?? "(null" );
 					return;
 				}
+
 				if( cmdLine.Length == 4 )
 				{
 					string	typeName = cmdLine[ 2 ];

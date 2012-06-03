@@ -24,6 +24,7 @@ namespace Axios.Engine
     public class AxiosCommandConsole : CommandConsoleBase
     {
         protected AxiosGameScreen GameScreen;
+        protected List<string> RestrictedCommands = new List<string>();
         public AxiosCommandConsole(AxiosGameScreen gameScreen)
             : base(gameScreen.ScreenManager.Game)
         {
@@ -54,14 +55,27 @@ namespace Axios.Engine
             AddOutputToLog("============");
         }
 
+        public void ToggleCamera()
+        {
+            GameScreen.EnableCameraControl = !GameScreen.EnableCameraControl;
+        }
+
         public override void InitializeCustomCommands()
         {
             AddCommand(new CmdObject("axioslog", "Displays the current Axios Log", input => { ShowAxiosLog(); }));
+            AddCommand(new CmdObject("tcc", "Toggles user camera control", input => { ToggleCamera(); }));
             base.InitializeCustomCommands();
+
         }
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
+
+            foreach (string cmd in RestrictedCommands)
+            {
+                if (ms_commands.Keys.Contains(cmd))
+                    ms_commands.Remove(cmd);
+            }
         }
 
         protected override void LoadContent()
@@ -77,6 +91,7 @@ namespace Axios.Engine
             base.UnloadContent();
             //ms_commands.Remove("axioslog");
         }
+
     }
 }
 #else

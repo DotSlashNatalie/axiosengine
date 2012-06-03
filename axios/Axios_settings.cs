@@ -99,6 +99,7 @@
  * - Changing variables in CommandConsoleBase to be non-static
  * - Adding rotation to DrawableAxiosGameObject
  * - Adding InputState extensions to test for input agaisnt Player One
+ * - Adding the ability to disable commands in XNACC from AxiosCommandConsole
  * 
  * 
  */
