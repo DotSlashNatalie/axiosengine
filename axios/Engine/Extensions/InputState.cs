@@ -47,7 +47,7 @@ namespace Axios.Engine.Extensions
             return input.IsNewButtonRelease(button, PlayerIndex.One, out p);
         }
 
-        public bool IsNewKeyRelease(this InputState input, Keys key)
+        public static bool IsNewKeyRelease(this InputState input, Keys key)
         {
             PlayerIndex p;
             return input.IsNewKeyRelease(key, PlayerIndex.One, out p);
