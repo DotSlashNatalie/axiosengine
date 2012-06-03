@@ -16,6 +16,14 @@ namespace Axios.Engine
         protected bool _adjustunits = true;
         protected bool _relativetocamera = true;
 
+        protected float _rotation;
+
+        public float Rotation
+        {
+            get { return _rotation; }
+            set { _rotation = value; }
+        }
+
         public bool AdjustUnits //if value changed - change position depending on adjusting the units
         {
             get { return _adjustunits; }
@@ -43,9 +51,9 @@ namespace Axios.Engine
             else
                 gameScreen.ScreenManager.SpriteBatch.Begin();
             if (_adjustunits)
-                gameScreen.ScreenManager.SpriteBatch.Draw(Texture, ConvertUnits.ToDisplayUnits(Position), null, Color.White, 0, Origin, _scale, SpriteEffects.None, 0);
+                gameScreen.ScreenManager.SpriteBatch.Draw(Texture, ConvertUnits.ToDisplayUnits(Position), null, Color.White, _rotation, Origin, _scale, SpriteEffects.None, 0);
             else
-                gameScreen.ScreenManager.SpriteBatch.Draw(Texture, Position, null, Color.White, 0, Origin, _scale, SpriteEffects.None, 0);
+                gameScreen.ScreenManager.SpriteBatch.Draw(Texture, Position, null, Color.White, _rotation, Origin, _scale, SpriteEffects.None, 0);
             gameScreen.ScreenManager.SpriteBatch.End();
         }
 

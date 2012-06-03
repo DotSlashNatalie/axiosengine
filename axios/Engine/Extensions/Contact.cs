@@ -46,8 +46,6 @@ namespace Axios.Engine.Extensions
                     
             }
 
-
-
             return direction;
         }
     }

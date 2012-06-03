@@ -473,7 +473,6 @@ namespace GameStateManagement
             }
         }
 
-
         /// <summary>
         /// Helper for checking if a button was pressed during this update.
         /// The controllingPlayer parameter specifies which player to read input for.
@@ -500,7 +499,6 @@ namespace GameStateManagement
                         IsButtonPressed(button, PlayerIndex.Four, out playerIndex));
             }
         }
-
 
         /// <summary>
         /// Helper for checking if a key was newly pressed during this update. The
@@ -551,7 +549,6 @@ namespace GameStateManagement
                         IsNewKeyRelease(key, PlayerIndex.Four, out playerIndex));
             }
         }
-
 
         /// <summary>
         /// Helper for checking if a button was newly pressed during this update.

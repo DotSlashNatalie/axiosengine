@@ -97,6 +97,8 @@
  * - Upon some testing - developers will need to use #if WINDOWS/#endif tags to make sure they can't use XNACC in WP7/Xbox360
  * - Adding axioslog command to output AxiosLog
  * - Changing variables in CommandConsoleBase to be non-static
+ * - Adding rotation to DrawableAxiosGameObject
+ * - Adding InputState extensions to test for input agaisnt Player One
  * 
  * 
  */
