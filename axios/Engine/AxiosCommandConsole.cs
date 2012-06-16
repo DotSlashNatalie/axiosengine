@@ -57,6 +57,7 @@ namespace Axios.Engine
 
         public void ToggleCamera()
         {
+            AddOutputToLog("Camera user control was: " + ((GameScreen.EnableCameraControl) ? "Disabled" : "Enabled"));
             GameScreen.EnableCameraControl = !GameScreen.EnableCameraControl;
         }
 

@@ -100,6 +100,11 @@
  * - Adding rotation to DrawableAxiosGameObject
  * - Adding InputState extensions to test for input agaisnt Player One
  * - Adding the ability to disable commands in XNACC from AxiosCommandConsole
+ * - Adding a behavior in AxiosGameScreen where the camera will be controllable via
+ * arrow keys in DEBUG releases and disabled in RELEASE releases. This behavior can
+ * be overwritten in each screen
+ * - Adding output to tcc console command to signal if it was disabled/enabled
+ * - Adding DegreeToRadian/RadianToDegree double extensions
  * 
  * 
  */

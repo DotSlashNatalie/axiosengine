@@ -162,6 +162,7 @@
     <Compile Include="Engine\DrawableBreakableAxiosGameObject.cs" />
     <Compile Include="Engine\Extensions\Bitmap.cs" />
     <Compile Include="Engine\Extensions\Contact.cs" />
+    <Compile Include="Engine\Extensions\Double.cs" />
     <Compile Include="Engine\Extensions\InputState.cs" />
     <Compile Include="Engine\Extensions\String.cs" />
     <Compile Include="Engine\Extensions\Texture2D.cs" />
