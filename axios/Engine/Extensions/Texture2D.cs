@@ -23,6 +23,8 @@ namespace Axios.Engine.Extensions
         /// <returns>A multidimensional array represting the rows/coulmns in the texture.</returns>
         public static Texture2D[,] Split(this Texture2D original, int partWidth, int partHeight, out int xCount, out int yCount)
         {
+            // This is buggy, there is an issue where it is out of bounds => r[curryidx, currxidx] = part;
+            // -- Nathan Adams [adamsna@datanethost.net] - 6/21/2012
             yCount = original.Height / partHeight; //+ (partHeight % original.Height == 0 ? 0 : 1);//The number of textures in each horizontal row
             xCount = original.Width / partWidth; //+(partWidth % original.Width == 0 ? 0 : 1);//The number of textures in each vertical column
             Texture2D[,] r = new Texture2D[yCount,xCount];//Number of parts = (area of original) / (area of each part).
