@@ -340,7 +340,7 @@ namespace Axios.Engine
                 uiobjpos = uiobject.Position;
                 //objpos = this.Camera.ConvertScreenToWorld(uiobjpos);
 
-                uirect = new AxiosRectangle(uiobjpos.X, uiobjpos.Y, ConvertUnits.ToSimUnits(uiobject.Width), ConvertUnits.ToSimUnits(uiobject.Height));
+                uirect = new AxiosRectangle(ConvertUnits.ToSimUnits(uiobjpos.X), ConvertUnits.ToSimUnits(uiobjpos.Y), ConvertUnits.ToSimUnits(uiobject.Width), ConvertUnits.ToSimUnits(uiobject.Height));
                 
                 if (uirect.Intersect(mousrect))
                 {

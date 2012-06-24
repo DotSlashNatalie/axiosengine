@@ -10,7 +10,28 @@ namespace Axios.Engine
     {
         protected int _draworder;
         protected Texture2D Texture;
-        public Vector2 Position = new Vector2(); //set this to a property and adjust if adjustunits is true
+        
+        //public Vector2 Position = new Vector2(); //set this to a property and adjust if adjustunits is true
+
+        public Vector2 _position = Vector2.Zero;
+        public Vector2 Position
+        {
+            get
+            {
+                return ConvertUnits.ToDisplayUnits(_position);
+            }
+            set
+            {
+                _position = value;
+            }
+        }
+
+        public Vector2 RealPosition
+        {
+            get { return _position; }
+            private set { }
+        }
+
         public Vector2 Origin = new Vector2();
 
         protected bool _adjustunits = true;
@@ -36,6 +57,18 @@ namespace Axios.Engine
             set { _relativetocamera = value; }
         }
 
+        public int Width
+        {
+            get { return this.Texture.Width; }
+            private set { }
+        }
+
+        public int Height
+        {
+            get { return this.Texture.Height; }
+            private set { }
+        }
+
         public override void LoadContent(AxiosGameScreen gameScreen)
         {
             base.LoadContent(gameScreen);
@@ -51,9 +84,9 @@ namespace Axios.Engine
             else
                 gameScreen.ScreenManager.SpriteBatch.Begin();
             if (_adjustunits)
-                gameScreen.ScreenManager.SpriteBatch.Draw(Texture, ConvertUnits.ToDisplayUnits(Position), null, Color.White, _rotation, Origin, _scale, SpriteEffects.None, 0);
+                gameScreen.ScreenManager.SpriteBatch.Draw(Texture, ConvertUnits.ToDisplayUnits(_position), null, Color.White, _rotation, Origin, _scale, SpriteEffects.None, 0);
             else
-                gameScreen.ScreenManager.SpriteBatch.Draw(Texture, Position, null, Color.White, _rotation, Origin, _scale, SpriteEffects.None, 0);
+                gameScreen.ScreenManager.SpriteBatch.Draw(Texture, _position, null, Color.White, _rotation, Origin, _scale, SpriteEffects.None, 0);
             gameScreen.ScreenManager.SpriteBatch.End();
         }
 

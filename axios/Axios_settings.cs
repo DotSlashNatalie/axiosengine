@@ -105,6 +105,8 @@
  * be overwritten in each screen
  * - Adding output to tcc console command to signal if it was disabled/enabled
  * - Adding DegreeToRadian/RadianToDegree double extensions
+ * - Fixing UI detect bug
+ * - Adding Width/Height/Position/RealPosition to DrawableAxiosGameObject
  * 
  * 
  */
