@@ -1,5 +1,4 @@
-﻿
-using FarseerPhysics.SamplesFramework;
+﻿using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework.Graphics;
 using GameStateManagement;
 
