@@ -35,6 +35,11 @@ namespace Axios.Engine.Gleed2D
         /// </summary>
         public Vector2 ScrollSpeed;
 
+        /// <summary>
+        /// A Dictionary containing any user-defined Properties.
+        /// </summary>
+        public SerializableDictionary CustomProperties;
+
 
         public Layer()
         {

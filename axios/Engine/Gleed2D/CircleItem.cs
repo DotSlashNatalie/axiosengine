@@ -23,9 +23,9 @@ namespace Axios.Engine.Gleed2D
         {
         }
 
-        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache)
+        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache, Layer layer)
         {
-            base.load(gameScreen, ref cache);
+            base.load(gameScreen, ref cache, layer);
             if (gameScreen.LoadCircleItem(this))
             {
                 _body = BodyFactory.CreateCircle(gameScreen.World, Radius, 1f);

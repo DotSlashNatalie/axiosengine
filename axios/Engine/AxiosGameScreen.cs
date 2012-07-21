@@ -464,6 +464,10 @@ namespace Axios.Engine
             return true;
         }
 
+        public virtual bool LoadTextureItem(TextureItem textureitem)
+        {
+            return true;
+        }
 
     }
 }

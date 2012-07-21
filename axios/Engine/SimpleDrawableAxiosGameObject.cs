@@ -95,20 +95,20 @@ namespace Axios.Engine
                 Vertices vertices = PolygonTools.CreatePolygon(data, this.Texture.Width, false);
                 Vector2 vector = -vertices.GetCentroid();
                 vertices.Translate(ref vector);
-                base.Origin = -vector;
+                this.Origin = -vector;
                 List<Vertices> list = BayazitDecomposer.ConvexPartition(SimplifyTools.ReduceByDistance(vertices, 4f));
-                base._scale = 1f;
-                Vector2 vector2 = (Vector2)(new Vector2(ConvertUnits.ToSimUnits(1)) * base._scale);
+                this._scale = 1f;
+                Vector2 vector2 = (Vector2)(new Vector2(ConvertUnits.ToSimUnits(1)) * this._scale);
                 foreach (Vertices vertices2 in list)
                 {
                     vertices2.Scale(ref vector2);
                 }
-                base.BodyPart = BodyFactory.CreateCompoundPolygon(gameScreen.World, list, 1f, BodyType.Dynamic);
-                base.BodyPart.BodyType = BodyType.Dynamic;
-                base.BodyPart.Position = base.Position;
-                base.BodyPart.UserData = this;
-                base.BodyPart.CollidesWith = Category.All;
-                base.BodyPart.CollisionCategories = Category.All;
+                this.BodyPart = BodyFactory.CreateCompoundPolygon(gameScreen.World, list, 1f, BodyType.Dynamic);
+                this.BodyPart.BodyType = BodyType.Dynamic;
+                this.BodyPart.Position = this.Position;
+                this.BodyPart.UserData = this;
+                this.BodyPart.CollidesWith = Category.All;
+                this.BodyPart.CollisionCategories = Category.All;
             }
         }
 

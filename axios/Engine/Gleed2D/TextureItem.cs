@@ -58,13 +58,15 @@ namespace Axios.Engine.Gleed2D
         /// exists as an asset in your project.
         /// Loading is done in the Item's load() method.
         /// </summary>
-        Texture2D texture;
+        public Texture2D texture;
 
         /// <summary>
         /// The item's origin relative to the upper left corner of the texture. Usually the middle of the texture.
         /// Used for placing and rotating the texture when drawn.
         /// </summary>
         public Vector2 Origin;
+
+        public Layer Layer;
 
 
         public TextureItem()
@@ -77,8 +79,10 @@ namespace Axios.Engine.Gleed2D
         /// You must provide your own implementation. However, you can rely on all public fields being
         /// filled by the level deserialization process.
         /// </summary>
-        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache)
+        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache, Layer layer)
         {
+            this.Layer = layer;
+            base.load(gameScreen, ref cache, layer);
             //throw new NotImplementedException();
 
             //TODO: provide your own implementation of how a TextureItem loads its assets
@@ -90,8 +94,10 @@ namespace Axios.Engine.Gleed2D
                 cache[asset_name] = gameScreen.ScreenManager.Game.Content.Load<Texture2D>(asset_name);   
             }
             this.texture = cache[asset_name];
+            Visible = gameScreen.LoadTextureItem(this);
+            
             //this.texture = cm.Load<Texture2D>(asset_name);
-
+            
         }
 
         public override void draw(SpriteBatch sb)

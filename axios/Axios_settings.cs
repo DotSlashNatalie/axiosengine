@@ -107,7 +107,10 @@
  * - Adding DegreeToRadian/RadianToDegree double extensions
  * - Fixing UI detect bug
  * - Adding Width/Height/Position/RealPosition to DrawableAxiosGameObject
- * 
+ * - Starting work on AxiosCSV
+ * - Adding CustomProperties field to Glee2D Layer object (this is because Layers can have custom properties)
+ * - Passing Layer to Items in Glee2D library
+ * - Adding public virtual bool LoadTextureItem(TextureItem textureitem) to AxiosGameScreen
  * 
  */
 #endregion

@@ -67,7 +67,7 @@ namespace Axios.Engine.Gleed2D
                 foreach (Item item in layer.Items)
                 {
                     item.CustomProperties.RestoreItemAssociations(level);
-                    item.load(gameScreen, ref cache);
+                    item.load(gameScreen, ref cache, layer);
                 }
             }
 
@@ -86,7 +86,7 @@ namespace Axios.Engine.Gleed2D
                 foreach (Item item in layer.Items)
                 {
                     item.CustomProperties.RestoreItemAssociations(level);
-                    item.load(gameScreen, ref cache);
+                    item.load(gameScreen, ref cache, layer);
                 }
             }
 

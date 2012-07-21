@@ -22,11 +22,12 @@ namespace Axios.Engine.Gleed2D
 
         public RectangleItem()
         {
+
         }
 
-        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache)
+        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache, Layer layer)
         {
-            base.load(gameScreen, ref cache);
+            base.load(gameScreen, ref cache, layer);
             if (gameScreen.LoadRectangleItem(this))
             {
                 _body = BodyFactory.CreateRectangle(gameScreen.World, ConvertUnits.ToSimUnits(Width), ConvertUnits.ToSimUnits(Height), 1f);
