@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.1.6")]
+[assembly: AssemblyVersion("1.0.1.7")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]

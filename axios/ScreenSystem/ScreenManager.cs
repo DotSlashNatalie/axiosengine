@@ -289,6 +289,27 @@ namespace GameStateManagement
             TouchPanel.EnabledGestures = screen.EnabledGestures;
         }
 
+        /// <summary>
+        /// Adds a new screen to the screen manager with a default PlayerIndex of one
+        /// </summary>
+        public void AddScreen(GameScreen screen)
+        {
+            screen.ControllingPlayer = PlayerIndex.One;
+            screen.ScreenManager = this;
+            screen.IsExiting = false;
+
+            // If we have a graphics device, tell the screen to load content.
+            if (isInitialized)
+            {
+                screen.Activate(false);
+            }
+
+            screens.Add(screen);
+
+            // update the TouchPanel to respond to gestures this screen is interested in
+            TouchPanel.EnabledGestures = screen.EnabledGestures;
+        }
+
 
         /// <summary>
         /// Removes a screen from the screen manager. You should normally

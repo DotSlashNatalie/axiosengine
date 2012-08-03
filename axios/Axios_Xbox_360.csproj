@@ -166,6 +166,7 @@
     <Compile Include="Engine\Extensions\InputState.cs" />
     <Compile Include="Engine\Extensions\String.cs" />
     <Compile Include="Engine\Extensions\Texture2D.cs" />
+    <Compile Include="Engine\Factories\Texture2D.cs" />
     <Compile Include="Engine\File\AxiosFile.cs" />
     <Compile Include="Engine\File\AxiosIsolatedFile.cs" />
     <Compile Include="Engine\File\AxiosRegularFile.cs" />
