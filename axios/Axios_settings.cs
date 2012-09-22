@@ -115,6 +115,7 @@
  * 1.0.1.7 - 7/22/2012
  * - Adding Factory for Texture2D to create from a list (ie lay a list of texture2D row by row)
  * - Adding AddScreen method to ScreenManager to make the PlayerIndex optional (default of PlayerIndex.One)
+ * - Adding visible flag to DrawableAxiosGameObject
  * 
  */
 #endregion

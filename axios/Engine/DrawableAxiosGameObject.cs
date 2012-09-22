@@ -3,6 +3,7 @@ using Axios.Engine.Interfaces;
 using FarseerPhysics.SamplesFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace Axios.Engine
 {
@@ -10,14 +11,22 @@ namespace Axios.Engine
     {
         protected int _draworder;
         protected Texture2D Texture;
+        protected bool _visible = true;
         
         //public Vector2 Position = new Vector2(); //set this to a property and adjust if adjustunits is true
+
+        public bool Visible
+        {
+            get { return _visible; }
+            set { this._visible = value; }
+        }
 
         public Vector2 _position = Vector2.Zero;
         public Vector2 Position
         {
             get
             {
+                //Debugger.Break();
                 return ConvertUnits.ToDisplayUnits(_position);
             }
             set
@@ -78,16 +87,20 @@ namespace Axios.Engine
 
         public virtual void Draw(AxiosGameScreen gameScreen, GameTime gameTime)
         {
-
-            if (_relativetocamera)
-                gameScreen.ScreenManager.SpriteBatch.Begin(0, null, null, null, null, null, gameScreen.Camera.View);
-            else
-                gameScreen.ScreenManager.SpriteBatch.Begin();
-            if (_adjustunits)
-                gameScreen.ScreenManager.SpriteBatch.Draw(Texture, ConvertUnits.ToDisplayUnits(_position), null, Color.White, _rotation, Origin, _scale, SpriteEffects.None, 0);
-            else
-                gameScreen.ScreenManager.SpriteBatch.Draw(Texture, _position, null, Color.White, _rotation, Origin, _scale, SpriteEffects.None, 0);
-            gameScreen.ScreenManager.SpriteBatch.End();
+            //System.Diagnostics.Debugger.Break();
+            //Vector2 test = ConvertUnits.ToDisplayUnits(_position);
+            if (_visible)
+            {
+                if (_relativetocamera)
+                    gameScreen.ScreenManager.SpriteBatch.Begin(0, null, null, null, null, null, gameScreen.Camera.View);
+                else
+                    gameScreen.ScreenManager.SpriteBatch.Begin();
+                if (_adjustunits)
+                    gameScreen.ScreenManager.SpriteBatch.Draw(Texture, ConvertUnits.ToDisplayUnits(_position), null, Color.White, _rotation, Origin, _scale, SpriteEffects.None, 0);
+                else
+                    gameScreen.ScreenManager.SpriteBatch.Draw(Texture, _position, null, Color.White, _rotation, Origin, _scale, SpriteEffects.None, 0);
+                gameScreen.ScreenManager.SpriteBatch.End();
+            }
         }
 
         public int DrawOrder

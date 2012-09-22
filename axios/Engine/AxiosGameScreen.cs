@@ -217,8 +217,8 @@ namespace Axios.Engine
 
         public override void Draw(GameTime gameTime)
         {
-            
 
+            //System.Diagnostics.Debugger.Break();
             if (Level != null)
             {
                 foreach (Layer layer in Level.Layers)
