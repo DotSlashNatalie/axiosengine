@@ -19,6 +19,13 @@ namespace Axios.Engine
         protected Boolean _adjustunits = true;
         protected Boolean _relativetocamera = true;
         protected int _draworder;
+        protected bool _visible = true;
+
+        public bool Visible
+        {
+            get { return _visible; }
+            set { this._visible = value; }
+        }
 
         
 
@@ -38,16 +45,18 @@ namespace Axios.Engine
 
         public virtual void Draw(AxiosGameScreen gameScreen, GameTime gameTime)
         {
-
-            if (_relativetocamera)
-                gameScreen.ScreenManager.SpriteBatch.Begin(0, null, null, null, null, null, gameScreen.Camera.View);
-            else
-                gameScreen.ScreenManager.SpriteBatch.Begin();
-            if (_adjustunits)
-                DrawObject(gameScreen.ScreenManager.SpriteBatch, Texture, BodyPart, Origin, true, _scale);
-            else
-                DrawObject(gameScreen.ScreenManager.SpriteBatch, Texture, BodyPart, Origin, _scale);
-            gameScreen.ScreenManager.SpriteBatch.End();
+            if (_visible)
+            {
+                if (_relativetocamera)
+                    gameScreen.ScreenManager.SpriteBatch.Begin(0, null, null, null, null, null, gameScreen.Camera.View);
+                else
+                    gameScreen.ScreenManager.SpriteBatch.Begin();
+                if (_adjustunits)
+                    DrawObject(gameScreen.ScreenManager.SpriteBatch, Texture, BodyPart, Origin, true, _scale);
+                else
+                    DrawObject(gameScreen.ScreenManager.SpriteBatch, Texture, BodyPart, Origin, _scale);
+                gameScreen.ScreenManager.SpriteBatch.End();
+            }
         }
 
         protected void DrawObject(SpriteBatch sb, Texture2D texture, Body body, Vector2 origin)
