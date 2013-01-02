@@ -117,6 +117,7 @@
  * - Adding AddScreen method to ScreenManager to make the PlayerIndex optional (default of PlayerIndex.One)
  * - Adding visible flag to DrawableAxiosGameObject and SimpleDrawableAxiosGameObject
  * - Adding extension to mousestate (Position) to get a Vector2 object of the position
+ * - Added MouseAimVector to AGS - this allows you to get a vector to "shoot" with (realtive to the mouse and another object) a LinearVelocity in Farseer
  * 
  */
 #endregion

@@ -11,7 +11,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using GameStateManagement;
+using Microsoft.Xna.Framework.Input;
 using Axios.Engine.Gleed2D;
+using Axios.Engine.Extensions;
 
 namespace Axios.Engine
 {
@@ -64,6 +66,14 @@ namespace Axios.Engine
             prevuiobj = null;
             prevuifocusobj = null;
             
+        }
+
+        public Vector2 MouseAimVector(MouseState ms, Vector2 relativeposition)
+        {
+            Vector2 ret;
+            ret = this.Camera.ConvertScreenToWorld(ms.Position()) - relativeposition;
+            ret.Normalize();
+            return ret;
         }
 
         /*public void AddGameObject<T>(T gameobject)
