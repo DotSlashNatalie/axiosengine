@@ -21,7 +21,7 @@ namespace GameStateManagement
         private float _agentTorque;
         private FixedMouseJoint _fixedMouseJoint;
         private Body _userAgent;
-
+        public bool UseSecondStep = false;
         protected PhysicsGameScreen()
         {
             TransitionOnTime = TimeSpan.FromSeconds(0.75);
@@ -101,7 +101,10 @@ namespace GameStateManagement
             if (!coveredByOtherScreen && !otherScreenHasFocus)
             {
                 // variable time step but never less then 30 Hz
-                World.Step(Math.Min((float)gameTime.ElapsedGameTime.TotalSeconds, (1f / 30f)));
+                if (UseSecondStep)
+                    World.Step(Math.Min((float)gameTime.ElapsedGameTime.TotalSeconds, (1f / 30f)));
+                else
+                    World.Step((float)(gameTime.ElapsedGameTime.TotalMilliseconds * 0.001));
             }
             else
             {

@@ -119,6 +119,9 @@
  * - Adding extension to mousestate (Position) to get a Vector2 object of the position
  * - Added MouseAimVector to AGS - this allows you to get a vector to "shoot" with (realtive to the mouse and another object) a LinearVelocity in Farseer
  * 
+ * 1.0.1.8 - 1/12/2012
+ * - Adding UseSecondStep flag in PhysicsGameScreen (default false)
+ * 
  */
 #endregion
 
