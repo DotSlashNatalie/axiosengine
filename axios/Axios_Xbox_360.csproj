@@ -150,6 +150,7 @@
     <Compile Include="Dynamics\WorldCallbacks.cs" />
     <Compile Include="Engine\AxiosBreakableGameObject.cs" />
     <Compile Include="Engine\AxiosCommandConsole.cs" />
+    <Compile Include="Engine\AxiosEngineFactory.cs" />
     <Compile Include="Engine\AxiosEvents.cs" />
     <Compile Include="Engine\AxiosGameObject.cs" />
     <Compile Include="Engine\AxiosGameScreen.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Factories\FixtureFactory.cs" />
     <Compile Include="Factories\JointFactory.cs" />
     <Compile Include="Factories\LinkFactory.cs" />
+    <Compile Include="Factories\Prompt.cs" />
     <Compile Include="PrimitiveBatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScreenSystem\BackgroundScreen.cs" />

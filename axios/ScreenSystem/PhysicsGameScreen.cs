@@ -57,7 +57,7 @@ namespace GameStateManagement
                 base.Activate(instancePreserved);
 
                 //We enable diagnostics to show get values for our performance counters.
-                Settings.EnableDiagnostics = true;
+                FarseerPhysics.Settings.EnableDiagnostics = true;
 
                 if (World == null)
                 {

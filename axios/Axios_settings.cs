@@ -122,6 +122,13 @@
  * 1.0.1.8 - 1/12/2012
  * - Adding UseSecondStep flag in PhysicsGameScreen (default false)
  * 
+ * 1.0.1.9 - 5/20/2013
+ * - Adding mono support
+ * 
+ * 1.0.1.10 - 11/29/2014
+ * - Adding prompt factory class to generate a Final Fantasy type text prompt
+ * - Updating Gleed2D support to work with latest version of Gleed2D
+ * 
  */
 #endregion
 

@@ -31,16 +31,17 @@ Where can I download pre-built DLLs?
 
 Official versions can be downloaded here:
 
-     http://code.google.com/p/axiosengine/downloads/list
+     https://srchub.org/p/axiosengine/downloads/
 	
 Of course you can always build from source from:
 
-     http://code.google.com/p/axiosengine/source/checkout
+     https://srchub.org/hg/axiosengine
 	 
 Authors
 -------
 
 General questions/comments/concerns can be directed at:
+
 Nathan Adams - adamsna[at]datanethost.net
 
 Contributors:
@@ -66,3 +67,6 @@ XNACC - See XNACC.License.txt
      http://xnacc.codeplex.com/
 	 
 Portions of this product are (C) 2009-2011 JRTwine Software, LLC
+
+Prompt Factory - By Blaze Phoenix
+http://stackoverflow.com/a/17260476/195722

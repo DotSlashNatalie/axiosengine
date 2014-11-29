@@ -12,8 +12,15 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using GameStateManagement;
 using Microsoft.Xna.Framework.Input;
-using Axios.Engine.Gleed2D;
 using Axios.Engine.Extensions;
+using System.IO;
+using System.IO.Compression;
+using Gleed2D.InGame;
+using Axios.Engine.File;
+using System.Xml.Linq;
+using Gleed2D.Core;
+using System.Diagnostics;
+using Axios.Engine.Gleed2D;
 
 namespace Axios.Engine
 {
@@ -35,6 +42,12 @@ namespace Axios.Engine
 
         private List<AxiosTimer> _timers;
         private List<AxiosUIObject> _uiobjects;
+
+        protected Dictionary<string, PathItem> PathItems = new Dictionary<string, PathItem>();
+        protected Dictionary<string, TextureItem> TextureItems = new Dictionary<string, TextureItem>();
+        //protected List<TextureItem> TextureItems = new List<TextureItem>();
+
+        protected Dictionary<string, Texture2D> cache = new Dictionary<string, Texture2D>();
 
         private AxiosUIObject prevuiobj;
         private AxiosUIObject prevuifocusobj;
@@ -66,6 +79,56 @@ namespace Axios.Engine
             prevuiobj = null;
             prevuifocusobj = null;
             
+        }
+
+        public void LoadLevelFromStream(Stream s)
+        {
+            XElement xml = XElement.Load(s);
+            Level level = LevelLoader.Load(xml);
+            this.Level = level;
+
+            foreach (Layer layer in level.Layers)
+            {
+                foreach (LayerItem item in layer.Items)
+                {
+                    //Debug.WriteLine(item.PropertyType);
+                    switch (item.PropertyType)
+                    {
+                        case "Gleed2D.InGame.PathItemProperties":
+                            this.LoadPathItem((PathItemProperties)item.Properties, layer);
+                            break;
+                        case "Gleed2D.InGame.TextureItemProperties":
+                            this.LoadTextureItem((TextureItemProperties)item.Properties, layer);
+                            break;
+                        case "Gleed2D.InGame.RectangleItemProperties":
+                            this.LoadRectangleItem((RectangleItemProperties)item.Properties, layer);
+                            break;
+                        case "Gleed2D.InGame.CircleItemProperties":
+                            this.LoadCircleItem((CircleItemProperties)item.Properties, layer);
+                            break;
+                        default:
+                            this.LoadOtherItem(item.Properties, item.PropertyType, layer);
+                            break;
+                    }
+                    /*Debug.WriteLine(item.Properties.Id);
+                    Debug.WriteLine(item.Properties.Name);
+                    Debug.WriteLine(item.PropertyType);*/
+                    
+                }
+            }
+        }
+
+        public void LoadLevelFromFile(string s)
+        {
+            AxiosTitleFile file = new AxiosTitleFile(s);
+            this.LoadLevelFromStream(file.GetStream(FileMode.Open));
+        }
+
+        public void LoadLevelFromGZFile(string s)
+        {
+            AxiosTitleFile file = new AxiosTitleFile(s);
+            GZipStream zipstream = new GZipStream(file.GetStream(FileMode.Open), CompressionMode.Decompress);
+            this.LoadLevelFromStream(zipstream);
         }
 
         public Vector2 MouseAimVector(MouseState ms, Vector2 relativeposition)
@@ -234,10 +297,16 @@ namespace Axios.Engine
                 foreach (Layer layer in Level.Layers)
                 {
                     Vector2 oldcameraposition = camera.Position;
-                    camera.Position *= layer.ScrollSpeed;
+                    //camera.Position *= layer.ScrollSpeed;
                     
                     ScreenManager.SpriteBatch.Begin(0, null, null, null, null, null, Camera.View);
-                    layer.draw(ScreenManager.SpriteBatch);
+                    foreach (TextureItem i in TextureItems.Values)
+                    {
+                        if (i.LayerItem.Visible == true)
+                        {
+                            i.draw(ScreenManager.SpriteBatch);
+                        }
+                    }
                     ScreenManager.SpriteBatch.End();
 
                     camera.Position = oldcameraposition;
@@ -249,6 +318,8 @@ namespace Axios.Engine
 
             foreach(AxiosUIObject g in (from x in _uiobjects orderby x.DrawOrder select x))
                 ((IDrawableAxiosGameObject)g).Draw(this, gameTime);
+
+            
 
             base.Draw(gameTime); //This is placed at the end so that Farseer debug information is visible
             
@@ -459,25 +530,31 @@ namespace Axios.Engine
         /// </summary>
         /// <param name="circleitem"></param>
         /// <returns></returns>
-        public virtual bool LoadCircleItem(CircleItem circleitem)
+        public virtual void LoadCircleItem(CircleItemProperties circleitem, Layer l)
         {
-            return true;
+            
         }
 
-        public virtual bool LoadPathItem(PathItem pathitem)
+        public virtual void LoadPathItem(PathItemProperties pathitem, Layer l)
         {
-            return true;
+            PathItem p = new PathItem((PathItemProperties)pathitem);
+            p.load(this, ref cache);
+            PathItems[pathitem.Name] = p;
         }
 
-        public virtual bool LoadRectangleItem(RectangleItem rectangleitem)
+        public virtual void LoadRectangleItem(RectangleItemProperties rectangleitem, Layer l)
         {
-            return true;
+            
         }
 
-        public virtual bool LoadTextureItem(TextureItem textureitem)
+        public virtual void LoadTextureItem(TextureItemProperties textureitem, Layer l)
         {
-            return true;
+            TextureItem i = new TextureItem((TextureItemProperties)textureitem);
+            i.load(this, ref cache);
+            TextureItems[textureitem.Name] = i;
         }
+
+        public virtual void LoadOtherItem(ItemProperties prop, string type, Layer l) { }
 
     }
 }

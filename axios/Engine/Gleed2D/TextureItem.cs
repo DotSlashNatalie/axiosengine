@@ -12,65 +12,25 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Common;
 using FarseerPhysics.SamplesFramework;
 using FarseerPhysics.Factories;
+using Gleed2D.InGame;
 
 namespace Axios.Engine.Gleed2D
 {
     public partial class TextureItem : Item
     {
-        /// <summary>
-        /// The item's rotation in radians.
-        /// </summary>
-        public float Rotation;
-
-        /// <summary>
-        /// The item's scale factor.
-        /// </summary>
-        public Vector2 Scale;
-
-        /// <summary>
-        /// The color to tint the item's texture with (use white for no tint).
-        /// </summary>
-        public Color TintColor;
-
-        /// <summary>
-        /// If true, the texture is flipped horizontally when drawn.
-        /// </summary>
-        public bool FlipHorizontally;
-
-        /// <summary>
-        /// If true, the texture is flipped vertically when drawn.
-        /// </summary>
-        public bool FlipVertically;
-
-        /// <summary>
-        /// The path to the texture's filename (including the extension) relative to ContentRootFolder.
-        /// </summary>
-        public String texture_filename;
-
-        /// <summary>
-        /// The texture_filename without extension. For using in Content.Load<Texture2D>().
-        /// </summary>
-        public String asset_name;
-
-        /// <summary>
-        /// The XNA texture to be drawn. Can be loaded either from file (using "texture_filename") 
-        /// or via the Content Pipeline (using "asset_name") - then you must ensure that the texture
-        /// exists as an asset in your project.
-        /// Loading is done in the Item's load() method.
-        /// </summary>
         public Texture2D texture;
 
-        /// <summary>
-        /// The item's origin relative to the upper left corner of the texture. Usually the middle of the texture.
-        /// Used for placing and rotating the texture when drawn.
-        /// </summary>
-        public Vector2 Origin;
+        private TextureItemProperties _item;
 
-        public Layer Layer;
-
-
-        public TextureItem()
+        public TextureItemProperties LayerItem
         {
+            get { return _item; }
+            set { }
+        }
+
+        public TextureItem(TextureItemProperties i)
+        {
+            this._item = i;
         }
 
         /// <summary>
@@ -79,22 +39,21 @@ namespace Axios.Engine.Gleed2D
         /// You must provide your own implementation. However, you can rely on all public fields being
         /// filled by the level deserialization process.
         /// </summary>
-        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache, Layer layer)
+        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache)
         {
-            this.Layer = layer;
-            base.load(gameScreen, ref cache, layer);
+            base.load(gameScreen, ref cache);
             //throw new NotImplementedException();
 
             //TODO: provide your own implementation of how a TextureItem loads its assets
             //for example:
             //this.texture = Texture2D.FromFile(<GraphicsDevice>, texture_filename);
             //or by using the Content Pipeline:
-            if (!cache.ContainsKey(asset_name))
+            if (!cache.ContainsKey(LayerItem.AssetName))
             {
-                cache[asset_name] = gameScreen.ScreenManager.Game.Content.Load<Texture2D>(asset_name);   
+                cache[LayerItem.AssetName] = gameScreen.ScreenManager.Game.Content.Load<Texture2D>(LayerItem.AssetName);   
             }
-            this.texture = cache[asset_name];
-            Visible = gameScreen.LoadTextureItem(this);
+            this.texture = cache[LayerItem.AssetName];
+            //Visible = gameScreen.LoadTextureItem(this);
             
             //this.texture = cm.Load<Texture2D>(asset_name);
             
@@ -102,11 +61,11 @@ namespace Axios.Engine.Gleed2D
 
         public override void draw(SpriteBatch sb)
         {
-            if (!Visible) return;
+            if (!LayerItem.Visible) return;
             SpriteEffects effects = SpriteEffects.None;
-            if (FlipHorizontally) effects |= SpriteEffects.FlipHorizontally;
-            if (FlipVertically) effects |= SpriteEffects.FlipVertically;
-            sb.Draw(texture, Position, null, TintColor, Rotation, Origin, Scale, effects, 0);
+            if (LayerItem.FlipHorizontally) effects |= SpriteEffects.FlipHorizontally;
+            if (LayerItem.FlipVertically) effects |= SpriteEffects.FlipVertically;
+            sb.Draw(texture, LayerItem.Position, null, LayerItem.TintColor, LayerItem.Rotation, LayerItem.Origin, LayerItem.Scale, effects, 0);
         }
     }
 }

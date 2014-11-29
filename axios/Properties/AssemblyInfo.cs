@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Axios")]
 [assembly: AssemblyDescription("XNA 2D Game Engine")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © 2012 - Nathan Adams")]
+[assembly: AssemblyCopyright("Copyright © 2014 - Nathan Adams")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.1.7")]
+[assembly: AssemblyVersion("1.0.1.10")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
