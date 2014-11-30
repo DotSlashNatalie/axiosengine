@@ -69,4 +69,9 @@ XNACC - See XNACC.License.txt
 Portions of this product are (C) 2009-2011 JRTwine Software, LLC
 
 Prompt Factory - By Blaze Phoenix
-http://stackoverflow.com/a/17260476/195722
+
+	 http://stackoverflow.com/a/17260476/195722
+
+Game Services - See Game.Services.License.txt
+
+	 http://roy-t.nl/index.php/2010/08/25/xna-accessing-contentmanager-and-graphicsdevice-anywhere-anytime-the-gameservicecontainer/

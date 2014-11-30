@@ -78,7 +78,8 @@ namespace Axios.Engine
             this._uiobjects = new List<AxiosUIObject>();
             prevuiobj = null;
             prevuifocusobj = null;
-            
+            GameServices.AddService<GraphicsDevice>(this.ScreenManager.GraphicsDevice);
+            GameServices.AddService<ContentManager>(this.ScreenManager.Game.Content);
         }
 
         public void LoadLevelFromStream(Stream s)

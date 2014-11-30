@@ -129,6 +129,9 @@
  * - Adding prompt factory class to generate a Final Fantasy type text prompt
  * - Updating Gleed2D support to work with latest version of Gleed2D
  * 
+ * 1.0.1.11 - 
+ * - Adding game services static class
+ * 
  */
 #endregion
 
