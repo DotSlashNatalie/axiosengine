@@ -131,6 +131,9 @@
  * 
  * 1.0.1.11 - 
  * - Adding game services static class
+ * - Removing cache from Gleed2D as ContentManager automatically does this
+ * - Adding cache
+ * - Adding XOR Shift random class
  * 
  */
 #endregion

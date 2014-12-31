@@ -5,7 +5,7 @@ namespace Axios.Engine
     public static class GameServices
     {
         private static GameServiceContainer container;
-        private static object lockobj;
+        private static object lockobj = new object();
         public static GameServiceContainer Instance
         {
             get

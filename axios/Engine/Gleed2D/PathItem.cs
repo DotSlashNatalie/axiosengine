@@ -30,9 +30,9 @@ namespace Axios.Engine.Gleed2D
             this._item = i;
         }
 
-        public override void load(AxiosGameScreen gameScreen, ref Dictionary<string, Texture2D> cache)
+        public override void load(AxiosGameScreen gameScreen)
         {
-            base.load(gameScreen, ref cache);
+            base.load(gameScreen);
             
             Vertices v = new Vertices(LayerItem.LocalPoints.Count);
             foreach (Vector2 vec in LayerItem.LocalPoints)

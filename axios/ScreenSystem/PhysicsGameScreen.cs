@@ -98,7 +98,7 @@ namespace GameStateManagement
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
-            if (!coveredByOtherScreen && !otherScreenHasFocus)
+            if (!coveredByOtherScreen && !otherScreenHasFocus && ScreenState != GameStateManagement.ScreenState.TransitionOff)
             {
                 // variable time step but never less then 30 Hz
                 if (UseSecondStep)

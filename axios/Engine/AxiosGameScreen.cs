@@ -78,8 +78,7 @@ namespace Axios.Engine
             this._uiobjects = new List<AxiosUIObject>();
             prevuiobj = null;
             prevuifocusobj = null;
-            GameServices.AddService<GraphicsDevice>(this.ScreenManager.GraphicsDevice);
-            GameServices.AddService<ContentManager>(this.ScreenManager.Game.Content);
+
         }
 
         public void LoadLevelFromStream(Stream s)
@@ -494,8 +493,10 @@ namespace Axios.Engine
 
         public override void Unload()
         {
+            //this.IsExiting = true;
             //System.Diagnostics.Debugger.Break();
             base.Deactivate();
+            ScreenState = GameStateManagement.ScreenState.TransitionOff;
             AxiosLog.Instance.AddLine("Memory usage before cleanup: " + GC.GetTotalMemory(true).ToString(), LoggingFlag.DEBUG);
             foreach (AxiosGameObject g in _gameObjects)
                 g.UnloadContent(this);
@@ -523,6 +524,7 @@ namespace Axios.Engine
                 _console = null;
             }
 #endif
+            
         }
 
 
@@ -539,7 +541,7 @@ namespace Axios.Engine
         public virtual void LoadPathItem(PathItemProperties pathitem, Layer l)
         {
             PathItem p = new PathItem((PathItemProperties)pathitem);
-            p.load(this, ref cache);
+            p.load(this);
             PathItems[pathitem.Name] = p;
         }
 
@@ -551,7 +553,7 @@ namespace Axios.Engine
         public virtual void LoadTextureItem(TextureItemProperties textureitem, Layer l)
         {
             TextureItem i = new TextureItem((TextureItemProperties)textureitem);
-            i.load(this, ref cache);
+            i.load(this);
             TextureItems[textureitem.Name] = i;
         }
 

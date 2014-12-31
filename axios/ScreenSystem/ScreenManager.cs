@@ -19,6 +19,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Xml.Linq;
 using FarseerPhysics.SamplesFramework;
+using Axios.Engine;
 #endregion
 
 namespace GameStateManagement
@@ -149,6 +150,18 @@ namespace GameStateManagement
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = content.Load<SpriteFont>("menufont");
             blankTexture = Game.Content.Load<Texture2D>("Materials/blank");
+            GameServices.AddService<GraphicsDevice>(this.Game.GraphicsDevice);
+            GameServices.AddService<ContentManager>(this.Game.Content);
+
+            // It is advised to use one instance of Random
+            // because Random is seeded with the current time
+            // initilizing random objects too quickly can cause
+            // the impression of generating the same value
+            // http://stackoverflow.com/questions/2727538/random-encounter-not-so-random
+            GameServices.AddService<Random>(new Random());
+            AxiosRandom.init();
+
+
             input.LoadContent();
             // Tell each of the screens to load their content.
             foreach (GameScreen screen in screens)

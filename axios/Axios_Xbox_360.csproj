@@ -158,6 +158,7 @@
     <Compile Include="Engine\ComplexAxiosGameObject.cs" />
     <Compile Include="Engine\Data\AxiosCSV.cs" />
     <Compile Include="Engine\Data\AxiosDataTable.cs" />
+    <Compile Include="Engine\Data\Cache.cs" />
     <Compile Include="Engine\Data\DataEvents.cs" />
     <Compile Include="Engine\DrawableAxiosGameObject.cs" />
     <Compile Include="Engine\DrawableBreakableAxiosGameObject.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Engine\File\AxiosIsolatedFile.cs" />
     <Compile Include="Engine\File\AxiosRegularFile.cs" />
     <Compile Include="Engine\File\AxiosTitleFile.cs" />
+    <Compile Include="Engine\GameServices.cs" />
     <Compile Include="Engine\Gleed2D\Camera.cs" />
     <Compile Include="Engine\Gleed2D\CircleItem.cs" />
     <Compile Include="Engine\Gleed2D\CustomProperty.cs" />
