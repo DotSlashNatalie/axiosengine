@@ -174,8 +174,10 @@
     <Compile Include="Engine\Extensions\Double.cs" />
     <Compile Include="Engine\Extensions\InputState.cs" />
     <Compile Include="Engine\Extensions\MouseState.cs" />
+    <Compile Include="Engine\Extensions\RectangleItemProperties.cs" />
     <Compile Include="Engine\Extensions\String.cs" />
     <Compile Include="Engine\Extensions\Texture2D.cs" />
+    <Compile Include="Engine\Extensions\Vector2.cs" />
     <Compile Include="Engine\File\AxiosFile.cs" />
     <Compile Include="Engine\File\AxiosIsolatedFile.cs" />
     <Compile Include="Engine\File\AxiosRegularFile.cs" />

@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Xml.Linq;
+using Axios.Engine.Extensions;
+using Axios.Engine.File;
+using Axios.Engine.Gleed2D;
 using Axios.Engine.Interfaces;
 using Axios.Engine.Log;
 using Axios.Engine.Structures;
 using Axios.Engine.UI;
 using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 using FarseerPhysics.SamplesFramework;
+using GameStateManagement;
+using Gleed2D.Core;
+using Gleed2D.InGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using GameStateManagement;
 using Microsoft.Xna.Framework.Input;
-using Axios.Engine.Extensions;
-using System.IO;
-using System.IO.Compression;
-using Gleed2D.InGame;
-using Axios.Engine.File;
-using System.Xml.Linq;
-using Gleed2D.Core;
-using System.Diagnostics;
-using Axios.Engine.Gleed2D;
 
 namespace Axios.Engine
 {
@@ -547,7 +548,15 @@ namespace Axios.Engine
 
         public virtual void LoadRectangleItem(RectangleItemProperties rectangleitem, Layer l)
         {
-            
+            if (l.Properties.CustomProperties.Keys.Contains("Collision") && (bool)l.Properties.CustomProperties["Collision"].Value)
+            {
+                Body b = BodyFactory.CreateRectangle(this.World, ConvertUnits.ToSimUnits(rectangleitem.Width), ConvertUnits.ToSimUnits(rectangleitem.Height), 1f);
+                b.Position = rectangleitem.getSimPosition();
+                //b.Position.X += 
+                b.IsStatic = true;
+                b.BodyType = BodyType.Static;
+                b.UserData = this;
+            }
         }
 
         public virtual void LoadTextureItem(TextureItemProperties textureitem, Layer l)

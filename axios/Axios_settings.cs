@@ -134,6 +134,8 @@
  * - Removing cache from Gleed2D as ContentManager automatically does this
  * - Adding cache
  * - Adding XOR Shift random class
+ * - Adding extension for rectangleitem to get position in Farseer units ( getSimPosition )
+ * - Adding extension for vector2 to convert back and forth between sim and display units
  * 
  */
 #endregion
