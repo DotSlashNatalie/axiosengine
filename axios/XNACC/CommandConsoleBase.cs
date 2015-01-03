@@ -894,7 +894,7 @@ namespace XNACC.Console
 				{
 					m_linesBelow = true;
 				}
-				for( int i = endLine; i > 0; i-- )
+				for( int i = endLine; i >= 0; i-- )
 				{
 					if( linePos.Y <= m_consoleRect.Top )
 					{

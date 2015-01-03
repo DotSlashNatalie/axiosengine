@@ -1,11 +1,13 @@
 ﻿using System.IO;
+using System;
 
 using Axios.Engine.Interfaces;
 
 namespace Axios.Engine.File
 {
-    public class AxiosRegularFile : AxiosFile, IAxiosFile
+    public class AxiosRegularFile : AxiosFile, IAxiosFile, IDisposable
     {
+        protected FileStream _fs;
         public AxiosRegularFile(string file)
         {
             _filename = file;
@@ -39,8 +41,29 @@ namespace Axios.Engine.File
 
         public override Stream GetStream(FileMode mode)
         {
-            FileStream fs = new FileStream(_filename, mode);
-            return (Stream)fs;
+            _fs = new FileStream(_filename, mode);
+            return (Stream)_fs;
+        }
+
+
+        public void Dispose()
+        {
+            // http://msdn.microsoft.com/en-us/library/system.idisposable%28v=vs.110%29.aspx
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing && _fs != null)
+            {
+                _fs.Close();
+            }
+
+            disposed = true;
         }
     }
 }

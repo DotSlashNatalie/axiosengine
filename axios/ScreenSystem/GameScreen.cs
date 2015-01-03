@@ -247,6 +247,8 @@ namespace GameStateManagement
         /// </summary>
         public virtual void Unload() { }
 
+        public virtual void ReActivate() { }
+
 
         /// <summary>
         /// Allows the screen to run logic, such as updating the transition position.

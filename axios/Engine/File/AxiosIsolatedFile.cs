@@ -1,12 +1,13 @@
 ﻿using System.IO;
 using System.IO.IsolatedStorage;
 using Axios.Engine.Interfaces;
+using System;
 
 namespace Axios.Engine.File
 {
     public class AxiosIsolatedFile : AxiosFile, IAxiosFile
     {
-        
+        protected IsolatedStorageFileStream _fs;
         public AxiosIsolatedFile(string filename)
         {
             this._filename = filename;
@@ -58,9 +59,29 @@ namespace Axios.Engine.File
 #else
             IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication();
 #endif   
-            IsolatedStorageFileStream fs = null;
-            fs = savegameStorage.OpenFile(_filename, mode);
-            return (Stream)fs;
+            _fs = null;
+            _fs = savegameStorage.OpenFile(_filename, mode);
+            return (Stream)_fs;
+        }
+
+        public void Dispose()
+        {
+            // http://msdn.microsoft.com/en-us/library/system.idisposable%28v=vs.110%29.aspx
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing && _fs != null)
+            {
+                _fs.Close();
+            }
+
+            disposed = true;
         }
 
     }

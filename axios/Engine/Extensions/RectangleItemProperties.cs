@@ -17,5 +17,11 @@ namespace Axios.Engine.Extensions
             pos.Y += ConvertUnits.ToSimUnits(prop.Height / 2);
             return pos;
         }
+
+        public static Vector2 getCenter(this RectangleItemProperties prop)
+        {
+            return prop.getSimPosition() / ConvertUnits.ToSimUnits(2);
+        }
+
     }
 }

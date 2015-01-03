@@ -225,6 +225,8 @@ namespace GameStateManagement
                     // give it a chance to handle input.
                     if (!otherScreenHasFocus)
                     {
+                        // The default implementation of screens aren't aware that it's
+                        // being woke up
                         input.ShowCursor = screen.HasCursor;
                         input.EnableVirtualStick = screen.HasVirtualStick;
                         screen.HandleInput(gameTime, input);

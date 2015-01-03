@@ -9,6 +9,7 @@ namespace Axios.Engine.Data
     // A. This is not to cache textures loaded by content manager
     //    but other data/content that isn't. Use cases include:
     //    - Any graphics generated during runtime (such as dialogs)
+    //    - Command console
     //    - Any data that is loaded in during run time (such as maps)
     //    Content manager performs it's own caching so anything loaded by it
     //    or the Gameservice - then attempted to load again will not be loaded
@@ -34,7 +35,16 @@ namespace Axios.Engine.Data
 
         public object get(string key)
         {
-            return _cache[key];
+            object val;
+            _cache.TryGetValue(key, out val);
+            return val;
+        }
+
+        public T get<T>(string key)
+        {
+            object val;
+            _cache.TryGetValue(key, out val);
+            return (T)val;
         }
 
         public void set(string key, object obj)

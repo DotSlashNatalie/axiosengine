@@ -136,6 +136,10 @@
  * - Adding XOR Shift random class
  * - Adding extension for rectangleitem to get position in Farseer units ( getSimPosition )
  * - Adding extension for vector2 to convert back and forth between sim and display units
+ * - Fixing axios log flag detection
+ * - Adding dispose methods to AxiosFile objects
+ * - Adding extended log to AxiosLog
+ * - Fixing issue in CommandConsole where the first line would not be displayed
  * 
  */
 #endregion

@@ -65,9 +65,11 @@ namespace Axios.Engine
         public AxiosCommandConsole Console
         {
             get { return _console; }
-            private set { _console = value; }
+            set { _console = value; }
         }
 #endif
+
+        protected bool screenHidden = false;
 
         public AxiosGameScreen()
             : base()
@@ -328,6 +330,16 @@ namespace Axios.Engine
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
+            if (otherScreenHasFocus)
+            {
+                screenHidden = true;
+            }
+
+            if (screenHidden && !otherScreenHasFocus)
+            {
+                this.ReActivate();
+                screenHidden = false;
+            }
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
             
             if (this._objectstoremove.Count > 0)
@@ -517,7 +529,7 @@ namespace Axios.Engine
             //f.WriteData(AxiosLog.Instance.GetLog(), FileMode.Append);
             //CleanUp();
 #if WINDOWS
-            if (_console != null)
+            if (_console != null && !_console.KeepRunning)
             {
                 //System.Diagnostics.Debugger.Break();
                 ScreenManager.Game.Components.Remove(_console);

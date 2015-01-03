@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Axios.Engine.Log;
+using Axios.Engine.Data;
 
 /*
  * The empty AxiosCommandConsole is so that when you use the comamnd console
@@ -23,8 +24,11 @@ namespace Axios.Engine
 {
     public class AxiosCommandConsole : CommandConsoleBase
     {
-        protected AxiosGameScreen GameScreen;
+        public AxiosGameScreen GameScreen;
         protected List<string> RestrictedCommands = new List<string>();
+
+        public bool KeepRunning = false;
+
         public AxiosCommandConsole(AxiosGameScreen gameScreen)
             : base(gameScreen.ScreenManager.Game)
         {
@@ -65,6 +69,8 @@ namespace Axios.Engine
         {
             AddCommand(new CmdObject("axioslog", "Displays the current Axios Log", input => { ShowAxiosLog(); }));
             AddCommand(new CmdObject("tcc", "Toggles user camera control", input => { ToggleCamera(); }));
+            AddCommand(new CmdObject("axiosloglevel", "Outputs axios log level", input => { AddOutputToLog(Settings.Loglevel.ToString()); }));
+            AddCommand(new CmdObject("saveaxiosextlog", "Saves Axios Engine extended log (any log events)", input => { AxiosLog.Instance.writeExtendedLog(); }));
             base.InitializeCustomCommands();
 
         }

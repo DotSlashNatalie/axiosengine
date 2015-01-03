@@ -9,6 +9,8 @@ namespace Axios.Engine.File
     {
         protected string _content;
 
+        protected bool disposed = false;
+
         public String Content
         {
             get { return _content; }
