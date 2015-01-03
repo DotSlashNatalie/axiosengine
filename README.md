@@ -21,6 +21,8 @@ Documentation
 Official wiki:
 http://wiki.axiosengine.com/
 
+(To be ported to: https://srchub.org/p/axiosengine-git/doc/ )
+
 Build Instructions
 ------------------
 
@@ -31,11 +33,13 @@ Where can I download pre-built DLLs?
 
 Official versions can be downloaded here:
 
-     https://srchub.org/p/axiosengine/downloads/
+     https://srchub.org/p/axiosengine-git/downloads/
 	
 Of course you can always build from source from:
 
-     https://srchub.org/hg/axiosengine
+     https://srchub.org/p/axiosengine-git/source/tree/master/
+	 
+	 https://github.com/nadams810/axiosengine
 	 
 Authors
 -------
