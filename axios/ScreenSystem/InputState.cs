@@ -104,6 +104,7 @@ namespace GameStateManagement
          *  -- Nathan Adams [adamsna@datanethost.net] - 4/12/2012
          */
 
+        public bool MoveCursorWithController = false;
 
         /*
          * Adding variables for the cursor 
@@ -391,7 +392,7 @@ namespace GameStateManagement
             // Update cursor
             Vector2 oldCursor = _cursor;
 
-            if (CurrentGamePadStates[0].IsConnected && CurrentGamePadStates[0].ThumbSticks.Left != Vector2.Zero)
+            if (CurrentGamePadStates[0].IsConnected && CurrentGamePadStates[0].ThumbSticks.Left != Vector2.Zero && MoveCursorWithController)
             {
                 Vector2 temp = CurrentGamePadStates[0].ThumbSticks.Left;
                 _cursor += temp * new Vector2(300f, -300f) * (float)gameTime.ElapsedGameTime.TotalSeconds;

@@ -140,6 +140,8 @@
  * - Adding dispose methods to AxiosFile objects
  * - Adding extended log to AxiosLog
  * - Fixing issue in CommandConsole where the first line would not be displayed
+ * - Adding Deactivate event for when the screen leaves focus
+ * - Added flag to enable/disable moving camera with gamepad
  * 
  */
 #endregion

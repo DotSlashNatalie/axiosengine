@@ -330,9 +330,10 @@ namespace Axios.Engine
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
-            if (otherScreenHasFocus)
+            if (otherScreenHasFocus && !screenHidden)
             {
                 screenHidden = true;
+                this.Deactivate();
             }
 
             if (screenHidden && !otherScreenHasFocus)
@@ -508,7 +509,6 @@ namespace Axios.Engine
         {
             //this.IsExiting = true;
             //System.Diagnostics.Debugger.Break();
-            base.Deactivate();
             ScreenState = GameStateManagement.ScreenState.TransitionOff;
             AxiosLog.Instance.AddLine("Memory usage before cleanup: " + GC.GetTotalMemory(true).ToString(), LoggingFlag.DEBUG);
             foreach (AxiosGameObject g in _gameObjects)
@@ -537,6 +537,7 @@ namespace Axios.Engine
                 _console = null;
             }
 #endif
+            
             
         }
 
